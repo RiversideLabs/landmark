@@ -1,0 +1,107 @@
+/*!
+ * Landmark v1.0
+ *
+ * Copyright 2013 Mike Stecker
+ * Licensed under The MIT License
+ * http://opensource.org/lzicenses/MIT
+ *
+ * Designed and built with all the love in the world by @maven20
+ */
+
+
+
+//
+// Header
+// --------------------------------------------------
+.navbar {
+	margin-bottom: 0;
+}
+#header {
+
+	.container {
+		position: relative;
+	}
+	.navbar-headernav-hide {
+		visbility: hidden !important;
+	}
+
+	// back arrow
+	.navbar-backtobrand {
+		.opacity(0);
+		.transition( opacity 160ms linear );
+		color: @navbar-default-link-color;
+		left: @navbar-padding-horizontal * -2;
+		padding: @navbar-padding-vertical @navbar-padding-horizontal;
+		position: absolute;
+		text-decoration: none;
+
+		&:hover {
+			color: @navbar-default-link-hover-color;
+		}
+	}
+	// show on hover
+	&:hover .navbar-backtobrand {
+		.opacity(100);
+		// display: block;
+	}
+}
+
+//
+// Typography
+// --------------------------------------------------
+.code {
+	font-family: @font-family-monospace;
+}
+
+//
+// Typography
+// --------------------------------------------------
+.nav-section {
+	margin-bottom: 30px;
+
+	h3 {
+		font-weight: normal;
+	}
+}
+
+//
+// Overrides
+// --------------------------------------------------
+.no-border {
+	border: none !important;
+}
+
+
+
+
+
+//
+// Body
+// --------------------------------------------------
+#body {
+	margin-top: 20px;
+}
+
+
+
+
+
+//
+// Footer
+// --------------------------------------------------
+#footer {
+	font-size: @font-size-small;
+	padding-top: 40px;
+	padding-bottom: 30px;
+	margin-top: 60px;
+	// text-align: center;
+	border-top: 1px solid @gray-lighter;
+
+	p {
+		color: @gray-light;
+	}
+
+	ul a {
+		color: @gray;
+	}
+}

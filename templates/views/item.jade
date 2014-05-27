@@ -1,0 +1,136 @@
+extends ../layout/base
+
+include ../mixins/columns
+
+block css
+	link(rel="stylesheet", href="/landmark/js/lib/fancybox/jquery.fancybox.css")
+	if list.fieldTypes.markdown
+		link(rel="stylesheet", href="/landmark/js/lib/bootstrap-markdown/css/bootstrap-markdown.css")
+	if list.fieldTypes.code
+		link(rel="stylesheet", href="/landmark/js/lib/codemirror/codemirror.css")
+
+block js
+	script(src="/landmark/js/common/ui-fixed-toolbar.js")
+	script(src="/landmark/js/lib/joseph-myers/md5.js")
+	script(src="/landmark/js/lib/fancybox/jquery.fancybox.pack.js")
+	script(src="/landmark/js/lib/html5sortable/jquery.sortable.js")
+	if list.fieldTypes.location
+		script(src="/landmark/js/common/ui-location.js")
+	if list.fieldTypes.cloudinaryimage
+		script(src="/landmark/js/common/ui-cloudinaryimage.js")
+	if list.fieldTypes.cloudinaryimages
+		script(src="/landmark/js/common/ui-cloudinaryimages.js")
+	if list.fieldTypes.s3file
+		script(src="/landmark/js/common/ui-s3file.js")
+	if list.fieldTypes.azurefile
+		script(src="/landmark/js/common/ui-azurefile.js")
+	if list.fieldTypes.localfile
+		script(src="/landmark/js/common/ui-localfile.js")
+	if list.fieldTypes.markdown
+		script(src='/landmark/js/lib/marked/marked.js')
+		script(src='/landmark/js/lib/bootstrap-markdown/js/bootstrap-markdown.js')
+		script(src="/landmark/js/common/ui-markdown.js")
+	if list.fieldTypes.code
+		script(src="/landmark/js/common/ui-code.js")
+		script(src='/landmark/js/lib/codemirror/codemirror-compressed.js')
+	if list.fieldTypes.wysiwyg
+		script(src='/landmark/js/lib/tinymce/tinymce.min.js')
+		script(src='/landmark/js/lib/tinymce/jquery.tinymce.min.js')
+		script(src="/landmark/js/common/ui-wysiwyg.js")
+	
+	script(src='/landmark/js/views/item.js')
+	script.
+		Landmark.list = { path: "#{list.path}" };
+		Landmark.item = { id: "#{item.id}" };
+		Landmark.wysiwyg = { options: !{JSON.stringify(wysiwygOptions)} };
+
+block intro
+	.page-header.item-header: .row
+		.col-sm-6: ul.breadcrumb
+			if drilldown
+				each d in drilldown.items
+					if d.items
+						li
+							each di, i in d.items
+								a(href=di.href, title=d.list.singular, data-toggle='tooltip', data-placement='top')= di.label
+								if i < d.items.length - 1
+									span , 
+						if d.more
+							li: span  ... 
+					else
+						li: a(href=d.href, title=d.list.singular, data-toggle='tooltip', data-placement='top') #{d.label}
+			li
+				a(href='/landmark/' + list.path, title='Back to ' + list.plural, data-toggle='tooltip', data-placement='top') #{list.label}
+		.col-sm-6: .item-id
+			if list.autokey && item.get(list.autokey.path)
+				span(data-alt-text='id: ' + item.id) #{list.autokey.path}: #{item.get(list.autokey.path)}
+			else
+				| id: #{item.id}
+			if (!list.get('nocreate'))
+				.btn-group.visible-md.visible-lg.pull-right(style='margin-left:20px')
+					a.btn.btn-default.btn-xs(href='/landmark/#{list.path}?new') new #{list.singular.toLowerCase()}
+					//- a.btn.btn-default.btn-xs(href='/landmark/#{list.path}/#{item.id}?duplicate') duplicate
+			
+block content
+	form(method='post', enctype='multipart/form-data').item-details
+		
+		input(type='hidden', name='action', value='updateItem')
+		if _csrf
+			input(type='hidden', name='_csrf', value=_csrf)
+		
+		- var nameField = list.nameField, nameIsEditable = list.nameIsEditable;
+		
+		.field.item-name: .col-sm-12
+			if nameIsEditable
+				input(type='text', name=list.nameField.path, value=item.get(list.nameField.path)).form-control.input-lg
+			else if nameField
+				h2.form-heading.name-value= list.nameField.format(item) || '(no name)'
+			else
+				h2.form-heading.name-value= item.get(list.namePath) || '(no name)'
+		
+		each el in list.uiElements
+			if el.type == 'field'
+				if (el.field.type != 'text' || el.field != nameField) && !el.field.hidden
+					!= el.field.render('form', item, fieldLocals)
+			else if el.type == 'heading'
+				h3.form-heading(data-field-depends-on=el.options.dependsOn)= el.heading
+			else if el.type == 'indent'
+				| <div class="form-indent">
+			else if el.type == 'outdent'
+				| </div>
+		
+		.toolbar.toolbar-fixed
+			if !list.get('noedit')
+				button(type='submit').btn.btn-default.btn-save Save
+				a(href='/landmark/' + list.path + '/' + item.id, data-confirm='Are you sure you want to reset your changes?').btn.btn-link.btn-cancel reset changes
+			if !list.get('nodelete')
+				a(href='/landmark/' + list.path + '?delete=' + item.id, data-confirm='Are you sure you want to delete this ' + list.singular.toLowerCase() + '?').btn.btn-link.btn-cancel delete #{list.singular.toLowerCase()}
+	
+	if showRelationships
+		h2.relationship-heading.form-heading Relationships
+			each rel in relationships
+				if rel.items.results.length
+					h3.form-heading.relationship-heading: a(href='/landmark/' + rel.list.path)= (rel.label) ? rel.label : rel.list.label
+					if rel.note
+						.field-note= rel.note
+					- var firstColspan = 1
+					table(cellpadding=0, cellspacing=0, class=rel.sortable ? 'sortable' : false, data-list-path=rel.list.path).table.table-striped.items-list.relationships-list
+						if rel.sortable
+							- firstColspan++;
+							col(width=26)
+						each col in rel.columns
+							col(width=col.width)
+						thead
+							tr
+								each col, i in rel.columns
+									th(colspan=i == 0 && firstColspan > 1 ? firstColspan : false)= col.label
+						tbody
+							each item in rel.items.results
+								tr(id=item.id)
+									if rel.sortable
+										td.control: a(href=js).control-sort
+									each col, i in rel.columns
+										td
+											+column(rel.list, col, item)
+
+

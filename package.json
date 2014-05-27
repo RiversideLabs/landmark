@@ -1,0 +1,70 @@
+{
+  "name": "landmark",
+  "version": "0.2.18",
+  "description": "Web Application Framework and Admin GUI / Content Management System built on Express.js and Mongoose",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/maven20/landmark.git"
+  },
+  "dependencies": {
+    "underscore": "~1.6.0",
+    "landmark-utils": "~0.1.9",
+    "express": "~3.3.8",
+    "mongoose": "~3.8.9",
+    "less-middleware": "~0.1.15",
+    "connect-flash": "~0.1.1",
+    "jade": "~1.3.1",
+    "async": "~0.9.0",
+    "csv": "~0.3.7",
+    "bcrypt-nodejs": "~0.0.3",
+    "cloudinary": "~1.0.9",
+    "mandrill-api": "~1.0.39",
+    "embedly": "~1.0.2",
+    "marked": "~0.3.2",
+    "moment": "~2.6.0",
+    "numeral": "~1.5.3",
+    "semver": "~2.3.0",
+    "knox": "~0.8.10",
+    "azure": "~0.9.7",
+    "range_check": "~0.0.4"
+  },
+  "devDependencies": {
+    "mocha": ">= 1.19 < 2",
+    "must": ">= 0.11 < 1",
+    "gulp": "^3.6.2",
+    "gulp-watch": "^0.6.4",
+    "gulp-mocha": "^0.4.1",
+    "supertest": "~0.12.0",
+    "jshint": "^2.5.1",
+    "gulp-jshint": "^1.6.1",
+    "fs-extra": "~0.8.1",
+    "colors": "^0.6.2",
+    "gulp-coverage": "~0.1.24"
+  },
+  "author": "Mike Stecker",
+  "license": "MIT",
+  "keywords": [
+    "express",
+    "web",
+    "app",
+    "cms",
+    "admin",
+    "framework",
+    "mongoose",
+    "gui",
+    "forms"
+  ],
+  "readmeFilename": "README.md",
+  "gitHead": "ef3fd612285315ea8e12f68da4c8d6031e2c7fe7",
+  "bugs": {
+    "url": "https://github.com/maven20/landmark/issues"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha ./test -R spec"
+  },
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.3.x"
+  }
+}
