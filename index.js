@@ -826,7 +826,7 @@ Landmark.prototype.start = function(events) {
 		//
 		// For more information on how these options work, see
 		// http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback
-		// and for history, see https://github.com/maven20/landmark/issues/154
+		// and for history, see https://github.com/RiversideLabs/landmark/issues/154
 
 		landmark.httpServer = http.createServer(app);
 		events.onHttpServerCreated && events.onHttpServerCreated();

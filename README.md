@@ -22,9 +22,9 @@ Landmark gives you:
 
 ... plus a lot of other tools and utilities to make creating complex web apps easier.
 
-Use our [Yeoman Generator](https://github.com/maven20/generator-landmark) to get up and running with LandmarkJS quickly, then check out our getting started guide &amp; docs at [landmarkjs.com/docs/getting-started](http://landmarkjs.com/docs/getting-started).
+Use our [Yeoman Generator](https://github.com/RiversideLabs/generator-landmark) to get up and running with LandmarkJS quickly, then check out our getting started guide &amp; docs at [landmarkjs.com/docs/getting-started](http://landmarkjs.com/docs/getting-started).
 
-We have a demo website at [demo.landmarkjs.com](http://demo.landmarkjs.com/) where you can play with the Landmark Admin UI, and you can [read the source](https://github.com/maven20/landmark-demo) to see how it was built.
+We have a demo website at [demo.landmarkjs.com](http://demo.landmarkjs.com/) where you can play with the Landmark Admin UI, and you can [read the source](https://github.com/RiversideLabs/landmark-demo) to see how it was built.
 
 If you have ideas or questions, get in touch on the [LandmarkJS Google Group](https://groups.google.com/d/forum/landmarkjs) or tweet at [@LandmarkJS](https://twitter.com/LandmarkJS) on twitter.
 
@@ -210,7 +210,7 @@ Let's say you have a solution broken out into a structure like so…
 
 ...where `/client` is some super awesome large scale single page client app written in [AngularJS](https://angularjs.org/) or [Polymer](http://www.polymer-project.org/), `/server` is a whiz-bang back end powered by [StrongLoop](http://strongloop.com/mobile-application-development/loopback/) or something else based on Express that serves up the data and maybe the built version of `/client`, and finally `/content` is a Landmark app that you want to use just for the awesome CMS modeling, querying, and automatic admin interface. In other words, you think Landmark is great at the content related data management and email stuff but don't really love its front end stuff (other than the admin app).
 
-In this example, all three projects are their own node apps with their own `package.json` files. The `/content` app in this example might be the result of you using [Landmark's yeoman generator](https://github.com/maven20/generator-landmark) and then ripping out most of the stuff from `/routes` and `/templates` and just using `/models` and `/updates` and the email stuff.
+In this example, all three projects are their own node apps with their own `package.json` files. The `/content` app in this example might be the result of you using [Landmark's yeoman generator](https://github.com/RiversideLabs/generator-landmark) and then ripping out most of the stuff from `/routes` and `/templates` and just using `/models` and `/updates` and the email stuff.
 
 You then want to integrate the `/content` app as a linked module inside of `/server` and mount it as a sub-app at the path `/content`.
 
@@ -365,7 +365,7 @@ Now you have a fully functioning embeddable LandmarkJS module and you can achiev
 
 ## Thanks
 
-LandmarkJS is a free and open source community-driven project. Thanks to our many [contributors](https://github.com/maven20/landmark/graphs/contributors) and [users](https://github.com/maven20/landmark/stargazers) for making it great.
+LandmarkJS is a free and open source community-driven project. Thanks to our many [contributors](https://github.com/RiversideLabs/landmark/graphs/contributors) and [users](https://github.com/RiversideLabs/landmark/stargazers) for making it great.
 
 Thanks to the following companies and projects whose work we have used or taken inspiration from in the making of LandmarkJS:
 
