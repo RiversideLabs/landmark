@@ -1,6 +1,6 @@
 {
-  "name": "landmark",
-  "version": "0.2.18",
+  "name": "landmark-serve",
+  "version": "0.1.0",
   "description": "Web Application Framework and Admin GUI / Content Management System built on Express.js and Mongoose",
   "main": "index.js",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "underscore": "~1.6.0",
-    "landmark-utils": "~0.1.0",
+    "landmark-utils": "~0.1.1",
     "express": "~3.3.8",
     "mongoose": "~3.8.9",
     "less-middleware": "~0.1.15",
