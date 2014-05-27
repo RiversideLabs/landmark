@@ -318,7 +318,7 @@ The last piece of the setup for your embeddable Landmark project is to slightly 
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "landmark": "~0.2.6",
+    "landmark-serve": "~0.1.0",
     "async": "~0.2.9",
     "underscore": "~1.5.2",
     "dotenv": "0.0.3"
