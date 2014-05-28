@@ -88,7 +88,7 @@ block content
 				h4 web.js
 				p This is the script that will run our landmark website.
 			pre: code.language-javascript
-				| var landmark = require('landmark');
+				| var landmark = require('landmark-serve');
 				| landmark.init({
 				|   
 				|   'name': 'My Project',
@@ -128,7 +128,7 @@ block content
 					| var express = require('express'),
 					|     mongoose = require('mongoose'),
 					|     app = express(),
-					|     landmark = require('landmark').connect(mongoose, app);
+					|     landmark = require('landmark-serve').connect(mongoose, app);
 			
 			
 			a(name="gettingstarted-projectstructure")
@@ -194,7 +194,7 @@ block content
 				h4 models/users.js
 				p This script initialises the <code>User</code> model. It doesn't need to export anything, but the model <em>must</em> be registered with Landmark.
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     Types = landmark.Field.Types;
 				| 
 				| var User = new landmark.List('User');
@@ -244,7 +244,7 @@ block content
 				h4 routes/index.js
 				p This script imports your route controllers and binds them to URLs.
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     middleware = require('./middleware'),
 				|     importRoutes = landmark.importer(__dirname);
 				| 
@@ -309,7 +309,7 @@ block content
 				p This script includes common middleware for your application routes
 			pre: code.language-javascript
 				| var _ = require('underscore'),
-				|     landmark = require('landmark');
+				|     landmark = require('landmark-serve');
 				| 
 				| /**
 				|     Initialises the standard view locals.
@@ -408,7 +408,7 @@ block content
 				h4 routes/views/index.js
 				p The route controller for our home page view
 			pre: code.language-javascript
-				| var landmark = require('landmark');
+				| var landmark = require('landmark-serve');
 				| 
 				| exports = module.exports = function(req, res) {
 				|     
@@ -513,7 +513,7 @@ block content
 
 				pre: code.language-javascript
 					| // Modified web.js to use the ejs-locals custom template engine.
-					| var landmark = require('landmark');
+					| var landmark = require('landmark-serve');
 					| var engine   = require('ejs-locals');
 					| landmark.init({
 					|   ...
@@ -560,7 +560,7 @@ block content
 				h4 updates/0.0.1-admin.js
 				p Update script to add the first admin (change to your own name, email and password)
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     User = landmark.list('User');
 				| 
 				| exports = module.exports = function(done) {

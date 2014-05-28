@@ -74,7 +74,7 @@ Running in default mode, Landmark takes care of everything required to configure
 
 Here is an example of what your `landmark.js` (or `app.js`, etc) file may look like:
 
-	var landmark = require('landmark');
+	var landmark = require('landmark-serve');
 
 	landmark.init({
 
@@ -177,7 +177,7 @@ If you want to test or develop against the `master` branch of LandmarkJS (or aga
 *	From the LandmarkJS directory, run `sudo npm link` (you will need to enter your system password)
 *	From your project directory, e.g. `~/Development/MySite` (the one with your `package.json` file in it) run `npm link landmark`. This will create a link between `~/Development/MySite/node_modules/landmark` and `~/Development/LandmarkJS`.
 
-Then `require('landmark')` normally in your app - the development copy will be used. Note that running `npm update` will ignore new versions of landmark that have been published.
+Then `require('landmark-serve')` normally in your app - the development copy will be used. Note that running `npm update` will ignore new versions of landmark that have been published.
 
 To go back to using a published version of LandmarkJS from npm, from your project directory, run `npm unlink landmark` then `npm install`.
 
@@ -222,7 +222,7 @@ You then want to integrate the `/content` app as a linked module inside of `/ser
 require('dotenv')().load();
 
 // Require landmark
-var landmark = require('landmark');
+var landmark = require('landmark-serve');
 
 // Initialise Landmark with your project's configuration.
 // See http://landmarkjs.com/guide/config for available options

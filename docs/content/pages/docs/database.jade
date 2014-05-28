@@ -52,7 +52,7 @@ block content
 			
 			.code-header: h4 Post.js
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     Types = landmark.Field.Types;
 				| 
 				| var Post = new landmark.List('Post', {
@@ -203,7 +203,7 @@ block content
 			
 			.code-header: h4 Loading Posts
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
 				| 
 				| Post.model.find()
@@ -223,7 +223,7 @@ block content
 			
 			.code-header: h4 Loading Posts, doing something asynchronous, doing something
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
 				| 
 				| Post.model.find()
@@ -248,7 +248,7 @@ block content
 			
 			.code-header: h4 Creating Posts
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
 				| 
 				| var newPost = new Post.model({
@@ -276,7 +276,7 @@ block content
 			
 			.code-header: h4 Deleting a Post
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
 				| 
 				| Post.model.findById(postId)
@@ -408,7 +408,7 @@ block content
 			p <strong>For example</strong>: use the <code>format</code> underscore method of the <code>createdAt</code> <code class="data-type">DateTime</code> field of the Posts List (above) like this
 			
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
 				| 
 				| Post.model.findById(postId).exec(function(err, post) {

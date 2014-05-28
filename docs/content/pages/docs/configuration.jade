@@ -360,7 +360,7 @@ block content
 				| landmark.set('cloudinary config', 'cloudinary://api_key:api_secret@cloud_name' );
 				| 
 				| // optional, will prefix all built-in tags with 'landmark_'
-				| landmark.set('cloudinary prefix', 'landmark');
+				| landmark.set('cloudinary prefix', 'landmark-serve');
 			
 			
 			a(name='services-embedly')
@@ -429,7 +429,7 @@ block content
 				h4 Update Script Example
 				p Creates a new admin User
 			pre: code.language-javascript
-				| var landmark = require('landmark'),
+				| var landmark = require('landmark-serve'),
 				|     User = landmark.list('User');
 				| 
 				| exports = module.exports = function(done) {
