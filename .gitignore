@@ -28,3 +28,5 @@ node_modules/
 docs/_dist
 coverage.html
 .cover*
+
+public/js/common/ui-wysiwyg-dev.js

@@ -63,8 +63,8 @@ var Landmark = function() {
 
 	this.set('env', process.env.NODE_ENV || 'development');
 
-	this.set('port', process.env.PORT);
-	this.set('host', process.env.HOST || process.env.IP);
+	this.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT);
+	this.set('host', process.env.HOST || process.env.IP || process.env.OPENSHIFT_NODEJS_IP);
 	this.set('listen', process.env.LISTEN);
 
 	this.set('ssl', process.env.SSL);
@@ -130,7 +130,7 @@ var remappedOptions = {
 
 	if (remappedOptions[key]) {
 		if (this.get('logger')) {
-			console.log('Warning: the `' + key + '` option has been deprecated. Please use `' + remappedOptions[key] + '` instead.\n\n' +
+			console.log('\nWarning: the `' + key + '` option has been deprecated. Please use `' + remappedOptions[key] + '` instead.\n\n' +
 				'Support for `' + key + '` will be removed in a future version.');
 		}
 		key = remappedOptions[key];
@@ -156,6 +156,18 @@ var remappedOptions = {
 		break;
 		case 'nav':
 			this.nav = this.initNav(value);
+		break;
+		case 'mongo':
+			if ('string' !== typeof value) {
+				if (Array.isArray(value) && (value.length === 2 || value.length === 3)) {
+					console.log('\nWarning: using an array for the `mongo` option has been deprecated.\nPlease use a mongodb connection string, e.g. mongodb://localhost/db_name instead.\n\n' +
+						'Support for arrays as the `mongo` setting will be removed in a future version.');
+					value = (value.length === 2) ? 'mongodb://' + value[0] + '/' + value[1] : 'mongodb://' + value[0] + ':' + value[2] + '/' + value[1];
+				} else {
+					console.error('\nInvalid Configuration:\nThe `mongo` option must be a mongodb connection string, e.g. mongodb://localhost/db_name\n');
+					process.exit(1);
+				}
+			}
 		break;
 	}
 
@@ -458,6 +470,13 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	var landmark = this,
 		app = this.app;
 
+	// default the mongo connection url
+	if (!this.get('mongo')) {
+		var dbName = this.get('db name') || utils.slug(this.get('name'));
+		var dbUrl = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGOLAB_URI || process.env.MONGOLAB_URL || (process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/') + dbName;
+		this.set('mongo', dbUrl);
+	}
+
 	/* Express sub-app mounting to external app at a mount point (if specified) */
 
 	if (mountPath) {
@@ -528,9 +547,19 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		app.use(express.cookieParser(this.get('cookie secret')));
 	}
 
-	app.use(express.session({
+	var sessionOpts = {
 		key: 'landmark.sid'
-	}));
+	};
+
+	if (this.get('session store') == 'mongo') {
+		var MongoStore = require('connect-mongo')(express);
+		sessionOpts.store = new MongoStore({
+			url: this.get('mongo'),
+			collection: 'app_sessions'
+		});
+	}
+
+	app.use(express.session(sessionOpts));
 
 	app.use(require('connect-flash')());
 
@@ -640,11 +669,10 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		if (landmark.get('logger')) {
 			if (err instanceof Error) {
 				console.log((err.type ? err.type + ' ' : '') + 'Error thrown for request: ' + req.url);
-				console.log(err.message);
 			} else {
 				console.log('Error thrown for request: ' + req.url);
-				console.log(err);
 			}
+			console.log(err.stack || err);
 		}
 
 		var msg = '';
@@ -704,15 +732,9 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 
 	// Connect to database
 
-	var mongooseArgs = this.get('mongo'),
-		mongoConnectionOpen = false;
-
-	if (!mongooseArgs) {
-		mongooseArgs = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGOLAB_URI || process.env.MONGOLAB_URL || ['localhost', utils.slug(this.get('name'))];
-	}
-
-	this.mongoose.connect.apply(this.mongoose, Array.isArray(mongooseArgs) ? mongooseArgs : [mongooseArgs]);
-
+	var mongoConnectionOpen = false;
+	
+	this.mongoose.connect(this.get('mongo'));
 	this.mongoose.connection.on('error', function(err) {
 
 		if (landmark.get('logger')) {
@@ -949,7 +971,8 @@ Landmark.prototype.start = function(events) {
 				console.log('Connection reset by peer');
 				console.log(e);
 			} */else {
-				throw (e);
+				console.log(e.stack || e);
+				process.exit(1);
 			}
 		});
 
