@@ -1,6 +1,6 @@
 {
   "name": "landmark-serve",
-  "version": "0.1.13",
+  "version": "0.1.14",
   "description": "Web Application Framework and Admin GUI / Content Management System built on Express.js and Mongoose",
   "main": "index.js",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "dependencies": {
     "underscore": "~1.6.0",
-    "landmark-utils": "~0.1.13",
+    "landmark-utils": "~0.1.14",
     "express": "~3.3.8",
     "mongoose": "~3.8.11",
     "less-middleware": "~0.1.15",
@@ -46,15 +46,8 @@
   "author": "Mike Stecker",
   "license": "MIT",
   "keywords": [
-    "express",
-    "web",
-    "app",
-    "cms",
-    "admin",
-    "framework",
-    "mongoose",
-    "gui",
-    "forms"
+    "landmark",
+    "landmarkjs"
   ],
   "readmeFilename": "README.md",
   "gitHead": "e9d8ea0da767ae059158823b9ea594b3a238e03e",
