@@ -54,13 +54,13 @@ block content
 			pre: code.language-javascript
 				| var landmark = require('landmark-serve'),
 				|     Types = landmark.Field.Types;
-				|
+				| 
 				| var Post = new landmark.List('Post', {
 				|     autokey: { path: 'slug', from: 'title', unique: true },
 				|     map: { name: 'title' },
 				|     defaultSort: '-createdAt'
 				| });
-				|
+				| 
 				| Post.add({
 				|     title: { type: String, required: true },
 				|     state: { type: Types.Select, options: 'draft, published, archived', default: 'draft' },
@@ -73,7 +73,7 @@ block content
 				|         extended: { type: Types.Html, wysiwyg: true, height: 400 }
 				|     }
 				| });
-				|
+				| 
 				| Post.defaultColumns = 'title, state|20%, author, publishedAt|15%'
 				| Post.register();
 
@@ -185,7 +185,7 @@ block content
 				| Post.schema.methods.isPublished = function() {
 				|     return this.state == 'published';
 				| }
-				|
+				| 
 				| Post.schema.pre('save', function(next) {
 				|     if (this.isModified('state') &amp;&amp; this.isPublished() &amp;&amp; !this.publishedAt) {
 				|         this.publishedAt = new Date();
@@ -205,7 +205,7 @@ block content
 			pre: code.language-javascript
 				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
-				|
+				| 
 				| Post.model.find()
 				|     .where('state', 'published')
 				|     .populate('author')
@@ -225,7 +225,7 @@ block content
 			pre: code.language-javascript
 				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
-				|
+				| 
 				| Post.model.find()
 				|     .limit(100)
 				|     .exec()
@@ -250,15 +250,15 @@ block content
 			pre: code.language-javascript
 				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
-				|
+				| 
 				| var newPost = new Post.model({
 				|     title: 'New Post'
 				| });
-				|
+				| 
 				| if (shouldBePublished) {
 				|     newPost.state = 'published';
 				| }
-				|
+				| 
 				| newPost.save(function(err) {
 				|     // post has been saved
 				| });
@@ -278,7 +278,7 @@ block content
 			pre: code.language-javascript
 				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
-				|
+				| 
 				| Post.model.findById(postId)
 				|     .remove(function(err) {
 				|         // post has been deleted
@@ -410,7 +410,7 @@ block content
 			pre: code.language-javascript
 				| var landmark = require('landmark-serve'),
 				|     Post = landmark.list('Post');
-				|
+				| 
 				| Post.model.findById(postId).exec(function(err, post) {
 				|    console.log(post._.createdAt.format('Do MMMM YYYY')); // 25th August 2013
 				| });
@@ -685,7 +685,7 @@ block content
 
 				pre: code.language-javascript
 					| MyList.add({ state: { type: Types.Select, options: 'draft, published, archived', default: 'draft' });
-					|
+					| 
 					| MyList.fields.state.values == 'draft,published,archived';
 					| MyList.fields.state.labels == { draft: 'Draft', published: 'Published', archived: 'Archived' };
 					| MyList.fields.state.ops == [
@@ -698,7 +698,7 @@ block content
 					|     published: { value: 'published', label: 'Published' },
 					|     archived: { value: 'archived', label: 'Archived' }
 					| };
-					|
+					| 
 					| var item = new MyList.model();
 					| item.state == 'draft';
 					| item.stateLabel == 'Draft';
@@ -719,13 +719,13 @@ block content
 				p <code>html</code> <code class="data-type">String</code> - generated html code
 				pre: code.language-javascript
 					| Page.add({ content: Types.Markdown });
-					|
+					| 
 					| var page = new Page.model();
 					| page.content.md = "# Hello World";
 					| page.content.html == "&lt;h1&gt;Hello World&lt;/h1&gt;";
-					|
+					| 
 					| // or...
-					|
+					| 
 					| Page.fields.content.updateItem(page, "* list item");
 					| page.fields.content.format(page) == "&lt;ul&gt;&lt;li&gt;list item&lt;/ul&gt;&lt;/li&gt;";
 
