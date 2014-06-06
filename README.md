@@ -3,7 +3,7 @@
 
 ![Build Status](https://travis-ci.org/RiversideLabs/landmark.svg)
 
-[LandmarkJS](http://landmarkjs.com) is a powerful new Node.js content management system and web app framework built on [express](http://expressjs.com) and [mongoose](http://mongoosejs.com) that makes it easy to create sophisticated web sites and apps, and gives you a beautiful, auto-generated Admin UI. LandmarkJS is built on top of the amazing [LandmarkJS](http://keystonejs.com) CMS project and adapted for managing Landmark content for the Landmark Connect app.
+[LandmarkJS](http://landmarkjs.com) is a powerful new Node.js content management system and web app framework built on [express](http://expressjs.com) and [mongoose](http://mongoosejs.com) that makes it easy to create sophisticated web sites and apps, and gives you a beautiful, auto-generated Admin UI. LandmarkJS is built on top of the amazing [KeystoneJS](http://keystonejs.com) CMS project and adapted for managing Landmark content for the Landmark Connect app.
 
 To get started, check out [landmarkjs.com](http://landmarkjs.com)!
 
