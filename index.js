@@ -1530,7 +1530,7 @@ Landmark.prototype.createItems = function(data, ops, callback) {
 								return options.strict ? doneField({
 									type: 'invalid ref',
 									srcData: srcData,
-									message: 'Relationship ' + list.key + '.' + field.path + ' contains an invalid reference: "' +  + '".'
+									message: 'Relationship ' + list.key + '.' + field.path + ' contains an invalid reference: "' + fieldValue + '".'
 								}) : doneField();
 							}
 							
