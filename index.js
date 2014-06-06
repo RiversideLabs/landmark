@@ -36,7 +36,7 @@ var moduleRoot = (function(_rootPath) {
  */
 
 var Landmark = function() {
-
+	
 	this.lists = {};
 	this.paths = {};
 	this._options = {
@@ -53,26 +53,26 @@ var Landmark = function() {
 		render: []
 	};
 	this._redirects = {};
-
+	
 	// expose express
-
+	
 	this.express = express;
-
-
+	
+	
 	// init environment defaults
-
+	
 	this.set('env', process.env.NODE_ENV || 'development');
-
+	
 	this.set('port', process.env.PORT || process.env.OPENSHIFT_NODEJS_PORT);
 	this.set('host', process.env.HOST || process.env.IP || process.env.OPENSHIFT_NODEJS_IP);
 	this.set('listen', process.env.LISTEN);
-
+	
 	this.set('ssl', process.env.SSL);
 	this.set('ssl port', process.env.SSL_PORT);
 	this.set('ssl host', process.env.SSL_HOST || process.env.SSL_IP);
 	this.set('ssl key', process.env.SSL_KEY);
 	this.set('ssl cert', process.env.SSL_CERT);
-
+	
 	this.set('cookie secret', process.env.COOKIE_SECRET);
 	this.set('embedly api key', process.env.EMBEDLY_API_KEY || process.env.EMBEDLY_APIKEY);
 	this.set('mandrill api key', process.env.MANDRILL_API_KEY || process.env.MANDRILL_APIKEY);
@@ -84,22 +84,22 @@ var Landmark = function() {
 	this.set('chartbeat property', process.env.CHARTBEAT_PROPERTY);
 	this.set('chartbeat domain', process.env.CHARTBEAT_DOMAIN);
 	this.set('allowed ip ranges', process.env.ALLOWED_IP_RANGES);
-
+	
 	if (process.env.S3_BUCKET && process.env.S3_KEY && process.env.S3_SECRET) {
 		this.set('s3 config', { bucket: process.env.S3_BUCKET, key: process.env.S3_KEY, secret: process.env.S3_SECRET, region: process.env.S3_REGION });
 	}
-
+	
 	if (process.env.AZURE_STORAGE_ACCOUNT && process.env.AZURE_STORAGE_ACCESS_KEY) {
 		this.set('azurefile config', { account: process.env.AZURE_STORAGE_ACCOUNT, key: process.env.AZURE_STORAGE_ACCESS_KEY });
 	}
-
+	
 	if (process.env.CLOUDINARY_URL) {
 		// process.env.CLOUDINARY_URL is processed by the cloudinary package when this is set
 		this.set('cloudinary config', true);
 	}
-
+	
 	this.initAPI = require('./lib/middleware/initAPI')(this);
-
+	
 };
 
 
@@ -328,7 +328,7 @@ landmark.Email = require('./lib/email');
  */
 
 Landmark.prototype.init = function(options) {
-
+	
 	this.options(options);
 
 	if (!this.app) {
@@ -449,85 +449,86 @@ Landmark.prototype.initNav = function(sections) {
  */
 
 Landmark.prototype.mount = function(mountPath, parentApp, events) {
-
+	
 	if (!this.app) {
 		throw new Error("LandmarkJS Initialisaton Error:\n\napp must be initialised. Call landmark.init() or landmark.connect(new Express()) first.\n\n");
 	}
-
+	
 	if (arguments.length === 1) {
 		events = arguments[0];
 		mountPath = null;
 	}
-
+	
 	if ('function' === typeof events) {
 		events = { onMount: events };
 	}
-
+	
 	if (!events) events = {};
-
+	
 	this.nativeApp = true;
-
+	
 	var landmark = this,
 		app = this.app;
-
+	
 	// default the mongo connection url
+	
 	if (!this.get('mongo')) {
 		var dbName = this.get('db name') || utils.slug(this.get('name'));
 		var dbUrl = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGOLAB_URI || process.env.MONGOLAB_URL || (process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/') + dbName;
 		this.set('mongo', dbUrl);
 	}
-
+	
 	/* Express sub-app mounting to external app at a mount point (if specified) */
-
+	
 	if (mountPath) {
 		//fix root-relative landmark urls for assets (gets around having to re-write all the landmark templates)
 		parentApp.all(/^\/landmark($|\/*)/, function(req, res, next) {
 			req.url = mountPath + req.url;
 			next();
 		});
-
+		
 		parentApp.use(mountPath, app);
 	}
-
+	
 	/* Landmark's encapsulated Express App Setup */
-
+	
 	// Allow usage of custom view engines
-
+	
 	if (this.get('custom engine')) {
 		app.engine(this.get('view engine'), this.get('custom engine'));
 	}
-
+	
 	// Set location of view templates and view engine
-
+	
 	app.set('views', this.getPath('views') || path.sep + 'views');
 	app.set('view engine', this.get('view engine'));
-
+	
 	// Apply locals
-
+	
 	if (utils.isObject(this.get('locals'))) {
 		_.extend(app.locals, this.get('locals'));
 	}
-
+	
 	if (this.get('env') !== 'production') {
 		app.locals.pretty = true;
 	}
-
+	
 	// Serve static assets
-
+	
 	if (this.get('compress')) {
 		app.use(express.compress());
 	}
-
+	
 	if (this.get('favico')) {
 		app.use(express.favicon(this.getPath('favico')));
 	}
-
+	
 	if (this.get('less')) {
 		app.use(require('less-middleware')({
 			src: this.getPath('less')
 		}));
 	}
-
+	
 	if (this.get('sass')) {
 		try {
 			var sass = require('node-sass');
@@ -549,33 +550,32 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 			outputStyle: (this.get('env') == 'production') ? 'compressed' : 'nested'
 		}));
 	}
-
-
+	
 	if (this.get('static')) {
 		app.use(express.static(this.getPath('static')));
 	}
-
+	
 	if (!this.get('headless')) {
 		landmark.static(app);
 	}
-
+	
 	// Handle dynamic requests
 
 	if (this.get('logger')) {
 		app.use(express.logger(this.get('logger')));
 	}
-
+	
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-
+	
 	if (this.get('cookie secret')) {
 		app.use(express.cookieParser(this.get('cookie secret')));
 	}
-
+	
 	var sessionOpts = {
 		key: 'landmark.sid'
 	};
-
+	
 	if (this.get('session store') == 'mongo') {
 		var MongoStore = require('connect-mongo')(express);
 		sessionOpts.store = new MongoStore({
@@ -583,27 +583,27 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 			collection: 'app_sessions'
 		});
 	}
-
+	
 	app.use(express.session(sessionOpts));
-
+	
 	app.use(require('connect-flash')());
-
+	
 	if (this.get('session') === true) {
 		app.use(this.session.persist);
 	} else if ('function' === typeof this.get('session')) {
 		app.use(this.get('session'));
 	}
-
+	
 	// Process 'X-Forwarded-For' request header
-
+	
 	if (this.get('trust proxy') === true) {
 		app.enable('trust proxy');
 	} else {
 		app.disable('trust proxy');
 	}
-
+	
 	// Check for IP range restrictions
-
+	
 	if (this.get('allowed ip ranges')) {
 		if (!app.get('trust proxy')) {
 			throw new Error("LandmarkJS Initialisaton Error:\n\nto set IP range restrictions the 'trust proxy' setting must be enabled.\n\n");
@@ -614,9 +614,9 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		);
 		this.pre('routes', ipRangeMiddleware);
 	}
-
+	
 	// Pre-route middleware
-
+	
 	this._pre.routes.forEach(function(fn) {
 		try {
 			app.use(fn);
@@ -628,19 +628,19 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 			throw e;
 		}
 	});
-
+	
 	// Route requests
-
+	
 	app.use(app.router);
 
 	// Headless mode means don't bind the Landmark routes
-
+	
 	if (!this.get('headless')) {
 		this.routes(app);
 	}
-
+	
 	// Handle redirects before 404s
-
+	
 	if (Object.keys(this._redirects).length) {
 		app.use(function(req, res, next) {
 			if (landmark._redirects[req.path]) {
@@ -650,17 +650,17 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 			}
 		});
 	}
-
+	
 	// Handle 404 (no route matched) errors
-
+	
 	var default404Handler = function(req, res, next) {
 		res.status(404).send(landmark.wrapHTMLError("Sorry, no page could be found at this address (404)"));
 	};
-
+	
 	app.use(function(req, res, next) {
-
+		
 		var err404 = landmark.get('404');
-
+		
 		if (err404) {
 			try {
 				if ('function' === typeof err404) {
@@ -684,13 +684,13 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		} else {
 			default404Handler(req, res, next);
 		}
-
+		
 	});
-
+	
 	// Handle other errors
-
+	
 	var default500Handler = function(err, req, res, next) {
-
+		
 		if (landmark.get('logger')) {
 			if (err instanceof Error) {
 				console.log((err.type ? err.type + ' ' : '') + 'Error thrown for request: ' + req.url);
@@ -699,11 +699,11 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 			}
 			console.log(err.stack || err);
 		}
-
+		
 		var msg = '';
-
+		
 		if (landmark.get('env') === 'development') {
-
+			
 			if (err instanceof Error) {
 				if (err.type) {
 					msg += '<h2>' + err.type + '</h2>';
@@ -715,14 +715,14 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 				msg += err;
 			}
 		}
-
+		
 		res.status(500).send(landmark.wrapHTMLError("Sorry, an error occurred loading the page (500)", msg));
 	};
-
+	
 	app.use(function(err, req, res, next) {
-
+		
 		var err500 = landmark.get('500');
-
+		
 		if (err500) {
 			try {
 				if ('function' === typeof err500) {
@@ -747,44 +747,44 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		} else {
 			default500Handler(err, req, res, next);
 		}
-
+		
 	});
-
+	
 	// Configure application routes
 	if ('function' === typeof this.get('routes')) {
 		this.get('routes')(app);
 	}
-
+	
 	// Connect to database
-
+	
 	var mongoConnectionOpen = false;
 	
 	this.mongoose.connect(this.get('mongo'));
 	this.mongoose.connection.on('error', function(err) {
-
+		
 		if (landmark.get('logger')) {
 			console.log('------------------------------------------------');
 			console.log('Mongo Error:\n');
 			console.log(err);
 		}
-
+		
 		if (mongoConnectionOpen) {
 			throw new Error("Mongo Error");
 		} else {
 			throw new Error("LandmarkJS (" + landmark.get('name') + ") failed to start");
 		}
-
+		
 	}).on('open', function() {
-
-		//app is mounted and db connection acquired, time to update and then call back
-
+		
+		// app is mounted and db connection acquired, time to update and then call back
+		
 		// Apply updates?
 		if (landmark.get('auto update')) {
 			landmark.applyUpdates(events.onMount);
 		} else {
 			events.onMount && events.onMount();
 		}
-
+		
 	});
 };
 
@@ -873,7 +873,6 @@ Landmark.prototype.start = function(events) {
 		//
 		// For more information on how these options work, see
 		// http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback
-		// and for history, see https://github.com/RiversideLabs/landmark/issues/154
 
 		landmark.httpServer = http.createServer(app);
 		events.onHttpServerCreated && events.onHttpServerCreated();
@@ -1266,7 +1265,7 @@ Landmark.prototype.import = function(dirname) {
 
 			var fsPath = path.join(fromPath, name),
 			info = fs.statSync(fsPath);
-
+			
 			// recur
 			if (info.isDirectory()) {
 				imported[name] = doImport(fsPath);
@@ -1331,104 +1330,136 @@ Landmark.prototype.applyUpdates = function(callback) {
  */
 
 Landmark.prototype.createItems = function(data, callback) {
-
+	
 	var lists = _.keys(data),
 		refs = {},
 		stats = {};
-
+		
 	async.waterfall([
-
+		
 		// create items
 		function(next) {
 			async.each(lists, function(key, doneList) {
-
-				var list = landmark.list(key);
-
-				if (!list) return doneList();
-
+				
+				var list = landmark.list(key),
+					relationshipPaths = _.where(list.fields, { type: 'relationship' }).map(function(i) { return i.path; });
+				
+				if (!list) {
+					return doneList();
+				}
+				
 				refs[list.key] = {};
 				stats[list.key] = {
 					singular: list.singular,
 					plural: list.plural,
 					created: 0
 				};
-
+				
 				async.eachSeries(data[key], function(data, doneItem) {
-
-					// Evaluate function properties to allow generated values
+					
+					// Evaluate function properties to allow generated values (excluding relationships)
 					_.keys(data).forEach(function(i) {
-						if (_.isFunction(data[i])) {
+						if (_.isFunction(data[i]) && relationshipPaths.indexOf(i) === -1) {
 							data[i] = data[i]();
 						}
 					});
-
+					
 					var doc = data.__doc = new list.model();
-
+					
 					if (data.__ref) {
 						refs[list.key][data.__ref] = doc;
 					}
-
+					
 					_.each(list.fields, function(field) {
 						// skip relationship fields on the first pass.
 						field.type !== 'relationship' && field.updateItem(doc, data);
 					});
-
+					
 					doc.save(doneItem);
 					stats[list.key].created++;
-
+					
 				}, doneList);
-
+				
 			}, next);
 		},
-
+		
 		// link items
 		function(next) {
-
+			
 			async.each(lists, function(key, doneList) {
-
-				var list = landmark.list(key);
-
-				if (!list) return doneList();
-
+				
+				var list = landmark.list(key),
+					relationships = _.where(list.fields, { type: 'relationship' });
+				
+				if (!list) {
+					return doneList();
+				}
+				
 				async.each(data[key], function(srcData, doneItem) {
-
+					
 					var doc = srcData.__doc;
-
-					_.each(list.fields, function(field) {
+					
+					async.each(relationships, function(field, doneField) {
+						
 						// populate relationships from saved refs
-						if (field.type !== 'relationship') return;
-						var fieldRefs = refs[field.refList.key];
-						if (field.many) {
-							var refsArr = _.isString(srcData[field.path]) ? [srcData[field.path]] : srcData[field.path];
-							if (!_.isArray(refsArr)) return;
-							refsArr = _.compact(refsArr.map(function(ref) {
-								return fieldRefs[ref] ? fieldRefs[ref].id : undefined;
-							}));
-							doc.set(field.path, refsArr);
+						if ('function' === typeof srcData[field.path]) {
+							
+							var fn = srcData[field.path],
+								argsRegExp = /^function\s*[^\(]*\(\s*([^\)]*)\)/m,
+								lists = fn.toString().match(argsRegExp)[1].split(',').map(function(i) { return i.trim(); }),
+								args = lists.map(function(i) {
+									return landmark.list(i);
+								}),
+								query = fn.apply(landmark, args);
+							
+							query.exec(function(err, results) {
+								if (field.many) {
+									doc.set(field.path, results || []);
+								} else {
+									doc.set(field.path, (results && results.length) ? results[0] : undefined);
+								}
+								doneField(err);
+							});
+							
 						} else {
-							var ref = srcData[field.path];
-							if (ref && fieldRefs[ref]) {
-								doc.set(field.path, fieldRefs[ref].id);
+							
+							var fieldRefs = refs[field.refList.key];
+							
+							if (field.many) {
+								var refsArr = ('string' === typeof srcData[field.path]) ? [srcData[field.path]] : srcData[field.path];
+								if (!_.isArray(refsArr)) return;
+								refsArr = _.compact(refsArr.map(function(ref) {
+									return fieldRefs[ref] ? fieldRefs[ref].id : undefined;
+								}));
+								doc.set(field.path, refsArr);
+							} else {
+								var ref = srcData[field.path];
+								if (ref && fieldRefs[ref]) {
+									doc.set(field.path, fieldRefs[ref].id);
+								}
 							}
+							
+							doneField();
+							
 						}
+					}, function(err) {
+						doc.save(doneItem);
 					});
-
-					doc.save(doneItem);
-
+					
 				}, doneList);
-
+				
 			}, next);
 		}
-
+		
 	], function(err) {
 		if (err) return callback && callback(err);
-
+		
 		var msg = '\nSuccessfully created:\n';
 		_.each(stats, function(list, key) {
 			msg += '\n*   ' + landmark.utils.plural(list.created, '* ' + list.singular, '* ' + list.plural);
 		});
 		stats.message = msg + '\n';
-
+		
 		callback(null, stats);
 	});
 
@@ -1579,7 +1610,7 @@ Landmark.prototype.wrapHTMLError = function(title, err) {
 
 Landmark.prototype.console = {};
 Landmark.prototype.console.err = function(type, msg) {
-
+	
 	if (landmark.get('logger')) {
 		var dashes = '\n------------------------------------------------\n';
 		console.log(dashes + 'LandmarkJS: ' + type + ':\n\n' + msg + dashes);
