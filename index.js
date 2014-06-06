@@ -1397,10 +1397,6 @@ Landmark.prototype.createItems = function(data, ops, callback) {
 					
 					itemsProcessed++;
 					
-					if (options.verbose) {
-						console.log('Creating item [' + itemsProcessed + ' of ' + totalItems + ']');
-					}
-					
 					// Evaluate function properties to allow generated values (excluding relationships)
 					_.keys(data).forEach(function(i) {
 						if (_.isFunction(data[i]) && relationshipPaths.indexOf(i) === -1) {
@@ -1421,6 +1417,11 @@ Landmark.prototype.createItems = function(data, ops, callback) {
 						// skip relationship fields on the first pass.
 						field.type !== 'relationship' && field.updateItem(doc, data);
 					});
+					
+					if (options.verbose) {
+						var documentName = list.getDocumentName(doc);
+						console.log('Creating item [' + itemsProcessed + ' of ' + totalItems + '] - ' + documentName);
+					}
 					
 					doc.save(doneItem);
 					stats[list.key].created++;
@@ -1460,7 +1461,8 @@ Landmark.prototype.createItems = function(data, ops, callback) {
 					itemsProcessed++;
 					
 					if (options.verbose) {
-						console.log('Processing item [' + itemsProcessed + ' of ' + totalItems + ']');
+						var documentName = list.getDocumentName(doc);
+						console.log('Processing item [' + itemsProcessed + ' of ' + totalItems + '] - ' + documentName);
 					}
 					
 					async.each(relationships, function(field, doneField) {
