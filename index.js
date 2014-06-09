@@ -571,7 +571,7 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	
 	app.sessionOpts = {
 		key: 'lanmark.sid',
-		cookieParser: express.cookieParser(this.get('cookie secret') === undefined ? 'keystone':this.get('cookie secret'))
+		cookieParser: express.cookieParser(this.get('cookie secret') === undefined ? 'landmark':this.get('cookie secret'))
 	};
 	
 	app.use(app.sessionOpts.cookieParser);
