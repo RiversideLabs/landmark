@@ -1332,7 +1332,7 @@ Landmark.prototype.applyUpdates = function(callback) {
 Landmark.prototype.createItems = function(data, ops, callback) {
 	
 	var options = {
-		verbose: true,
+		verbose: false,
 		strict: true
 	};
 	
