@@ -451,7 +451,12 @@ Landmark.prototype.initNav = function(sections) {
 Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	
 	if (!this.app) {
-		console.error('LandmarkJS Initialisation Error:\n\napp must be initialised. Call landmark.init() or landmark.connect(new Express()) first.\n\n');
+		console.error('\nLandmarkJS Initialisaton Error:\n\napp must be initialised. Call landmark.init() or landmark.connect(new Express()) first.\n\n');
+		process.exit(1);
+	}
+	
+	if (!this.get('cookie secret')) {
+		console.error('\nLandmarkJS Configuration Error:\n\nPlease provide a `cookie secret` value for session encryption.\n\n');
 		process.exit(1);
 	}
 	
@@ -572,7 +577,7 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	
 	app.sessionOpts = {
 		key: 'lanmark.sid',
-		cookieParser: express.cookieParser(this.get('cookie secret') === undefined ? 'landmark':this.get('cookie secret'))
+		cookieParser: express.cookieParser(this.get('cookie secret'))
 	};
 	
 	app.use(app.sessionOpts.cookieParser);
