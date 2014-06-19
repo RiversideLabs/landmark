@@ -7,8 +7,7 @@ exports = module.exports = function(req, res) {
 		landmark.render(req, res, 'signin', {
 			submitted: req.body,
 			from: req.query.from,
-			logo: landmark.get('signin logo'),
-			_csrf: req.csrfToken ? req.csrfToken() : false
+			logo: landmark.get('signin logo')
 		});
 	};
 
@@ -22,7 +21,7 @@ exports = module.exports = function(req, res) {
 
 		var onSuccess = function(user) {
 
-			if (req.query.from  && req.query.from.match(/^(?!http|\/\/|javascript).+/)) {
+			if (req.query.from && req.query.from.match(/^(?!http|\/\/|javascript).+/)) {
 				res.redirect(req.query.from);
 			} else if ('string' === typeof landmark.get('signin redirect')) {
 				res.redirect(landmark.get('signin redirect'));
