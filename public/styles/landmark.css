@@ -1,7 +1,8 @@
 /*!
  * Landmark JS
  *
- * Copyright 2013 Mike Stecker
+ * Copyright 2014 Mike Stecker
+ * Originally written by (c) 2013 Jed Watson
  * Licensed under the MIT License
  * http://opensource.org/licenses/MIT
  *
@@ -4798,11 +4799,12 @@ td.visible-print {
 /*!
  * Landmark v1.0
  *
- * Copyright 2013 Mike Stecker
+ * Copyright 2014 Mike Stecker
+ * Originally written by (c) 2013 Jed Watson
  * Licensed under The MIT License
  * http://opensource.org/lzicenses/MIT
  *
- * Designed and built with all the love in the world by @maven20
+ * Designed and built with all the love in the world by @mikestecker
  */
 .navbar {
   margin-bottom: 0;
