@@ -490,7 +490,7 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		sessionOptions.key = 'landmark.sid';
 	}
 	
-	sessionOptions.cookieParser = express.cookieParser(this.get('cookie secret');
+	sessionOptions.cookieParser = express.cookieParser(this.get('cookie secret'));
 	
 	if (this.get('session store') == 'mongo') {
 		var MongoStore = require('connect-mongo')(express);
