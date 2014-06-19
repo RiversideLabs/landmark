@@ -3,16 +3,16 @@
 // --------------------------------------------------
 
 // Reset landmark navbar basics
-@navbar-landmark-bg:                         #154b7e;// #004a80;
+@navbar-landmark-bg:                         @link-color;// #004a80;
 @navbar-landmark-color:                      mix(white,@navbar-landmark-bg,50%);
 @navbar-landmark-border:                     darken(@navbar-landmark-bg, 10%);
 
 // Landmark navbar links
-@navbar-landmark-link-color:                 mix(white,@navbar-landmark-bg,50%);
+@navbar-landmark-link-color:                 mix(white,@navbar-landmark-bg,60%);
 @navbar-landmark-link-hover-color:           #fff;
-@navbar-landmark-link-hover-bg:              transparent;
+@navbar-landmark-link-hover-bg:              lighten(@navbar-landmark-bg, 3.5%);
 @navbar-landmark-link-active-color:          @navbar-landmark-link-hover-color;
-@navbar-landmark-link-active-bg:             @link-color;
+@navbar-landmark-link-active-bg:             darken(@navbar-landmark-bg, 3.5%);
 @navbar-landmark-link-disabled-color:        #444;
 @navbar-landmark-link-disabled-bg:           transparent;
 
@@ -30,7 +30,7 @@
 // Landmark navbar toggle
 @navbar-landmark-toggle-hover-bg:            mix(white, @navbar-landmark-bg, 25%);
 @navbar-landmark-toggle-icon-bar-bg:         #fff;
-@navbar-landmark-toggle-border-color:        mix(white, @navbar-landmark-bg, 25%);
+@navbar-landmark-toggle-border-color:        transparent;
 
 
 
@@ -72,7 +72,7 @@ h4 {
 // --------------------------------------------------
 #header {
 	background-color: @navbar-landmark-bg;
-	// .box-shadow( inset 0 -1px 2px @navbar-landmark-border );
+	border: 0 none;
 
 	.navbar-backtobrand {
 		color: @navbar-landmark-link-color;
@@ -101,18 +101,19 @@ h4 {
 
 			&:hover,
 			&:focus {
+				#gradient .vertical(rgba(255,255,255,0),rgba(255,255,255,0.1));
+				// background-color: @navbar-landmark-link-hover-bg;
 				color: @navbar-landmark-link-hover-color;
-				background-color: @navbar-landmark-link-hover-bg;
 			}
 		}
 		> .active > a {
 			&,
 			&:hover,
 			&:focus {
-				// #gradient .vertical( spin(@navbar-landmark-link-active-bg,5%), spin(@navbar-landmark-link-active-bg,-5%), 0%, 100% );
-				// .box-shadow( inset 0 1px 3px rgba(0,0,0,0.25) );
-				color: @navbar-landmark-link-active-color;
+				#gradient .vertical( rgba(0,0,0,0.1), rgba(0,0,0,0), 0%, 100% );
+				.box-shadow( inset 0 1px 3px rgba(0,0,0,0.2) );
 				background-color: @navbar-landmark-link-active-bg;
+				color: @navbar-landmark-link-active-color;
 			}
 		}
 		> .disabled > a {
@@ -136,6 +137,10 @@ h4 {
 			background-color: @navbar-landmark-toggle-icon-bar-bg;
 		}
 	}
+	
+	.navbar-collapse {
+		.transition( all 200ms linear );
+	}
 
 	.navbar-collapse,
 	.navbar-form {
@@ -148,7 +153,6 @@ h4 {
 			&:hover,
 			&:focus {
 				background-color: @navbar-landmark-link-active-bg;
-				color: @navbar-landmark-link-active-color;
 			}
 		}
 		> .dropdown > a:hover .caret {
@@ -228,11 +232,12 @@ h4 {
 //
 // Section Nav
 // --------------------------------------------------
+
+@sectionnav-arrow-size: 8px;
+
 #section-nav {
+	min-height: 40px;
 	margin-bottom: 20px;
-	border-top: none;
-	border-left: none;
-	border-right: none;
 
 	.navbar-collapse {
 		padding-left: 0px;
@@ -241,6 +246,8 @@ h4 {
 
 	li > a {
 		color: @gray-light;
+		padding-bottom: 10px;
+		padding-top: 10px;
 
 		&:hover,
 		&:focus {
@@ -261,6 +268,25 @@ h4 {
 	.active > a:focus {
 		background: transparent;
 		color: black;
+
+		&:before,
+		&:after {
+			.square(0);
+			border: @sectionnav-arrow-size solid transparent;
+			border-bottom-width: 0;
+			content: "";
+			margin-left: -@sectionnav-arrow-size;
+			position: absolute;
+			left: 50%;
+		}
+		&:before {
+			border-top-color: @navbar-default-border;
+			bottom: -(@sectionnav-arrow-size + 1);
+		}
+		&:after {
+			border-top-color: @navbar-default-bg;
+			bottom: -@sectionnav-arrow-size;
+		}
 	}
 }
 
@@ -451,7 +477,7 @@ h3.relationship-heading {
 // Name field
 .item-name .form-control {
 	.input-size(@input-height-large + 10; @padding-base-vertical; @padding-base-horizontal; ceil(@font-size-base * 1.70); @line-height-large; @input-border-radius);
-	color: @brand-primary;
+	// color: @brand-primary;
 	font-weight: 200;
 	margin-bottom: 10px;
 }
@@ -604,7 +630,13 @@ h3.relationship-heading {
 //
 // Items List
 // --------------------------------------------------
-table.items-list {
+
+.items-list {
+	tr:nth-child(odd) {
+		> td {
+			background-color: @table-bg-accent;
+		}
+	}
 
 	thead > tr > th,
 	tbody > tr > th,
@@ -617,9 +649,9 @@ table.items-list {
 	thead > tr > td,
 	tbody > tr > td,
 	tfoot > tr > td {
-		padding: 0;
 		background-color: white;
 		border-top: 1px solid #e5e5e5;
+		line-height: 1;
 	}
 
 	tr.delete-hover {
@@ -655,16 +687,6 @@ table.items-list {
 
 		&:hover {
 			color: darken(@text-color, 10%);
-			text-decoration: underline;
-		}
-	}
-
-	thead a {
-		color: @text-color;
-		text-decoration: none;
-		margin-right: 5px;
-
-		&:hover {
 			text-decoration: underline;
 		}
 	}
@@ -715,6 +737,3 @@ table.relationships-list {
 		}
 	}
 }
-
-
-
