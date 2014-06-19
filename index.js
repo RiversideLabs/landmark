@@ -452,15 +452,59 @@ Landmark.prototype.initNav = function(sections) {
 
 Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	
+	// Validate the express app instance
+	
 	if (!this.app) {
 		console.error('\nLandmarkJS Initialisaton Error:\n\napp must be initialised. Call landmark.init() or landmark.connect(new Express()) first.\n');
 		process.exit(1);
 	}
 	
+	var landmark = this,
+					 app = this.app;
+		
+	// this.nativeApp indicates landmark has been mounted natively
+	// (not as part of a custom middleware stack)
+	this.nativeApp = true;
+	
+	// Initialise the mongo connection url
+	if (!this.get('mongo')) {
+		var dbName = this.get('db name') || utils.slug(this.get('name'));
+		var dbUrl = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGOLAB_URI || process.env.MONGOLAB_URL || (process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/') + dbName;
+		this.set('mongo', dbUrl);
+	}
+	
+	// Initialise and validate session options
+	
 	if (!this.get('cookie secret')) {
 		console.error('\nLandmarkJS Configuration Error:\n\nPlease provide a `cookie secret` value for session encryption.\n');
 		process.exit(1);
 	}
+	
+	var sessionOptions = landmark.get('session options');
+	
+	if (!_.isObject(sessionOptions)) {
+		sessionOptions = {};
+	}
+	
+	if (!sessionOptions.key) {
+		sessionOptions.key = 'landmark.sid';
+	}
+	
+	sessionOptions.cookieParser = express.cookieParser(this.get('cookie secret');
+	
+	if (this.get('session store') == 'mongo') {
+		var MongoStore = require('connect-mongo')(express);
+		sessionOptions.store = new MongoStore({
+			url: this.get('mongo'),
+			collection: 'app_sessions'
+		});
+	}
+	
+	// expose initialised session options
+	
+	this.set('session options', sessionOptions);
+	
+	// wrangle arguments
 	
 	if (arguments.length === 1) {
 		events = arguments[0];
@@ -472,19 +516,6 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	}
 	
 	if (!events) events = {};
-	
-	this.nativeApp = true;
-	
-	var landmark = this,
-		app = this.app;
-	
-	// default the mongo connection url
-	
-	if (!this.get('mongo')) {
-		var dbName = this.get('db name') || utils.slug(this.get('name'));
-		var dbUrl = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGOLAB_URI || process.env.MONGOLAB_URL || (process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/') + dbName;
-		this.set('mongo', dbUrl);
-	}
 	
 	/* Express sub-app mounting to external app at a mount point (if specified) */
 	
@@ -569,7 +600,7 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	}
 	
 	// Handle dynamic requests
-
+	
 	if (this.get('logger')) {
 		app.use(express.logger(this.get('logger')));
 	}
@@ -577,22 +608,8 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	
-	app.sessionOpts = {
-		key: 'lanmark.sid',
-		cookieParser: express.cookieParser(this.get('cookie secret'))
-	};
-	
-	app.use(app.sessionOpts.cookieParser);
-	
-	if (this.get('session store') == 'mongo') {
-		var MongoStore = require('connect-mongo')(express);
-		app.sessionOpts.store = new MongoStore({
-			url: this.get('mongo'),
-			collection: 'app_sessions'
-		});
-	}
-	
-	app.use(express.session(app.sessionOpts));
+	app.use(sessionOptions.cookieParser);
+	app.use(express.session(sessionOptions));
 	
 	app.use(require('connect-flash')());
 	
@@ -640,7 +657,7 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	// Route requests
 	
 	app.use(app.router);
-
+	
 	// Headless mode means don't bind the Landmark routes
 	
 	if (!this.get('headless')) {
