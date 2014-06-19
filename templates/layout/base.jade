@@ -89,11 +89,13 @@ html
 		//- App
 		script.
 			Landmark = {
-				csrf: {
-					key: "#{csrf_token_key",
-					value: "#{csrf_token_value}"
-					}
+				csrf: function(obj) {
+					obj['#{csrf_token_key}'] = "#{csrf_token_value}";
+					return obj;
+				}
 			};
+			Landmark.csrf.key = "#{csrf_token_key}";
+			Landmark.csrf.value = "#{csrf_token_value}";
 		if cloudinary
 			script(src='/landmark/js/lib/jqueryfileupload/vendor/jquery.ui.widget.js')
 			script(src='/landmark/js/lib/jqueryfileupload/jquery.iframe-transport.js')

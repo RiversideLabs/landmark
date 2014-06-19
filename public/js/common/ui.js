@@ -56,9 +56,9 @@ jQuery(function($) {
 		$.ajax({
 			type: 'POST',
 			url: '/landmark/api/' + listPath + '/order',
-			data: {
+			data: Landmark.csrf({
 				order: order.join(',')
-			},
+			}),
 			error: function() {
 				alert("There was a problem saving your changes. Please refresh to see the current data.");
 			}
