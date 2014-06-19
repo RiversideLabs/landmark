@@ -58,6 +58,7 @@
 .list-toolbar {
 	// margin-top: 15px;
 	padding-bottom: 20px;
+	.clearfix();
 }
 .search-list {
 	
@@ -67,6 +68,12 @@
 		.search-button {
 			margin-top: 0 !important;
 		}
+	}
+	
+	.search-field {
+		display: inline-block;
+		vertical-align: middle;
+		width: 200px;
 	}
 	
 	.search-list-field {
@@ -88,6 +95,12 @@
 		}
 		&:active {
 			color: darken(@brand-danger, 20%);
+		}
+	}
+	
+	@media (min-width: @screen-sm) {
+		.search-field {
+			width: 300px;
 		}
 	}
 	
