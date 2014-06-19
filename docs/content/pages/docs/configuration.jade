@@ -239,7 +239,7 @@ block content
 			
 			//- a(name='emails')
 			//- h2 Emails
-			//-
+			//- 
 			//- p ...
 			
 			
@@ -289,7 +289,7 @@ block content
 						p Your Google API server key, used to authenticate requests to the Maps API from the server.
 						p Will default to <code class="default-value">process.env.GOOGLE_SERVER_KEY</code>
 				tr
-					td <code>default region</code> <code class="data-type">String</code>
+					td <code>default region</code> <code class="data-type">String</code> 
 					td
 						p <strong>Optional</strong> setting to limit autocomplete results to a specific region.
 						p This option takes a region code, specified as a <a href="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank">IANA language region</a> subtag.
@@ -361,9 +361,9 @@ block content
 			
 			pre: code.language-javascript
 				| landmark.set('cloudinary config', { cloud_name: 'my-cloud', api_key: 'abc', api_secret: '123' });
-				| // or
+				| // or 
 				| landmark.set('cloudinary config', 'cloudinary://api_key:api_secret@cloud_name' );
-				|
+				| 
 				| // optional, will prefix all built-in tags with 'landmark_'
 				| landmark.set('cloudinary prefix', 'landmark-serve');
 			
@@ -400,12 +400,12 @@ block content
 			
 			
 			//- h2 Error Handling
-			//-
+			//- 
 			//- a(name='404s')
 			//- h3 <code>404</code> (not found) errors
-			//-
+			//- 
 			//- //-  path to your 404 view template, or a function to handle 404s (standard Express signature of `function(req, res)`)
-			//-
+			//- 
 			//- a(name='500s')
 			//- h3 <code>500</code> (server error) errors
 			
@@ -436,7 +436,7 @@ block content
 			pre: code.language-javascript
 				| var landmark = require('landmark-serve'),
 				|     User = landmark.list('User');
-				|
+				| 
 				| exports = module.exports = function(done) {
 				|     new User.model({
 				|         name: { first: 'Admin', last: 'User' },
