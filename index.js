@@ -1665,9 +1665,9 @@ Landmark.prototype.render = function(req, res, view, ext) {
 		backUrl: this.get('back url') || '/',
 		section: {},
 		version: this.version,
-		csrf_token_key: keystone.security.csrf.TOKEN_KEY,
-		csrf_token_value: keystone.security.csrf.getToken(req, res),
-		csrf_query: '&' + keystone.security.csrf.TOKEN_KEY + '=' + keystone.security.csrf.getToken(req, res),
+		csrf_token_key: landmark.security.csrf.TOKEN_KEY,
+		csrf_token_value: landmark.security.csrf.getToken(req, res),
+		csrf_query: '&' + landmark.security.csrf.TOKEN_KEY + '=' + landmark.security.csrf.getToken(req, res),
 		ga: {
 			property: this.get('ga property'),
 			domain: this.get('ga domain')
