@@ -124,12 +124,12 @@ var remappedOptions = {
  * @param {String} value
  * @api public
  */
- Landmark.prototype.set = function(key, value) {
-
+Landmark.prototype.set = function(key, value) {
+ 	
 	if (arguments.length === 1) {
 		return this._options[key];
 	}
-
+	
 	if (remappedOptions[key]) {
 		if (this.get('logger')) {
 			console.log('\nWarning: the `' + key + '` option has been deprecated. Please use `' + remappedOptions[key] + '` instead.\n\n' +
@@ -137,7 +137,7 @@ var remappedOptions = {
 		}
 		key = remappedOptions[key];
 	}
-
+	
 	// handle special settings
 	switch (key) {
 		case 'cloudinary config':
@@ -172,7 +172,7 @@ var remappedOptions = {
 			}
 		break;
 	}
-
+	
 	this._options[key] = value;
 	return this;
 };
@@ -289,10 +289,10 @@ Landmark.prototype.connect = function() {
 
 Landmark.prototype.prefixModel = function (key) {
 	var modelPrefix = this.get('model prefix');
-
+	
 	if (modelPrefix)
 		key = modelPrefix + '_' + key;
-
+	
 	return require('mongoose/lib/utils').toCollectionName(key);
 }
 
@@ -313,6 +313,10 @@ landmark.Field.Types = require('./lib/fieldTypes');
 landmark.View = require('./lib/view');
 landmark.Email = require('./lib/email');
 
+var security = landmark.security = {
+	csrf: require('./lib/security/csrf')
+};
+
 
 /**
  * Initialises Landmark in encapsulated mode.
@@ -332,17 +336,17 @@ landmark.Email = require('./lib/email');
 Landmark.prototype.init = function(options) {
 	
 	this.options(options);
-
+	
 	if (!this.app) {
 		this.app = express();
 	}
-
+	
 	if (!this.mongoose) {
 		this.connect(require('mongoose'));
 	}
-
+	
 	return this;
-
+	
 };
 
 /**
@@ -353,7 +357,7 @@ Landmark.prototype.init = function(options) {
  */
 
 Landmark.prototype.initNav = function(sections) {
-
+	
 	var nav = {
 		sections: [],
 		by: {
@@ -361,7 +365,7 @@ Landmark.prototype.initNav = function(sections) {
 			section: {}
 		}
 	};
-
+	
 	if (!sections) {
 		sections = {};
 		nav.flat = true;
@@ -370,7 +374,7 @@ Landmark.prototype.initNav = function(sections) {
 			sections[list.path] = [list.path];
 		});
 	}
-
+	
 	_.each(sections, function(section, key) {
 		if ('string' === typeof section) {
 			section = [section];
@@ -398,7 +402,7 @@ Landmark.prototype.initNav = function(sections) {
 			nav.by.section[section.key] = section;
 		}
 	});
-
+	
 	return nav;
 };
 
@@ -460,13 +464,14 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 	}
 	
 	var landmark = this,
-					 app = this.app;
-		
+		app = this.app;
+	
 	// this.nativeApp indicates landmark has been mounted natively
 	// (not as part of a custom middleware stack)
 	this.nativeApp = true;
 	
 	// Initialise the mongo connection url
+	
 	if (!this.get('mongo')) {
 		var dbName = this.get('db name') || utils.slug(this.get('name'));
 		var dbUrl = process.env.MONGO_URI || process.env.MONGO_URL || process.env.MONGOLAB_URI || process.env.MONGOLAB_URL || (process.env.OPENSHIFT_MONGODB_DB_URL || 'mongodb://localhost/') + dbName;
@@ -605,12 +610,14 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		app.use(express.logger(this.get('logger')));
 	}
 	
+	if (this.get('file limit')) {
+		app.use(express.limit(this.get('file limit')));
+	}
+	
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-	
 	app.use(sessionOptions.cookieParser);
 	app.use(express.session(sessionOptions));
-	
 	app.use(require('connect-flash')());
 	
 	if (this.get('session') === true) {
@@ -859,31 +866,31 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
  */
 
 Landmark.prototype.start = function(events) {
-
+	
 	if ('function' === typeof events) {
 		events = { onStart: events };
 	}
-
+	
 	if (!events) events = {};
-
+	
 	if (!this.app) {
 		throw new Error("LandmarkJS Initialisaton Error:\n\napp must be initialised. Call landmark.init() or landmark.connect(new Express()) first.\n\n");
 	}
-
+	
 	var landmark = this,
 		app = this.app;
-
+		
 	//maintain passed in onMount binding but override to start http servers
 	//(call user-defined onMount first if present)
 	var onMount = events.onMount;
 	events.onMount = function() {
 		onMount && onMount();
-
+		
 		mongoConnectionOpen = true;
-
+		
 		var startupMessages = ['LandmarkJS Started:'],
 			waitForServers = 2;
-
+			
 		// Logs the startup messages and calls the onStart method
 		var serverStarted = function() {
 			waitForServers--;
@@ -893,36 +900,37 @@ Landmark.prototype.start = function(events) {
 			}
 			events.onStart && events.onStart();
 		};
-
+		
 		// Creates the http server and listens to the specified port and host or listen option.
 		//
 		// For more information on how these options work, see
 		// http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback
 
+		
 		landmark.httpServer = http.createServer(app);
 		events.onHttpServerCreated && events.onHttpServerCreated();
-
+		
 		var host = landmark.get('host'),
 			port = landmark.get('port'),
 			listen = landmark.get('listen'),
 			ssl = landmark.get('ssl');
-
+			
 		// start the http server unless we're in ssl-only mode
 		if (ssl != 'only') {
-
+			
 			var httpStarted = function(msg) {
 				return function() {
 					startupMessages.push(msg);
 					serverStarted();
 					};
 				};
-
+				
 			if (port || port === 0) {
-
+				
 				app.set('port', port);
-
+				
 				var httpReadyMsg = landmark.get('name') + ' is ready';
-
+				
 				if (host) {
 					httpReadyMsg += ' on http://' + host;
 					if (port) {
@@ -937,7 +945,7 @@ Landmark.prototype.start = function(events) {
 					// start listening on any IPv4 address (INADDR_ANY) and the specified port
 					landmark.httpServer.listen(port, httpStarted(httpReadyMsg));
 				}
-
+				
 			} else if (host) {
 				// start listening on a specific host address and default port 3000
 				app.set('port', 3000);
@@ -949,27 +957,27 @@ Landmark.prototype.start = function(events) {
 				// default: start listening on any IPv4 address (INADDR_ANY) and default port 3000
 				app.set('port', 3000);
 				landmark.httpServer.listen(3000, httpStarted(landmark.get('name') + ' is ready on default port 3000'));
-
+				
 			}
-
+			
 		} else {
 			waitForServers--;
 		}
-
+		
 		// start the ssl server if configured
 		if (ssl) {
-
+			
 			var sslOpts = {};
-
+			
 			if (landmark.get('ssl cert') && fs.existsSync(landmark.getPath('ssl cert'))) {
 				sslOpts.cert = fs.readFileSync(landmark.getPath('ssl cert'));
 			}
 			if (landmark.get('ssl key') && fs.existsSync(landmark.getPath('ssl key'))) {
 				sslOpts.key = fs.readFileSync(landmark.getPath('ssl key'));
 			}
-
+			
 			if (!sslOpts.key || !sslOpts.cert) {
-
+				
 				if (ssl === 'only') {
 					console.log(landmark.get('name') + ' failed to start: invalid ssl configuration');
 					process.exit();
@@ -977,37 +985,37 @@ Landmark.prototype.start = function(events) {
 					startupMessages.push('Warning: Invalid SSL Configuration');
 					serverStarted();
 				}
-
+				
 			} else {
-
+				
 				var httpsStarted = function(msg) {
 					return function() {
 						startupMessages.push(msg);
 						serverStarted();
 						};
 					};
-
+					
 				landmark.httpsServer = https.createServer(sslOpts, app);
 				events.onHttpsServerCreated && events.onHttpsServerCreated();
-
+				
 				var sslHost = landmark.get('ssl host') || host,
 					sslPort = landmark.get('ssl port') || 3001;
-
+					
 				var httpsReadyMsg = (ssl === 'only') ? landmark.get('name') + ' (SSL) is ready on ' : 'SSL Server is ready on ';
-
+				
 				if (sslHost) {
 					landmark.httpsServer.listen(sslPort, sslHost, httpsStarted(httpsReadyMsg + 'https://' + sslHost + ':' + sslPort));
 				} else {
 					var httpsPortMsg = (landmark.get('ssl port')) ? 'port: ' + landmark.get('ssl port') : 'default port 3001';
 					landmark.httpsServer.listen(sslPort, httpsStarted(httpsReadyMsg + httpsPortMsg));
 				}
-
+				
 			}
-
+			
 		} else {
 			waitForServers--;
 		}
-
+		
 		process.on('uncaughtException', function(e) {
 			if (e.code === 'EADDRINUSE') {
 				console.log('------------------------------------------------\n' +
@@ -1024,14 +1032,14 @@ Landmark.prototype.start = function(events) {
 				process.exit(1);
 			}
 		});
-
+		
 	};
-
+	
 	//mount the express app
 	this.mount(events);
-
+	
 	return this;
-
+	
 };
 
 
@@ -1045,12 +1053,12 @@ Landmark.prototype.start = function(events) {
  */
 
 Landmark.prototype.static = function(app) {
-
+	
 	app.use('/landmark', require('less-middleware')({ src: __dirname + path.sep + 'public' }));
 	app.use('/landmark', express.static(__dirname + path.sep + 'public'));
-
+	
 	return this;
-
+	
 };
 
 
@@ -1069,42 +1077,42 @@ Landmark.prototype.static = function(app) {
  */
 
 Landmark.prototype.routes = function(app) {
-
+	
 	this.app = app;
 	var landmark = this;
-
+	
 	// ensure landmark nav has been initialised
 	if (!this.nav) {
 		this.nav = this.initNav();
 	}
-
+	
 	// Cache compiled view templates if we are in Production mode
 	this.set('view cache', this.get('env') === 'production');
-
+	
 	// Bind auth middleware (generic or custom) to /landmark* routes, allowing
 	// access to the generic signin page if generic auth is used
-
+	
 	if (this.get('auth') === true) {
-
+		
 		if (!this.get('signout url')) {
 			this.set('signout url', '/landmark/signout');
 		}
 		if (!this.get('signin url')) {
 			this.set('signin url', '/landmark/signin');
 		}
-
+		
 		if (!this.nativeApp || !this.get('session')) {
 			app.all('/landmark*', this.session.persist);
 		}
-
+		
 		app.all('/landmark/signin', require('./routes/views/signin'));
 		app.all('/landmark/signout', require('./routes/views/signout'));
 		app.all('/landmark*', this.session.landmarkAuth);
-
+		
 	} else if ('function' === typeof this.get('auth')) {
 		app.all('/landmark*', this.get('auth'));
 	}
-
+	
 	var initList = function(protect) {
 		return function(req, res, next) {
 			req.list = landmark.list(req.params.list);
@@ -1115,15 +1123,15 @@ Landmark.prototype.routes = function(app) {
 			next();
 		};
 	};
-
+	
 	// Landmark Admin Route
 	app.all('/landmark', require('./routes/views/home'));
-
+	
 	// Email test routes
 	if (this.get('email tests')) {
 		this.bindEmailTestRoutes(app, this.get('email tests'));
 	}
-
+	
 	// Cloudinary API for image uploading (only if Cloudinary is configured)
 	if (landmark.get('wysiwyg cloudinary images')) {
 		if (!landmark.get('cloudinary config')) {
@@ -1131,26 +1139,26 @@ Landmark.prototype.routes = function(app) {
 		}
 		app.post('/landmark/api/cloudinary/upload', require('./routes/api/cloudinary').upload);
 	}
-
+	
 	// Generic Lists API
 	app.all('/landmark/api/:list/:action', initList(), require('./routes/api/list'));
-
+	
 	// Generic Lists Download Route
 	app.all('/landmark/download/:list', initList(), require('./routes/download/list'));
-
+	
 	// List and Item Details Admin Routes
 	app.all('/landmark/:list/:page([0-9]{1,5})?', initList(true), require('./routes/views/list'));
 	app.all('/landmark/:list/:item', initList(true), require('./routes/views/item'));
-
+	
 	return this;
-
+	
 };
 
 
 Landmark.prototype.bindEmailTestRoutes = function(app, emails) {
-
+	
 	var landmark = this;
-
+	
 	var handleError = function(req, res, err) {
 		if (res.err) {
 			res.err(err);
@@ -1159,11 +1167,11 @@ Landmark.prototype.bindEmailTestRoutes = function(app, emails) {
 			res.status(500).send(JSON.stringify(err));
 		}
 	};
-
+	
 	// TODO: Index of email tests, and custom email test 404's (currently bounces to list 404)
-
+	
 	_.each(emails, function(vars, key) {
-
+		
 		var render = function(err, req, res, locals) {
 			new landmark.Email(key).render(locals, function(err, email) {
 				if (err) {
@@ -1173,7 +1181,7 @@ Landmark.prototype.bindEmailTestRoutes = function(app, emails) {
 				}
 			});
 		};
-
+		
 		app.get('/landmark/test-email/' + key, function(req, res) {
 			if ('function' === typeof vars) {
 				vars(req, res, function(err, locals) {
@@ -1183,11 +1191,11 @@ Landmark.prototype.bindEmailTestRoutes = function(app, emails) {
 				render(null, req, res, vars);
 			}
 		});
-
+		
 	});
-
+	
 	return this;
-
+	
 };
 
 
@@ -1206,15 +1214,15 @@ Landmark.prototype.bindEmailTestRoutes = function(app, emails) {
  */
 
 Landmark.prototype.redirect = function() {
-
+	
 	if (arguments.length === 1 && utils.isObject(arguments[0])) {
 		_.extend(this._redirects, arguments[0]);
 	} else if (arguments.length === 2 && 'string' === typeof arguments[0] && 'string' === typeof arguments[1]) {
 		this._redirects[arguments[0]] = arguments[1];
 	}
-
+	
 	return this;
-
+	
 };
 
 
@@ -1236,7 +1244,7 @@ Landmark.prototype.redirect = function() {
  */
 
 Landmark.prototype.importer = function(rel__dirname) {
-
+	
 	var importer = function(from) {
 		var imported = {};
 		var joinPath = function() {
@@ -1260,9 +1268,9 @@ Landmark.prototype.importer = function(rel__dirname) {
 		});
 		return imported;
 	};
-
+	
 	return importer;
-
+	
 };
 
 
@@ -1279,15 +1287,15 @@ Landmark.prototype.importer = function(rel__dirname) {
  */
 
 Landmark.prototype.import = function(dirname) {
-
+	
 	var initialPath = path.join(moduleRoot, dirname);
-
+	
 	var doImport = function(fromPath) {
-
+		
 		var imported = {};
-
+		
 		fs.readdirSync(fromPath).forEach(function(name) {
-
+			
 			var fsPath = path.join(fromPath, name),
 			info = fs.statSync(fsPath);
 			
@@ -1302,12 +1310,12 @@ Landmark.prototype.import = function(dirname) {
 					imported[parts.join('-')] = require(fsPath);
 				}
 			}
-
+			
 		});
-
+		
 		return imported;
 	};
-
+	
 	return doImport(initialPath);
 };
 
@@ -1378,7 +1386,7 @@ Landmark.prototype.createItems = function(data, ops, callback) {
 	var lists = _.keys(data),
 		refs = {},
 		stats = {};
-		
+	
 	async.waterfall([
 		
 		// create items
@@ -1520,7 +1528,7 @@ Landmark.prototype.createItems = function(data, ops, callback) {
 								}
 								doneField(err);
 							});
-						
+							
 						} else if (_.isArray(fieldValue)) {
 							
 							if (field.many) {
@@ -1605,7 +1613,7 @@ Landmark.prototype.createItems = function(data, ops, callback) {
 		
 		callback(null, stats);
 	});
-
+	
 };
 
 
@@ -1616,30 +1624,30 @@ Landmark.prototype.createItems = function(data, ops, callback) {
  */
 
 Landmark.prototype.render = function(req, res, view, ext) {
-
+	
 	var landmark = this,
 		template = templateCache[view];
-
+		
 	var templatePath = __dirname + '/templates/views/' + view + '.jade';
-
+	
 	var jadeOptions = {
 		filename: templatePath,
 		pretty: landmark.get('env') !== 'production'
 	};
-
+	
 	// TODO: Allow custom basePath for extensions... like this or similar
 	// if (landmark.get('extensions')) {
 	// 	jadeOptions.basedir = landmark.getPath('extensions') + '/templates';
 	// }
-
+	
 	var compileTemplate = function() {
 		return jade.compile(fs.readFileSync(templatePath, 'utf8'), jadeOptions);
 	};
-
+	
 	var template = this.get('viewCache')
 		? templateCache[view] || (templateCache[view] = compileTemplate())
 		: compileTemplate();
-
+		
 	var flashMessages = {
 		info: res.req.flash('info'),
 		success: res.req.flash('success'),
@@ -1647,7 +1655,7 @@ Landmark.prototype.render = function(req, res, view, ext) {
 		error: res.req.flash('error'),
 		hilight: res.req.flash('hilight')
 	};
-
+	
 	var locals = {
 		_: _,
 		moment: moment,
@@ -1678,10 +1686,10 @@ Landmark.prototype.render = function(req, res, view, ext) {
 			additionalButtons: landmark.get('wysiwyg additional buttons') || ''
 		}
 	};
-
+	
 	// optional extensions to the local scope
 	_.extend(locals, ext);
-
+	
 	// add cloudinary locals if configured
 	if (landmark.get('cloudinary config')) {
 		try {
@@ -1704,12 +1712,12 @@ Landmark.prototype.render = function(req, res, view, ext) {
 			}
 		}
 	}
-
+	
 	// fieldLocals defines locals that are provided to each field's `render` method
 	locals.fieldLocals = _.pick(locals, '_', 'moment', 'numeral', 'env', 'js', 'utils', 'user', 'cloudinary');
-
+	
 	var html = template(_.extend(locals, ext));
-
+	
 	res.send(html);
 };
 
@@ -1723,7 +1731,7 @@ Landmark.prototype.render = function(req, res, view, ext) {
  */
 
 Landmark.prototype.populateRelated = function(docs, relationships, callback) {
-
+	
 	if (Array.isArray(docs)) {
 		async.each(docs, function(doc, done) {
 			doc.populateRelated(relationships, done);
@@ -1761,7 +1769,7 @@ Landmark.prototype.console.err = function(type, msg) {
 		var dashes = '\n------------------------------------------------\n';
 		console.log(dashes + 'LandmarkJS: ' + type + ':\n\n' + msg + dashes);
 	}
-
+	
 };
 
 /**
