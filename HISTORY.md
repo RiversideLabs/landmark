@@ -1,5 +1,17 @@
 # Landmark
 
+
+## v0.1.18 / 2014-06-19
+
+* updated; Admin UI visual tweaks
+* added; new CSRF implementation for more granular control
+* fixed; several UI and functionality issues with the new list recent-searches feature
+* added; S3 file - ability to specify a protocol for the file url
+* added; `cookie signin` option to control session persistence
+* added; `session options` option for better control over keys and stores, also exposes the final configuration after `start()` is called, thanks [killerbobjr](https://github.com/killerbobjr)
+* improved; Keystone now throws an error when no cookie secret is provided
+
+
 ## v0.1.17 / 2014-06-06
  +
  +* added; recent searches UI and functionality in the Admin UI
