@@ -156,6 +156,7 @@ Landmark's field types include:
 *	[Location](http://landmarkjs.com/docs/database/#fieldtypes-location)
 *	[CloudinaryImage](http://landmarkjs.com/docs/database/#fieldtypes-cloudinaryimage)
 *	[CloudinaryImages](http://landmarkjs.com/docs/database/#fieldtypes-cloudinaryimages)
+*	[LocalFile](http://landmarkjs.com/docs/database/#fieldtypes-localfile)
 *	[S3 File](http://landmarkjs.com/docs/database/#fieldtypes-s3file)
 *	[Embedly](http://landmarkjs.com/docs/database/#fieldtypes-embedly)
 
