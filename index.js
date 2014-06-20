@@ -610,10 +610,6 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		app.use(express.logger(this.get('logger')));
 	}
 	
-	if (this.get('file limit')) {
-		app.use(express.limit(this.get('file limit')));
-	}
-	
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(sessionOptions.cookieParser);
@@ -905,7 +901,6 @@ Landmark.prototype.start = function(events) {
 		//
 		// For more information on how these options work, see
 		// http://nodejs.org/api/http.html#http_server_listen_port_hostname_backlog_callback
-
 		
 		landmark.httpServer = http.createServer(app);
 		events.onHttpServerCreated && events.onHttpServerCreated();

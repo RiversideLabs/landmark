@@ -2,7 +2,8 @@
  * Landmark's prism.js theme for JavaScript, CSS and HTML
  * Based on the default prism.js theme
  * Based on dabblet (http://dabblet.com)
- * @author Mike Stecker (original by Lea Verou)
+ * @author Jed Watson (original by Lea Verou)
+ * Modified by Mike Stecker
  */
 
 code[class*="language-"],
@@ -100,4 +101,3 @@ code[class*="language-"]::selection, code[class*="language-"] ::selection {
 .token.important {
 	font-weight: bold;
 }
-

@@ -9,7 +9,7 @@
 * added; S3 file - ability to specify a protocol for the file url
 * added; `cookie signin` option to control session persistence
 * added; `session options` option for better control over keys and stores, also exposes the final configuration after `start()` is called, thanks [killerbobjr](https://github.com/killerbobjr)
-* improved; Keystone now throws an error when no cookie secret is provided
+* improved; Landmark now throws an error when no cookie secret is provided
 
 
 ## v0.1.17 / 2014-06-06
