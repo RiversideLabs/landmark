@@ -278,6 +278,7 @@ jQuery(function($) {
 		
 		$image.attr('src', src.replace(/^(\/\/www\.gravatar\.com\/avatar\/)[^\?]+(\?.*$)/i,'$1' + md5(val) + '$2'));
 	});
+
 	
 	$('.search-form').hide();
 	$('.search-open').click(function() {

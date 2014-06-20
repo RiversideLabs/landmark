@@ -296,3 +296,4 @@ jQuery(function($) {
 	});
 	
 });
+

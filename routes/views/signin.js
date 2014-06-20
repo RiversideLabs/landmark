@@ -13,7 +13,7 @@ exports = module.exports = function(req, res) {
 
 	// If a form was submitted, process the login attempt
 	if (req.method === 'POST') {
-		
+
 		if (!landmark.security.csrf.validate(req)) {
 			req.flash('error', 'There was an error with your request, please try again.');
 			return renderView();

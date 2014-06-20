@@ -137,11 +137,10 @@ h4 {
 			background-color: @navbar-landmark-toggle-icon-bar-bg;
 		}
 	}
-	
+
 	.navbar-collapse {
 		.transition( all 200ms linear );
 	}
-
 	.navbar-collapse,
 	.navbar-form {
 		border-color: darken(@navbar-landmark-bg, 7%);
@@ -153,6 +152,7 @@ h4 {
 			&:hover,
 			&:focus {
 				background-color: @navbar-landmark-link-active-bg;
+				color: @navbar-landmark-link-active-color;
 			}
 		}
 		> .dropdown > a:hover .caret {
@@ -179,8 +179,7 @@ h4 {
 				&,
 				&:hover,
 				&:focus {
-					#gradient .vertical( spin(@navbar-landmark-link-active-bg,5%), spin(@navbar-landmark-link-active-bg,-5%), 0%, 100% );
-					.box-shadow( inset 0 1px 3px rgba(0,0,0,0.25) );
+					background-color: @navbar-landmark-link-active-bg;
 				}
 			}
 		}
@@ -636,7 +635,7 @@ h3.relationship-heading {
 		> td {
 			background-color: @table-bg-accent;
 		}
-	}
+    }
 
 	thead > tr > th,
 	tbody > tr > th,
@@ -737,3 +736,6 @@ table.relationships-list {
 		}
 	}
 }
+
+
+
