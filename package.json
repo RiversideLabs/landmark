@@ -26,7 +26,7 @@
     "numeral": "~1.5.3",
     "semver": "~2.3.0",
     "knox": "~0.8.10",
-    "azure": "~0.9.8",
+    "azure": "~0.9.9",
     "range_check": "~0.0.4",
     "queryfilter": "~0.0.4",
     "connect-mongo": "~0.4.1"
