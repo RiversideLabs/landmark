@@ -206,8 +206,46 @@ block content
 				tr
 					td <code>session store</code> <code class="data-type">String</code>
 					td
-						p Set this to <code class="default-value">mongo</code> to use your database to persist session data.
+						p Set this to <code class="default-value">mongo</code> to use your MongoDB database to persist session data.
 						p By default, Landmark will use the in-memory session store provided by Express, which should only be used in development because it does not scale past a single process, and leaks memory over time.
+						p Valid options are:
+						ul
+							li <code class="default-value">mongo</code> (or <code class="default-value">connect-mongo</code>)
+							li <code class="default-value">connect-mongostore</code> (supports replica sets, but requires explicit configuration - see below)
+							li <code class="default-value">connect-redis</code>
+						p.note Session store packages are not bundled with Landmark, so make sure you explicitly add the selected session store to your project's <code>package.json</code>.
+				tr
+					td <code>session store options</code> <code class="data-type">Object</code>
+					td
+						p This option allows you to override the default session store configuration, and is passed to the session store package.
+						p It is required when using the <code class="default-value">connect-mongostore</code> store.
+						
+						.code-header
+							h4 Example for connect-mongostore
+						pre: code.language-javascript
+							| "sessionStore": {
+							|   "db": {
+							|     "name": "myDb",
+							|     "servers": [
+							|       { "host": "192.168.1.100", "port": 28001 },
+							|       { "host": "192.168.1.100", "port": 28002 },
+							|       { "host": "192.168.1.101", "port": 27017 }
+							|     ]
+							|   }
+							| }
+							
+						.code-header
+							h4 Example for connect-redis
+						pre: code.language-javascript
+							| "sessionStore": {
+							|   "host": "", // Redis server hostname
+							|   "port": "", // Redis server port
+							|   "ttl": "", // Redis session TTL in seconds
+							|   "db": "", // Database index to use
+							|   "pass": "", // Password for Redis authentication
+							|   "prefix": "", // Key prefix defaulting to "sess:"
+							|   "url": "", // e.g. redis://user:pass@host:port/db
+							| }
 				tr
 					td <code>back url</code> <code class="data-type">String</code>
 					td
@@ -289,7 +327,7 @@ block content
 						p Your Google API server key, used to authenticate requests to the Maps API from the server.
 						p Will default to <code class="default-value">process.env.GOOGLE_SERVER_KEY</code>
 				tr
-					td <code>default region</code> <code class="data-type">String</code> 
+					td <code>default region</code> <code class="data-type">String</code>
 					td
 						p <strong>Optional</strong> setting to limit autocomplete results to a specific region.
 						p This option takes a region code, specified as a <a href="http://www.iana.org/assignments/language-subtag-registry/language-subtag-registry" target="_blank">IANA language region</a> subtag.
@@ -361,7 +399,7 @@ block content
 			
 			pre: code.language-javascript
 				| landmark.set('cloudinary config', { cloud_name: 'my-cloud', api_key: 'abc', api_secret: '123' });
-				| // or 
+				| // or
 				| landmark.set('cloudinary config', 'cloudinary://api_key:api_secret@cloud_name' );
 				| 
 				| // optional, will prefix all built-in tags with 'landmark_'
@@ -385,8 +423,7 @@ block content
 
 			a(name='services-mandrill')
 			h3 Mandrill
-			p <a href="http://mandrill.com" target="_blank">Mandrill</a> is a scalable and affordable email infrastructure service that allows you to send emails easily. They offer a free plan for up to 12,000
-			emails per month.
+			p <a href="http://mandrill.com" target="_blank">Mandrill</a> is a scalable and affordable email infrastructure service that allows you to send emails easily. They offer a free plan for up to 12,000 emails per month.
 
 			p To configure LandmarkJS to support the Mandrill API, simply <a href="https://mandrill.com/signup/">sign up for an account</a>, get your api key, and set both the <code>mandrill api key</code> and <code>mandrill username</code> options.
 			
@@ -449,6 +486,6 @@ block content
 			a(name='headless')
 			h2 Disabling the Admin UI
 			
-			p You can disable the Admin UI by setting the <code>headless</code> option to <code class="default-value">false</code>.
+			p You can disable the Admin UI by setting the <code>headless</code> option to <code class="default-value">true</code>.
 			
 			p This will allow you to use <code>landmark.start()</code> or <code>landmark.routes(app)</code> without Landmark creating route bindings for the Admin UI routes under <code class="default-value">/landmark</code>.

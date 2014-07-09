@@ -28,7 +28,6 @@ We have a demo website at [demo.landmarkjs.com](http://demo.landmarkjs.com/) whe
 
 If you have ideas or questions, get in touch on the [LandmarkJS Google Group](https://groups.google.com/d/forum/landmarkjs) or tweet at [@LandmarkJS](https://twitter.com/LandmarkJS) on twitter.
 
-
 ### Contributing
 
 LandmarkJS has a big vision, and the support of the community is an important part of making it a reality.
@@ -63,7 +62,7 @@ After the intallation is complete, run this command to start Landmark:
 
     node landmark
 
-Alternatively, to include Landmark in an existing project or start from scratch (without Yeoman), specify `landmark: "0.2.x"` in the `dependencies` array in your `package.json` file, and run `npm install` from your terminal.
+Alternatively, to include Landmark in an existing project or start from scratch (without Yeoman), specify `landmark: "0.1.x"` in the `dependencies` array in your `package.json` file, and run `npm install` from your terminal.
 
 Then read through the [Documentation](http://landmarkjs.com/docs) and the [Example Projects](http://landmarkjs.com/examples) to understand how to use it.
 
@@ -75,37 +74,37 @@ Running in default mode, Landmark takes care of everything required to configure
 Here is an example of what your `landmark.js` (or `app.js`, etc) file may look like:
 
 	var landmark = require('landmark-serve');
-
+    
 	landmark.init({
-
+		
 		'name': 'My Project',
 		'brand': 'Project',
-
+		
 		'favicon': 'public/favicon.ico',
 		'less': 'public',
 		'static': 'public',
-
+		
 		'views': 'templates/views',
 		'view engine': 'jade',
-
+		
 		'auth': true,
 		'user model': 'User',
 		'cookie secret': '--- your secret ---',
-
+		
 		'auto update': true,
-
+		
 		'emails': 'templates/emails',
 		'mandrill api key': '--- your api key ---',
 		'email rules': { find: '/images/', replace: (landmark.get('env') != 'production') ? 'http://localhost:3000/images/' : 'http://www.landmarkjs.com/images/email/' },
-
+		
 		'cloudinary config': { cloud_name: '--- your cloud name ---', api_key: '--- your api key ---', api_secret: '--- your api secret ---' }
-
+		
 	});
-
+    
 	landmark.import('models');
-
+    
 	landmark.set('routes', require('./routes'));
-
+		
 	landmark.start();
 
 
@@ -127,7 +126,7 @@ To understand how these settings are used, and how the Express application initi
 Landmark builds on the basic data types provided by mongo and allows you to easily add rich,
 functional fields to your application's models.
 
-You get helper methods on your models for dealing with each field type easily (such as
+You get helper methods on your models for dealing with each field type easily (such as 
 formatting a date or number, resizing an image, getting an array of the available options
 for a select field, or using Google's Places API to improve addresses) as well as a beautiful,
 responsive admin UI to edit your data with.
@@ -143,7 +142,7 @@ Landmark's field types include:
 *	[Email](http://landmarkjs.com/docs/database/#fieldtypes-email)
 *	[Url](http://landmarkjs.com/docs/database/#fieldtypes-url)
 *	[Html](http://landmarkjs.com/docs/database/#fieldtypes-html)
-*	[Color](http://keystonejs.com/docs/database/#fieldtypes-color)
+*	[Color](http://landmarkjs.com/docs/database/#fieldtypes-color)
 *	[Date](http://landmarkjs.com/docs/database/#fieldtypes-date)
 *	[Datetime](http://landmarkjs.com/docs/database/#fieldtypes-datetime)
 *	[Key](http://landmarkjs.com/docs/database/#fieldtypes-key)
@@ -196,11 +195,11 @@ You can provide a `mongoose` or `express` instance to Landmark's `connect` funct
 
 ### Mounting Landmark as a sub-app or creating a node module out of your Landmark project
 
-You may also just want to mount Landmark as a sub-app within a larger express app, and still let Landmark run its full configuration and setup routine but not start its own http server (i.e. `embedded` mode).
+You may also just want to mount Landmark as a sub-app within a larger express app, and still let Landmark run its full configuration and setup routine but not start its own http server (i.e. `embedded` mode). 
 
 …Or you might also want to turn a Landmark project into a node module that can be embedded easily via `npm link` or `npm install`.
 
-The following detailed example will cover both creating a node module as well as mounting the Landmark app as a sub-app within a larger Express based application.
+The following detailed example will cover both creating a node module as well as mounting the Landmark app as a sub-app within a larger Express based application. 
 
 Let's say you have a solution broken out into a structure like so…
 
@@ -231,19 +230,19 @@ var landmark = require('landmark-serve');
 // and documentation.
 
 landmark.init({
-
+	
 	'name': 'Your App Name',
 	'brand': 'Your App Name',
-
+	
 	'emails': 'templates/emails',
-
+	
 	'auto update': true,
-
+	
 	'session': true,
 	'auth': true,
 	'user model': 'User',
 	'cookie secret': 'your cookie secret'
-
+	
 });
 
 // Load your project's Models
@@ -299,7 +298,7 @@ module.exports = landmark;
 
 ```
 
-Notice the last line. Instead of starting the landmark server via `landmark.start()` you simply export the landmark object. This will allow you to easily embed this module in another application.
+Notice the last line. Instead of starting the landmark server via `landmark.start()` you simply export the landmark object. This will allow you to easily embed this module in another application. 
 
 You may also want to make an `app.js` file at the same level as `landmark.js` the does nothing more than require this exported object and starts the server. This is useful if you still want to hack on your models and test them in an isolated manner.
 
@@ -320,7 +319,7 @@ The last piece of the setup for your embeddable Landmark project is to slightly 
   "version": "0.0.0",
   "private": true,
   "dependencies": {
-    "landmark-serve": "~0.1.0",
+    "landmark-serve": "~0.1.23",
     "async": "~0.2.9",
     "underscore": "~1.5.2",
     "dotenv": "0.0.3"
@@ -339,14 +338,14 @@ The last piece of the setup for your embeddable Landmark project is to slightly 
 
 Now to embed the Landmark project into your `/server` app as a node_module during development, just run `npm link` from within the `/content` project's root folder, followed by `npm link your-app-content` in the `/server` app's root folder (note: when doing the second `npm link`, replace `your-app-content` with the actual name of your `/content` app within its `package.json` file).
 
-The next step for all this to work is to use `landmark.mount` in the server app.
+The next step for all this to work is to use `landmark.mount` in the server app. 
 
 **Example `app.js` in `/server`:**
 
 ```
 var express = require('express'),
 	app = express();
-
+	
 app.landmark = require('your-app-content');
 
 //...do your normal express setup stuff, add middleware and routes (but not static content or error handling middleware yet)
@@ -391,9 +390,9 @@ Thanks to the following companies and projects whose work we have used or taken 
 
 (The MIT License)
 
-Original KeystoneJS Copyright (c) 2014 Jed Watson
-
 LandmarkJS Copyright (c) 2014 Mike Stecker
+
+LandmarkJS is based off KeystoneJS, Copyright (c) 2014 Jed Watson
 
 Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the
