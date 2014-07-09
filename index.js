@@ -610,6 +610,10 @@ Landmark.prototype.mount = function(mountPath, parentApp, events) {
 		app.use(express.logger(this.get('logger')));
 	}
 	
+	if (this.get('file limit')) {
+		app.use(express.limit(this.get('file limit')));
+	}
+	
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
 	app.use(sessionOptions.cookieParser);
