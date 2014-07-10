@@ -105,7 +105,7 @@ var Landmark = function() {
 	
 };
 
-_.extend(Keystone.prototype, require('./lib/core/options')(moduleRoot));
+_.extend(Landmark.prototype, require('./lib/core/options')(moduleRoot));
 
 
 /**
