@@ -1,0 +1,13 @@
+mixin docsnav(docssection)
+	.visible-xs: ul.nav-toggle
+		each item in docsnav
+			li(class=docssection.value == item.value ? 'active' : null)
+				a(href=item.path).nav-heading= item.labelsm
+		
+	nav.docs-sidebar.hidden-xs
+		ul.sidebar-nav
+			li(class=docssection.value == 'introduction' ? 'active' : null)
+				a(href='/docs').nav-heading Welcome
+			each item in docsnav
+				li(class=docssection.value == item.value ? 'active' : null)
+					a(href=item.path).nav-heading= item.label
