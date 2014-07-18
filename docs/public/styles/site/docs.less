@@ -2,6 +2,37 @@
 // DOCUMENTATION
 // ==============================
 
+.docs-master-nav {
+	margin: 50px 0;
+	
+	ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		.make-row(@gutter: 0);
+	}
+	
+	li {
+		.make-xs-column(6; @gutter: 0);
+		
+		a {
+			.button-variant(#3a3a3a; transparent; #ebebeb);
+			
+			font-size: 18px;
+			font-weight: 100;
+			padding-top: 24px;
+			padding-bottom: 24px;
+			border-radius: 0;
+		}
+		&.active a {
+			background-color: #ebebeb;
+		}
+	}
+	
+	@media (min-width: @screen-sm-min) {
+		
+	}
+}
 
 
 
@@ -188,10 +219,10 @@ h2:first-child {
 	}
 }
 .page-header {
-	// #gradient .directional(spin(@link-color, 6%), spin(@link-color, -6%), 120deg);
-	background-color: #fafafa;
-	background-color: @link-color;
-	background: url( "/images/intro-bg-inverse.png" ) no-repeat right bottom @link-color;
+	//background: url( "/images/bg-skyline.svg" ) no-repeat center center @brand-primary;
+	background: @brand-primary;
+	background-size: cover;
+	
 	border-bottom: 0 none; // override twbs styles
 	margin-bottom: 0;
 	margin-top: 0;

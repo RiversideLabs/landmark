@@ -1,0 +1,6 @@
+mixin docsnavtop(docstype)
+	.container: nav.docs-master-nav
+		ul
+			each item in docsnav
+				li(class=docstype == item.value ? 'active' : null)
+					a(href=item.path, class='btn btn-clear btn-lg btn-block').nav-heading= item.label

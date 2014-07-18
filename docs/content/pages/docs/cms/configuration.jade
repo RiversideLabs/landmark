@@ -1,6 +1,7 @@
-extends ../../templates/layout/base
+extends ../../../templates/layout/base
 
-include ../../templates/mixins/docsnav
+include ../../../templates/mixins/docsnavcms
+include ../../../templates/mixins/docsnavtop
 
 block intro
 	.page-header
@@ -9,10 +10,12 @@ block intro
 			p.lead How to roll LandmarkJS the way you want it.
 
 block content
+	+docsnavtop(docstype)
+
 	.container: .row
 		
 		.col-sm-3
-			+docsnav(docssection)
+			+docsnavcms(docssectioncms)
 		
 		.col-sm-9: .docs-content
 			

@@ -1,0 +1,29 @@
+extends ../../../templates/layout/base
+
+include ../../../templates/mixins/docsnavapp
+include ../../../templates/mixins/docsnavtop
+
+block content
+  +docsnavtop(docstype)
+  
+  .container: .row
+    
+    .col-sm-3
+      +docsnavapp(docssectionapp)
+    
+    .col-sm-9: .docs-content
+      h2 Welcome
+      
+      h3 Let's jump in
+      p.lead.text-muted Use the sidebar on the left to navigate between the two main sections of the docs; Getting Started and Configuration.
+      .row
+        .col-sm-12.col-md-6
+          .feature-panel
+            .feature-content
+              h4: a(href='/docs/getting-started') Getting Started
+              p The getting started guide walks you through how to manually setup a Landmark Connect app. it's a great place to begin.
+        .col-sm-12.col-md-6
+          .feature-panel
+            .feature-content
+              h4: a(href='/docs/configuration') Configuration
+              p Once you're comfortable with Landmark Connect it's time to configure. There are many possible settings and services to let you build your app.

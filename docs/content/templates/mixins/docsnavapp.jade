@@ -1,0 +1,24 @@
+mixin docsnavapp(docssectionapp)
+	.visible-xs: ul.nav-toggle
+		each item in docsnavapp
+			li(class=docssectionapp.value == item.value ? 'active' : null)
+				a(href=item.path).nav-heading= item.labelsm
+		
+	nav.docs-sidebar.hidden-xs
+		ul.sidebar-nav
+			li(class=docssectionapp.value == 'introduction' ? 'active' : null)
+				a(href='/docs').nav-heading Welcome
+			each item in docsnavapp
+				li(class=docssectionapp.value == item.value ? 'active' : null)
+					a(href=item.path).nav-heading= item.label
+		if docssectionapp.value != 'introduction'
+			hr
+			ul.sidebar-nav
+				each item in docsnavapp
+					if (item.value == docssectionapp.value ) && item.value == 'getting-started'
+						ul
+							li.nav-label: a(href='#introduction') Introduction
+							
+					if (item.value == docssectionapp.value ) && item.value == 'configuration'
+						ul
+							li.nav-label Coming Soon

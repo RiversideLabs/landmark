@@ -1,6 +1,7 @@
-extends ../../templates/layout/base
+extends ../../../templates/layout/base
 
-include ../../templates/mixins/docsnav
+include ../../../templates/mixins/docsnavcms
+include ../../../templates/mixins/docsnavtop
 
 block intro
 	.page-header
@@ -10,10 +11,12 @@ block intro
 				a(href='/getting-started') There's also a generator.
 	
 block content
+	+docsnavtop(docstype)
+	
 	.container: .row
 		
 		.col-sm-3
-			+docsnav(docssection)
+			+docsnavcms(docssectioncms)
 		
 		.col-sm-9: .docs-content
 			

@@ -4,135 +4,89 @@ block nav
 
 block intro
 	.home-hero: .container
-		h1 Node.js CMS and web application platform built on Express and MongoDB.
-		p.buttons
-			a(href='/getting-started', title='LandmarkJS getting started guide').btn.btn-lg.btn-primary
-				span.hidden-xs Get Started
-				span.visible-xs Start
-			a(href='http://demo.landmarkjs.com', target='_blank', title='Demo Website (new window)').btn.btn-lg.btn-link.hidden-xs Try the demo
+		.row
+			.col-xs-6.col-sm-6.col-sm-push-1.home-intro-text
+				h1 Share the Historical Landmarks in Your City!
+				h3 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus malesuada diam vel nunc rhoncus.
+				ul.list-inline.list-links
+					li Current version #{version}
+					li: a(href='https://github.com/RiversideLabs/landmark/blob/master/HISTORY.md', target='_blank', title='View Changelog on GitHub') What’s New
+					li: a(href='/examples', title='Sample Applications').hidden-xs Examples
+					li: a(href='http://github.com/RiversideLabs/landmark', target='_blank') GitHub Project
+			.col-xs-4.col-xs-offset-1
+				img(src='/images/home/intro-phone.png').img-responsive
 			
-			//- Clutter?
-			//- a(href='/examples', title='Sample Applications').btn.btn-lg.btn-link Examples
-			
-		ul.list-inline.list-links
-			li Current version #{version}
-			li: a(href='https://github.com/RiversideLabs/landmark/blob/master/HISTORY.md', target='_blank', title='View Changelog on GitHub') What’s New
-			li: a(href='/examples', title='Sample Applications').hidden-xs Examples
-			li: a(href='http://github.com/RiversideLabs/landmark', target='_blank') GitHub Project
+		
 			
 		//- MIT Licence metioned in the subheader and footer
 		//- .mit-licence
 			a(href='http://opensource.org/licenses/MIT', target='_blank').licence-badge MIT Licence
 			span.licence-text Landmark is free and open source.
 
-	include ../templates/includes/page-subheader
+	
 
 block content
-	//- section.intro-section.whatis-section: .container
+	section.intro-section.opensource-section: .container
 		.section-header
-			h2 What is LandmarkJS
-			p.lead Landmark is the easiest way to build a web application or content-managed website in Node.js
+			h2 It's open source to help save you time and money.
+			p.lead This means that it's a pre-built app in which all you need to add is your custom styling and content.
+	include ../templates/includes/page-subheader
+	
 	section.intro-section.building-section: .container
 		.section-header
 			h2 Get a head-start on the features you need
-			p.lead Landmark is the easiest way to build database-driven websites, applications and APIs in Node.js.
+			p.lead Landmark is the easiest way to build an app for showing off your city!
 		.row
-			.col-sm-6.col-md-4.col-lg-3
+			.col-sm-5.col-sm-offset-1
 				.feature-panel
-					span.feature-icon.entypo.entypo-leaf
+					span.feature-icon
+						img(src='/images/home/home-macbook.png', width='338', height='195').img-responsive
 					.feature-content
-						h4 Express.js and MongoDB
-						p Landmark will configure express - the de facto web server for node.js - for you and connect to your MongoDB database using Mongoose, the leading ODM package.
-			.col-sm-6.col-md-4.col-lg-3
+						h4 Easy-to-Use Content Management System
+						p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo lobortis tincidunt. Vestibulum bibendum varius purus quis imperdiet. Vivamus ornare, purus vitae sodales lobortis, orci nibh.
+			.col-sm-5
 				.feature-panel
-					span.feature-icon.entypo.entypo-shuffle
+					span.feature-icon
+						img(src='/images/home/home-iphone.png', width='94', height='195').img-responsive
 					.feature-content
-						h4 Dynamic Routes
-						p Landmark starts with best practices for setting up your MV* application, and makes it easy to manage your templates, views and routes.
-			.col-sm-6.col-md-4.col-lg-3
-				.feature-panel
-					span.feature-icon.entypo.entypo-picture
-					.feature-content
-						h4 Database Fields
-						p IDs, Strings, Booleans, Dates and Numbers are the building blocks of your database. Landmark builds on these with useful, real-world field types like name, email, password, address, image and relationship fields (and more)
-			.col-sm-6.col-md-4.col-lg-3
-				.feature-panel
-					span.feature-icon.entypo.entypo-light-bulb
-					.feature-content
-						h4 Auto-generated Admin UI
-						p Whether you use it while you're building out your application, or in production as a database content management system, Landmark's Admin UI will save you time and make managing your data easy.
-			.col-sm-6.col-md-4.col-lg-3
-				.feature-panel
-					span.feature-icon.entypo.entypo-pencil
-					.feature-content
-						h4 Simpler Code
-						p Sometimes, async code can get complicated to do simple things. Landmark helps keep simple things - like loading data before displaying it in a view - simple.
-			.col-sm-6.col-md-4.col-lg-3
-				.feature-panel
-					span.feature-icon.entypo.entypo-docs
-					.feature-content
-						h4 Form Processing
-						p Want to validate a form, upload an image, and update your database with a single line? Landmark can do that, based on the data models you've already defined.
-			.col-sm-6.col-md-4.col-lg-3
-				.feature-panel
-					span.feature-icon.entypo.entypo-users
-					.feature-content
-						h4 Session Management
-						p Landmark comes ready out of the box with session management and authentication features, including automatic encryption for password fields.
-			.col-sm-6.col-md-4.col-lg-3
-				.feature-panel
-					span.feature-icon.entypo.entypo-paper-plane
-					.feature-content
-						h4 Email Sending
-						p Landmark makes it easy to set up, preview and send template-based emails for your application. It also integrates with Mandrill (Mailchimp's excellent transaction email sending service)
-			.col-sm-6.col-md-4.col-lg-3.hidden-sm.hidden-lg
-				.feature-panel
-					span.feature-icon.entypo.entypo-publish
-					.feature-content
-						h4 Managed Updates
-						p Landmark includes an optional updates framework, that can take care of running update scripts for you, making it easy to transition from development to production.
+						h4 Pre-Built App
+						p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo lobortis tincidunt. Vestibulum bibendum varius purus quis imperdiet. Vivamus ornare, purus vitae sodales lobortis, orci nibh.
 	
+	section.intro-section.benefits-section
+		.container
+			.section-header
+				h2 Benefits
+			.row
+				.col-sm-4
+					.benefit-panel
+						.benefit-icon: span
+							img(src='/images/home/icon-camera.svg', width='84', height='58').img-responsive
+						.benefit-content
+							h4 Tourism & Education
+							p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo lobortis tincidunt. Vestibulum bibendum varius purus quis imperdiet.
+				.col-sm-4
+					.benefit-panel
+						.benefit-icon: span
+							img(src='/images/home/icon-glasses.svg', width='130', height='39').img-responsive
+						.benefit-content
+							h4 Crisp, Clean Design
+							p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo lobortis tincidunt. Vestibulum bibendum varius purus quis imperdiet.
+				.col-sm-4
+					.benefit-panel
+						.benefit-icon: span
+							img(src='/images/home/icon-figure.svg', width='41', height='87').img-responsive
+						.benefit-content
+							h4 User-Friendly CMS
+							p Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin commodo lobortis tincidunt. Vestibulum bibendum varius purus quis imperdiet.
 			
 	section.intro-section.admin-section
 		.container: .section-header
 			h2 Admin Interface
-			p.lead Landmark gives you a beautiful, customisable Admin UI based on your models
+			p.lead Landmark gives you a beautiful, customisable Admin UI to manage your app's data.
 		.container.admin-image-full
 			img(src='/images/home/admin-interface.png').img-responsive
-		//- .container-sm
-			.row
-				.col-sm-6
-					h3 Everything you need
-					p Create, manage, edit, delete. Landmark's Admin UI takes care of the basics so you don't have to.
-					p Configure which fields are editable, which models are creatable, and customise everything to your heart's content.
-				.col-sm-6
-					.admin-image: img(src='/images/home/inline-item-creation.png').img-responsive.img-circle
-			.row
-				.col-sm-6.col-sm-push-6
-					h3 Responsive &amp; Themeable
-					p Want to use your CMS on the go? with Landmark you can.
-					p Landmark's Admin UI is built on Bootstrap 3, and works with all screen sizes and devices.
-					p You can also change the theme (or remove ours) using one of the most popular css frameworks on the internet.
-				.col-sm-6.col-sm-pull-6
-					.admin-image: img(src='/images/home/responsive-design.png').img-responsive.img-circle
-			.row
-				.col-sm-6
-					h3 Sophisticated Filtering
-					p Landmark's Admin UI goes beyond just searching and lets you visually create your own queries, based on any field in your database.
-					p Each field type has its own rules and UI - so you can filter by dates, locations and more.
-				.col-sm-6
-					.admin-image: img(src='/images/home/sophisticated-filtering.png').img-responsive.img-circle
-			.row
-				.col-sm-6.col-sm-push-6
-					h3 Beautiful forms
-					p Landmark doesn't just understand the structure of your data - it understands the intention of your data.
-					p So date fields become date pickers, HTML fields become WYSIWYG editors, and relationships become search boxes.
-					p Fields can also depend on conditions, so complex forms become simple.
-				.col-sm-6.col-sm-pull-6
-					.admin-image: img(src='/images/home/sophisticated-fields.png').img-responsive.img-circle
 	
-	
-	section.intro-section.tools-section
+	//- section.intro-section.tools-section
 		span.tool-icon.tool-icon__cloud.entypo.entypo-cloud
 		span.tool-icon.tool-icon__rocket.entypo.entypo-rocket
 		.container
@@ -160,29 +114,23 @@ block content
 					p One of the greatest things about node.js is the vast number of quality packages available.
 					p Landmark is designed to let you use any of them, without losing the benefits it provides.
 	
-	section.intro-section.cta-section: .container
-		.row
-			.col-sm-6: .left-col
-				h3: a(href='/getting-started', title='LandmarkJS Getting Started') Get Started &rarr;
-				p.lead Sound like what you've been looking for? Check out the getting started guide and learn how to get up and running in less than a minute.
-			.col-sm-6: .right-col
-				h3: a(href="mailto:contact@landmarkjs.com") Get in Touch &rarr;
-				p.lead If you are using Landmark for a project, interested in contributing, or looking for commercial support, we'd love to hear about it. Please contact us.
+	section.intro-section.cta-section
+		span.tool-icon.tool-icon__cloud.entypo.entypo-cloud
+		span.tool-icon.tool-icon__rocket.entypo.entypo-rocket
+		.container
+			.row
+				.col-sm-6: .left-col
+					a(href='/getting-started', class='btn btn-clear btn-lg btn-block', title='LandmarkJS Getting Started') Get Started &rarr;
+				.col-sm-6: .right-col
+					a(href='/examples', class='btn btn-clear btn-lg btn-block', title='LandmarkJS Getting Started') View Examples &rarr;
+				//- .col-sm-6: .left-col
+					h3: a(href='/getting-started', title='LandmarkJS Getting Started') Get Started &rarr;
+					p.lead Sound like what you've been looking for? Check out the getting started guide and learn how to get up and running in less than a minute.
+				//- .col-sm-6: .right-col
+					h3: a(href="mailto:contact@landmarkjs.com") Get in Touch &rarr;
+					p.lead If you are using Landmark for a project, interested in contributing, or looking for commercial support, we'd love to hear about it. Please contact us.
 				
 		
-		
-		
-	
-	
-	//- section.intro-section.cta-section: .container: .section-header
-		h3 Vision
-		p Landmark has been built based on patterns and tools that have evolved in the real world,
-			| and the core team has used it in several production applications.
-		p We have released Landmark under the MIT License to help other developers, and so the project can grow beyond what we're using it for.
-		p Feedback and contributions are very welcome. We are currently working on documentation and examples, and have a lot of exciting features to add.
-	
-	//- section.intro-section.cta-section: .container: .row: .col-sm-8.col-sm-offset-2.col-md-6.col-md-offset-3.text-center
-		p.lead If you are interested in using Landmark for a project, contributing, or looking for commercial support, we'd love to hear about it. Please <a href="mailto:contact@landmarkjs.com">get in touch</a>.
 	
 	
 block js

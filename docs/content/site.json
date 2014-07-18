@@ -1,15 +1,23 @@
 {
 	"locals": {
 		"primarynav": [
-			{ "section": "home",                "path": "/",                      "label": "Home" },
-			{ "section": "starting",            "path": "/getting-started",       "label": "Getting Started" },
-			{ "section": "docs",                "path": "/docs",                  "label": "Documentation" },
-			{ "section": "examples",            "path": "/examples",              "label": "Examples" }
+			{ "section": "home",                "path": "/",                      		"label": "Home" },
+			{ "section": "docs",                "path": "/docs",                  		"label": "Documentation" },
+			{ "section": "examples",            "path": "/examples",              		"label": "Examples" },
+			{ "section": "support",            	"path": "/support",       						"label": "Support" }
 		],
 		"docsnav": [
-			{ "value": "getting-started",  "path": "/docs/getting-started",  "label": "Getting Started",  "labelsm": "Starting" },
-			{ "value": "configuration",    "path": "/docs/configuration",    "label": "Configuration",    "labelsm": "Config" },
-			{ "value": "database",         "path": "/docs/database",         "label": "Database",         "labelsm": "Data" }
+			{ "value": "cms",										"path": "/docs/cms",  								"label": "CMS Documentation",		"labelsm": "CMS" },
+			{ "value": "app",										"path": "/docs/app",    							"label": "App Documentation",		"labelsm": "App" }
+		],
+		"docsnavcms": [
+			{ "value": "getting-started",				"path": "/docs/cms/getting-started",	"label": "Getting Started",			"labelsm": "Starting" },
+			{ "value": "configuration",					"path": "/docs/cms/configuration",    "label": "Configuration",    		"labelsm": "Config" },
+			{ "value": "database",							"path": "/docs/cms/database",         "label": "Database",         		"labelsm": "Data" }
+		],
+		"docsnavapp": [
+			{ "value": "getting-started",				"path": "/docs/app/getting-started",	"label": "Getting Started",			"labelsm": "Starting" },
+			{ "value": "configuration",					"path": "/docs/app/configuration",		"label": "Configuration",				"labelsm": "Config" }
 		]
 	},
 	"routes": [
@@ -17,7 +25,8 @@
 			"path": "/",
 			"template": "home",
 			"section": "home",
-			"title": "Node.js cms and web application platform built on Express and MongoDB"
+			"title": "Share the Historical Landmarks in Your City!",
+			"subtitle": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vivamus malesuada diam vel nunc rhoncus."
 		},
 		{
 			"path": "/getting-started",
@@ -40,26 +49,66 @@
 			"docssection": { "value": "introduction", "path": "/docs", "label": "Introduction" },
 			"title": "LandmarkJS Documentation"
 		},
+		
+		
 		{
-			"path": "/docs/getting-started",
-			"template": "docs/getting-started",
+			"path": "/docs/cms",
+			"template": "docs/cms/index",
 			"section": "docs",
-			"docssection": { "value": "getting-started", "path": "/docs/guides", "label": "Guides" },
+			"docstype": "cms",
+			"docssectioncms": { "value": "introduction", "path": "/docs/cms", "label": "Introduction" },
+			"title": "LandmarkJS Documentation"
+		},
+		{
+			"path": "/docs/cms/getting-started",
+			"template": "docs/cms/getting-started",
+			"section": "docs",
+			"docstype": "cms",
+			"docssectioncms": { "value": "getting-started", "path": "/docs/cms/guides", "label": "Guides" },
 			"title": "Getting Started"
 		},
 		{
-			"path": "/docs/configuration",
-			"template": "docs/configuration",
+			"path": "/docs/cms/configuration",
+			"template": "docs/cms/configuration",
 			"section": "docs",
-			"docssection": { "value": "configuration", "path": "/docs/configuration", "label": "Configuration" },
+			"docstype": "cms",
+			"docssectioncms": { "value": "configuration", "path": "/docs/cms/configuration", "label": "Configuration" },
 			"title": "Configuration"
 		},
 		{
-			"path": "/docs/database",
-			"template": "docs/database",
+			"path": "/docs/cms/database",
+			"template": "docs/cms/database",
 			"section": "docs",
-			"docssection": { "value": "database", "path": "/docs/database", "label": "Database" },
+			"docstype": "cms",
+			"docssectioncms": { "value": "database", "path": "/docs/cms/database", "label": "Database" },
 			"title": "Setting up and using Data Models"
+		},
+		
+		
+		
+		{
+			"path": "/docs/app",
+			"template": "docs/app/index",
+			"section": "docs",
+			"docstype": "app",
+			"docssectionapp": { "value": "introduction", "path": "/docs/app", "label": "Introduction" },
+			"title": "Landmark Connect Documentation"
+		},
+		{
+			"path": "/docs/app/getting-started",
+			"template": "docs/app/getting-started",
+			"section": "docs",
+			"docstype": "app",
+			"docssectionapp": { "value": "getting-started", "path": "/docs/app/guides", "label": "Guides" },
+			"title": "Getting Started"
+		},
+		{
+			"path": "/docs/app/configuration",
+			"template": "docs/app/configuration",
+			"section": "docs",
+			"docstype": "app",
+			"docssectionapp": { "value": "configuration", "path": "/docs/app/configuration", "label": "Configuration" },
+			"title": "Configuration"
 		}
 		
 	]
