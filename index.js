@@ -149,6 +149,7 @@ Landmark.prototype.importer = require('./lib/core/importer');
 Landmark.prototype.createItems = require('./lib/core/createItems');
 Landmark.prototype.redirect = require('./lib/core/redirect');
 Landmark.prototype.bindEmailTestRoutes = require('./lib/core/bindEmailTestRoutes');
+Landmark.prototype.wrapHTMLError = require('./lib/core/wrapHTMLError');
 
 
 /**
@@ -381,18 +382,6 @@ Landmark.prototype.populateRelated = function(docs, relationships, callback) {
 		callback();
 	}
 
-};
-
-/**
- * Wraps an error in simple HTML to be sent as a response to the browser
- *
- * @api public
- */
-
-Landmark.prototype.wrapHTMLError = function(title, err) {
-	return '<html><head><meta charset=\'utf-8\'><title>Error</title>' +
-	'<link rel=\'stylesheet\' href=\'/landmark/styles/error.css\'>' +
-	'</head><body><div class=\'error\'><h1 class=\'error-title\'>' + title + '</h1>' + "<div class='error-message'>" + (err || '') + "</div></div></body></html>";
 };
 
 /**
