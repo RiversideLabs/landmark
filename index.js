@@ -170,6 +170,7 @@ Landmark.prototype.initNav = require('./lib/core/initNav');
 Landmark.prototype.start = require('./lib/core/start');
 Landmark.prototype.mount = require('./lib/core/mount');
 Landmark.prototype.routes = require('./lib/core/routes');
+Landmark.prototype.static = require('./lib/core/static');
 Landmark.prototype.createItems = require('./lib/core/createItems');
 
 
@@ -192,25 +193,6 @@ landmark.Email = require('./lib/email');
 
 var security = landmark.security = {
 	csrf: require('./lib/security/csrf')
-};
-
-
-/**
- * Adds bindings for landmark static resources
- * Can be included before other middleware (e.g. session management, logging, etc) for
- * reduced overhead
- *
- * @param {Express()} app
- * @api public
- */
-
-Landmark.prototype.static = function(app) {
-	
-	app.use('/landmark', require('less-middleware')(__dirname + path.sep + 'public'));
-	app.use('/landmark', express.static(__dirname + path.sep + 'public'));
-	
-	return this;
-	
 };
 
 
