@@ -1,5 +1,13 @@
 # Landmark
 
+## v0.1.27 / 2014-07-25
+* fixed; issues saving location field values
+* fixed; filtering on select fields was broken in the Admin UI
+* added; list totals are recalculated after items are deleted
+* added; feature to select images from cloudinary
+* fixed; issues with field required / initial validation
+* fixed; better handling of default / alt behaviour for remove / delete functionality with cloudinary fields
+
 ## v0.1.26 / 2014-07-25
 
 * improved; more Admin UI visual tweaks
