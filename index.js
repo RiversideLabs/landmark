@@ -149,6 +149,7 @@ Landmark.prototype.importer = require('./lib/core/importer');
 Landmark.prototype.createItems = require('./lib/core/createItems');
 Landmark.prototype.redirect = require('./lib/core/redirect');
 Landmark.prototype.list = require('./lib/core/list');
+Landmark.prototype.getOrphanedLists = require('./lib/core/getOrphanedLists');
 Landmark.prototype.bindEmailTestRoutes = require('./lib/core/bindEmailTestRoutes');
 Landmark.prototype.wrapHTMLError = require('./lib/core/wrapHTMLError');
 
@@ -218,21 +219,6 @@ Landmark.prototype.import = function(dirname) {
 	};
 	
 	return doImport(initialPath);
-};
-
-
-/**
- * Retrieves orphaned lists (those not in a nav section)
- */
-
-Landmark.prototype.getOrphanedLists = function() {
-	if (!this.nav) {
-		return [];
-	}
-	return _.filter(this.lists, function(list, key) {
-		if (list.get('hidden')) return false;
-		return (!landmark.nav.by.list[key]) ? list : false;
-	});
 };
 
 
