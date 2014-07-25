@@ -1,4 +1,4 @@
-![LandmarkJS](http://getlandmarkproject.com/images/logo.svg)
+![LandmarkJS](http://getlandmarkproject.com/images/logo_dark.svg)
 ===================================
 
 ![Build Status](https://travis-ci.org/RiversideLabs/landmark.svg)
