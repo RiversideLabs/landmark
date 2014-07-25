@@ -1,5 +1,8 @@
 # Landmark
 
+## v0.1.28 / 2014-07-25
+* fixed; docs domain
+
 ## v0.1.27 / 2014-07-25
 * fixed; issues saving location field values
 * fixed; filtering on select fields was broken in the Admin UI
