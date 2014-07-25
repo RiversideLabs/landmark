@@ -128,33 +128,6 @@ Landmark.prototype.pre = function(event, fn) {
 };
 
 
-/**
- * Connects landmark to the application's mongoose instance.
- *
- * ####Example:
- *
- *     var mongoose = require('mongoose');
- *
- *     landmark.connect(mongoose);
- *
- * @param {Object} connections
- * @api public
- */
-
-Landmark.prototype.connect = function() {
-	// detect type of each argument
-	for (var i = 0; i < arguments.length; i++) {
-		if (arguments[i].constructor.name === 'Mongoose') {
-			// detected Mongoose
-			this.mongoose = arguments[i];
-		} else if (arguments[i].name === 'app') {
-			// detected Express app
-			this.app = arguments[i];
-		}
-	}
-	return this;
-};
-
 Landmark.prototype.prefixModel = function (key) {
 	var modelPrefix = this.get('model prefix');
 	
@@ -167,6 +140,7 @@ Landmark.prototype.prefixModel = function (key) {
 /* Attach core functionality to Landmark.prototype */
 Landmark.prototype.init = require('./lib/core/init');
 Landmark.prototype.initNav = require('./lib/core/initNav');
+Landmark.prototype.connect = require('./lib/core/connect');
 Landmark.prototype.start = require('./lib/core/start');
 Landmark.prototype.mount = require('./lib/core/mount');
 Landmark.prototype.routes = require('./lib/core/routes');
