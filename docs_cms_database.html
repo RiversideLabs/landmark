@@ -245,8 +245,12 @@ Post.register();</code></pre>
                   <td><code>nodelete</code> <code class="data-type">Boolean</code></td>
                   <td>Prevents deletion of items from the list through the Landmark Admin UI</td>
                 </tr>
+                <tr>
+                  <td><code>hidden</code> <code class="data-type">Boolean</code></td>
+                  <td>Hides the list in the Landmark Admin UI</td>
+                </tr>
               </table>
-              <p class="note">If you're wondering how to control which navigation area Lists are categorised under in the Admin UI, check out the <code>nav</code> option in the <a href="http://landmarkjs.com/docs/configuration/#options-project">LandmarkJS Configuration</a> docs.</p>
+              <p class="note">If you're wondering how to control which navigation area Lists are categorised under in the Admin UI, check out the <code>nav</code> option in the <a href="http://getlandmarkproject.com/docs/cms/configuration/#options-project">LandmarkJS Configuration</a> docs.</p>
               <h4>Drilldown example</h4>
               <p>The drilldown option is a nice way to improve the usability of the Admin UI by providing context to the item a user is currently editing.</p>
               <p>By default, the drilldown will just show the list that the item belongs to.</p>
@@ -535,7 +539,7 @@ Post.model.findById(postId).exec(function(err, post) {
                 <p><code>displayGravatar</code> <code class="data-type">Boolean</code> - whether to display a gravatar image in the Admin UI</p>
                 <h5>Underscore methods:</h5>
                 <p><code>gravatarUrl(input, size, defaultImage, rating)</code> - generates a gravatar image request url</p>
-                <pre><code class="language-javascript">item.email = "demo@landmarkjs.com";
+                <pre><code class="language-javascript">item.email = "demo@getlandmarkproject.com";
 item._.email.gravatarUrl(); // "//www.gravatar.com/avatar/74a0071e5f3a7107b570b7d4a1a7619d?s=80&d=identicon&r=g"
 item._.email.gravatarUrl(200,'mm','r'); // "//www.gravatar.com/avatar/74a0071e5f3a7107b570b7d4a1a7619d?s=200&d=mm&r=r"</code></pre>
               </div><a name="fieldtypes-url"></a>
@@ -545,8 +549,8 @@ item._.email.gravatarUrl(200,'mm','r'); // "//www.gravatar.com/avatar/74a0071e5f
               <div class="options">
                 <h5>Underscore methods:</h5>
                 <p><code>format()</code> - formats the stored value by stripping the leading protocol (if any)</p>
-                <pre><code class="language-javascript">item.url = "http://landmarkjs.com";
-item._.url.format(); // "landmarkjs.com"</code></pre>
+                <pre><code class="language-javascript">item.url = "http://getlandmarkproject.com";
+item._.url.format(); // "getlandmarkproject.com"</code></pre>
               </div><a name="fieldtypes-html"></a>
               <h3><code>Html</code></h3>
               <h4><code class="data-type">String</code> &mdash; Displayed as a text field or WYSIWYG Editor in the Admin UI.</h4>
@@ -929,7 +933,7 @@ page.fields.content.format(page) == "&lt;ul&gt;&lt;li&gt;list item&lt;/ul&gt;&lt
           <li><a href="/docs" title="LandmarkJS Documentation">Documentation</a></li>
           <li><a href="https://groups.google.com/forum/#!forum/landmarkjs" target="_blank" title="LandmarkJS Google Group">Google Group</a></li>
           <li><a href="https://github.com/RiversideLabs/landmark" target="_blank" title="Github Project (new window)">Github Project</a></li>
-          <li><a href="http://demo.landmarkjs.com" target="_blank" title="Demo Website (new window)">Demo Website</a></li>
+          <li><a href="http://demo.getlandmarkproject.com" target="_blank" title="Demo Website (new window)">Demo Website</a></li>
           <li><a href="/examples" title="LandmarkJS Database">Examples</a></li>
         </ul>
       </div>
@@ -955,13 +959,13 @@ page.fields.content.format(page) == "&lt;ul&gt;&lt;li&gt;list item&lt;/ul&gt;&lt
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
        
-       ga('create', 'UA-40717070-6', 'landmarkjs.com');
+       ga('create', 'UA-40717070-6', 'getlandmarkproject.com');
        ga('send', 'pageview');
       }
     </script>
     <script>
       if (window.location.hostname.match(/landmarkjs\.com/)) {
-       var _sf_async_config = { uid: 46610, domain: 'landmarkjs.com', useCanonical: true };
+       var _sf_async_config = { uid: 46610, domain: 'getlandmarkproject.com', useCanonical: true };
        (function() {
         function loadChartbeat() {
          window._sf_endpt = (new Date()).getTime();
