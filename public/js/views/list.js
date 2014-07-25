@@ -277,17 +277,19 @@ jQuery(function($) {
 	});
 	
 	/** List Controls */
-	
-	$('a.control-delete').hover(function() {
-		$(this).closest('tr').addClass('delete-hover');
-	}, function() {
-		$(this).closest('tr').removeClass('delete-hover');
-	}).click(function(e) {
+	$('table.items-list tbody').on('mouseenter mouseleave', 'tr a.control-delete', function(e) {
+		if (e.type == 'mouseenter') {
+			$(this).closest('tr').addClass('delete-hover');
+		} else {
+			$(this).closest('tr').removeClass('delete-hover');
+		}
+	}).on('click', 'tr a.control-delete', function(e) {
 		e.preventDefault();
 		if (!confirm('Are you sure you want to delete this ' + Landmark.list.singular.toLowerCase() + '?')) {
 			return false;
 		}
-		var $row = $(this).closest('tr');
+		var $row = $(this).closest('tr'), 
+			$table = $(this).closest('table');
 		$row.addClass('delete-inprogress');
 		var onError = function(err) {
 			if (err && err.responseJSON) {
@@ -307,7 +309,66 @@ jQuery(function($) {
 			dataType: 'json'
 		}).done(function(rtn) {
 			if (rtn.success) {
+				// decrement total
+				Landmark.items.total--;
+				Landmark.items.totalPages = Math.ceil(Landmark.items.total / Landmark.list.perPage);
+
+				// update .list-header
+				if (!Landmark.items.total) {
+					$('.page-header.list-header').addClass('empty-list');
+					$('.items-total').text('No ' + Landmark.list.plural.toLowerCase() + ' found.');
+					$('.search-sort').remove();
+					$('form#list-filters').remove();
+					$('.list-pagination').remove();
+					$('.items-list-wrapper').remove();
+					return;
+				}
+
+				if (Landmark.items.currentPage > Landmark.items.totalPages) {
+					window.location.href = '/landmark/' + Landmark.list.path + '/' + Landmark.items.previous;
+					return;
+				}
+
 				$row.remove();
+
+				$('.items-total').text(Landmark.items.total + ' ' + (Landmark.items.total == 1 ? Landmark.list.singular : Landmark.list.plural));
+
+				// update .list-pagination
+				if (Landmark.items.totalPages == 1) {
+					$('.list-pagination .count').text('Showing ' + Landmark.items.total + ' ' + (Landmark.items.total == 1 ? Landmark.list.singular : Landmark.list.plural));
+				}
+				if (Landmark.items.totalPages > 1) {
+					if(Landmark.items.last > Landmark.items.total) {
+						Landmark.items.last = Landmark.items.total;
+						$('.list-pagination .count').text('Showing ' + Landmark.items.first + ' to ' + Landmark.items.last + ' of ' + Landmark.items.total);
+					} else {
+						$.ajax('/landmark/api/' + Landmark.list.path + '/fetch', {
+							data: Landmark.csrf({
+								items: { 
+									first: Landmark.items.first,
+									last: Landmark.items.last,
+									total: Landmark.items.total,
+									currentPage: Landmark.items.currentPage,
+									totalPages: Landmark.items.totalPages
+								},
+								search: Landmark.search,
+								filters: Landmark.filters,
+								cols: Landmark.list.cols,
+								sort: Landmark.sort,
+								csrf_query: Landmark.csrf_query,
+								q: Landmark.query
+							}),
+							dataType: 'json'
+						}).done(function(rtn) {
+							if (rtn.success) {
+								$table.append(rtn.row);
+								$('.list-pagination').html(rtn.pagination);
+							} else {
+								onError(rtn);
+							}
+						}).error(onError);
+					}
+				}
 			} else {
 				onError(rtn);
 			}
