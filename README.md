@@ -1,11 +1,11 @@
-![LandmarkJS](http://landmarkjs.com/images/logo.svg)
+![LandmarkJS](http://getlandmarkproject.com/images/logo.svg)
 ===================================
 
 ![Build Status](https://travis-ci.org/RiversideLabs/landmark.svg)
 
-[LandmarkJS](http://landmarkjs.com) is a powerful new Node.js content management system and web app framework built on [express](http://expressjs.com) and [mongoose](http://mongoosejs.com) that makes it easy to create sophisticated web sites and apps, and gives you a beautiful, auto-generated Admin UI. LandmarkJS is built on top of the amazing [KeystoneJS](http://keystonejs.com) CMS project and adapted for managing Landmark content for the Landmark Connect app.
+[LandmarkJS](http://getlandmarkproject.com) is a powerful new Node.js content management system and web app framework built on [express](http://expressjs.com) and [mongoose](http://mongoosejs.com) that makes it easy to create sophisticated web sites and apps, and gives you a beautiful, auto-generated Admin UI. LandmarkJS is built on top of the amazing [KeystoneJS](http://keystonejs.com) CMS project and adapted for managing Landmark content for the Landmark Connect app.
 
-To get started, check out [landmarkjs.com](http://landmarkjs.com)!
+To get started, check out [getlandmarkproject.com](http://getlandmarkproject.com)!
 
 ## About
 
@@ -22,9 +22,9 @@ Landmark gives you:
 
 ... plus a lot of other tools and utilities to make creating complex web apps easier.
 
-Use our [Yeoman Generator](https://github.com/RiversideLabs/generator-landmark) to get up and running with LandmarkJS quickly, then check out our getting started guide &amp; docs at [landmarkjs.com/docs/getting-started](http://landmarkjs.com/docs/getting-started).
+Use our [Yeoman Generator](https://github.com/RiversideLabs/generator-landmark) to get up and running with LandmarkJS quickly, then check out our getting started guide &amp; docs at [getlandmarkproject.com/docs/cms/getting-started](http://getlandmarkproject.com/docs/cms/getting-started).
 
-We have a demo website at [demo.landmarkjs.com](http://demo.landmarkjs.com/) where you can play with the Landmark Admin UI, and you can [read the source](https://github.com/RiversideLabs/landmark-demo) to see how it was built.
+We have a demo website at [demo.getlandmarkproject.com](http://demo.getlandmarkproject.com/) where you can play with the Landmark Admin UI, and you can [read the source](https://github.com/RiversideLabs/landmark-demo) to see how it was built.
 
 If you have ideas or questions, get in touch on the [LandmarkJS Google Group](https://groups.google.com/d/forum/landmarkjs) or tweet at [@LandmarkJS](https://twitter.com/LandmarkJS) on twitter.
 
@@ -41,7 +41,7 @@ If you're going to contribute code, please try and mimic the existing code stand
 
 ## Usage
 
-**Check out the [LandmarkJS Documentation](http://landmarkjs.com/docs) for a walk-through on how to use LandmarkJS.**
+**Check out the [LandmarkJS Documentation](http://getlandmarkproject.com/docs/cms) for a walk-through on how to use LandmarkJS.**
 
 ### Installation
 
@@ -64,7 +64,7 @@ After the intallation is complete, run this command to start Landmark:
 
 Alternatively, to include Landmark in an existing project or start from scratch (without Yeoman), specify `landmark: "0.1.x"` in the `dependencies` array in your `package.json` file, and run `npm install` from your terminal.
 
-Then read through the [Documentation](http://landmarkjs.com/docs) and the [Example Projects](http://landmarkjs.com/examples) to understand how to use it.
+Then read through the [Documentation](http://getlandmarkproject.com/docs/cms) and the [Example Projects](http://getlandmarkproject.com/examples) to understand how to use it.
 
 
 ### Example application script (landmark.js)
@@ -95,7 +95,7 @@ Here is an example of what your `landmark.js` (or `app.js`, etc) file may look l
 		
 		'emails': 'templates/emails',
 		'mandrill api key': '--- your api key ---',
-		'email rules': { find: '/images/', replace: (landmark.get('env') != 'production') ? 'http://localhost:3000/images/' : 'http://www.landmarkjs.com/images/email/' },
+		'email rules': { find: '/images/', replace: (landmark.get('env') != 'production') ? 'http://localhost:3000/images/' : 'http://www.getlandmarkproject.com/images/email/' },
 		
 		'cloudinary config': { cloud_name: '--- your cloud name ---', api_key: '--- your api key ---', api_secret: '--- your api secret ---' }
 		
@@ -114,7 +114,7 @@ Config variables can be passed in an object to the `landmark.init` method, or ca
 called using `landmark.set(key, value)`. This allows for a more flexible order of execution (e.g. if you refer to Lists in your
 routes, you can set the routes after configuring your Lists, as in the example above).
 
-See the [LandmarkJS configuration documentation](http://landmarkjs.com/docs/configuration) for details and examples of the available
+See the [LandmarkJS configuration documentation](http://getlandmarkproject.com/docs/cms/configuration) for details and examples of the available
 configuration options.
 
 To understand how these settings are used, and how the Express application initialised, see `Landmark.prototype.start` in
@@ -131,35 +131,35 @@ formatting a date or number, resizing an image, getting an array of the availabl
 for a select field, or using Google's Places API to improve addresses) as well as a beautiful,
 responsive admin UI to edit your data with.
 
-See the [LandmarkJS database documentation](http://landmarkjs.com/docs/database) for details and examples of the various field types,
+See the [LandmarkJS database documentation](http://getlandmarkproject.com/docs/cms/database) for details and examples of the various field types,
 as well as how to set up and use database models in your application.
 
 Landmark's field types include:
 
-*	[Boolean](http://landmarkjs.com/docs/database/#fieldtypes-boolean)
-*	[Text](http://landmarkjs.com/docs/database/#fieldtypes-text)
-*	[Textarea](http://landmarkjs.com/docs/database/#fieldtypes-textarea)
-*	[Email](http://landmarkjs.com/docs/database/#fieldtypes-email)
-*	[Url](http://landmarkjs.com/docs/database/#fieldtypes-url)
-*	[Html](http://landmarkjs.com/docs/database/#fieldtypes-html)
-*	[Color](http://landmarkjs.com/docs/database/#fieldtypes-color)
-*	[Date](http://landmarkjs.com/docs/database/#fieldtypes-date)
-*	[Datetime](http://landmarkjs.com/docs/database/#fieldtypes-datetime)
-*	[Key](http://landmarkjs.com/docs/database/#fieldtypes-key)
-*	[Number](http://landmarkjs.com/docs/database/#fieldtypes-number)
-*	[Money](http://landmarkjs.com/docs/database/#fieldtypes-money)
-*	[Select](http://landmarkjs.com/docs/database/#fieldtypes-select)
-*	[Markdown](http://landmarkjs.com/docs/database/#fieldtypes-markdown)
-*	[Name](http://landmarkjs.com/docs/database/#fieldtypes-name)
-*	[Password](http://landmarkjs.com/docs/database/#fieldtypes-password)
-*	[Location](http://landmarkjs.com/docs/database/#fieldtypes-location)
-*	[CloudinaryImage](http://landmarkjs.com/docs/database/#fieldtypes-cloudinaryimage)
-*	[CloudinaryImages](http://landmarkjs.com/docs/database/#fieldtypes-cloudinaryimages)
-*	[LocalFile](http://landmarkjs.com/docs/database/#fieldtypes-localfile)
-*	[S3 File](http://landmarkjs.com/docs/database/#fieldtypes-s3file)
-*	[Embedly](http://landmarkjs.com/docs/database/#fieldtypes-embedly)
+*	[Boolean](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-boolean)
+*	[Text](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-text)
+*	[Textarea](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-textarea)
+*	[Email](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-email)
+*	[Url](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-url)
+*	[Html](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-html)
+*	[Color](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-color)
+*	[Date](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-date)
+*	[Datetime](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-datetime)
+*	[Key](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-key)
+*	[Number](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-number)
+*	[Money](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-money)
+*	[Select](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-select)
+*	[Markdown](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-markdown)
+*	[Name](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-name)
+*	[Password](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-password)
+*	[Location](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-location)
+*	[CloudinaryImage](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-cloudinaryimage)
+*	[CloudinaryImages](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-cloudinaryimages)
+*	[LocalFile](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-localfile)
+*	[S3 File](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-s3file)
+*	[Embedly](http://getlandmarkproject.com/docs/cms/database/#fieldtypes-embedly)
 
-Landmark also has [Relationship fields](http://landmarkjs.com/docs/database#relationships) for managing one-to-many and many-to-many
+Landmark also has [Relationship fields](http://getlandmarkproject.com/docs/cms/database#relationships) for managing one-to-many and many-to-many
 relationships between different models.
 
 
@@ -228,7 +228,7 @@ require('dotenv')().load();
 var landmark = require('landmark-serve');
 
 // Initialise Landmark with your project's configuration.
-// See http://landmarkjs.com/guide/config for available options
+// See http://getlandmarkproject.com/guide/config for available options
 // and documentation.
 
 landmark.init({

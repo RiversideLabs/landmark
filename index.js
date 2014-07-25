@@ -319,7 +319,7 @@ Landmark.prototype.render = function(req, res, view, ext) {
 		} catch(e) {
 			if (e === 'Must supply api_key') {
 				throw new Error('Invalid Cloudinary Config Provided\n\n' +
-					'See http://landmarkjs.com/docs/configuration/#cloudinary for more information.');
+					'See http://getlandmarkproject.com/docs/cms/configuration/#cloudinary for more information.');
 			} else {
 				throw e;
 			}
