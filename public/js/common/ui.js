@@ -1,14 +1,15 @@
 jQuery(function($) {
 	
-	var brand = $('#header .navbar-brand').text();
+	// show hide the "back to website" message in the navbar
 	
-	$('.navbar-backtobrand').mouseenter(function(e) {
-		$('.navbar-headernav-collapse').addClass('navbar-headernav-hide');
-		$('.navbar-brand').text('Back to the ' + brand + ' website');
+	$('.navbar-backtobrand-trigger').mouseenter(function(e) {
+		$('.navbar-backtobrand-message').addClass('active');
 	}).mouseleave(function() {
-		$('.navbar-headernav-collapse').removeClass('navbar-headernav-hide');
-		$('.navbar-brand').text(brand);
+		$('.navbar-backtobrand-message').removeClass('active');
 	});
+
+
+	// generic confirm
 	
 	$('a[data-confirm]').click(function(e) {
 		if (!confirm($(this).data().confirm)) {
@@ -147,13 +148,13 @@ jQuery(function($) {
 			formatSelection: function(i) { return i.name },
 			escapeMarkup: function (m) { return m; } // we do not want to escape markup since we are displaying html in results
 		});
-		
+
 		if (!multi) {
 			el.on('change', function(e) {
 				var $this = $(this),
-				$gotoLink = $this.next('a.btn-goto-linked-item'),
-							val = $this.select2('val');
-				
+					$gotoLink = $this.next('a.btn-goto-linked-item'),
+					val = $this.select2('val');
+
 				if (val == '') {
 					$gotoLink.hide();
 				} else {
@@ -166,20 +167,20 @@ jQuery(function($) {
 	});
 	
 	$('.field.type-relationship input[data-ref-filters]').each(function() {
-		
+
 		var $input = $(this),
-					data = $input.data(),
+			data = $input.data(),
 			$inputs2 = $input.siblings('#s2id_' + $input.attr('id'));
-		
+
 		_.each(data.refFilters, function(value, key) {
-			
+
 			if (value.substr(0,1) != ':') {
 				return;
 			}
-			
+
 			var $related = $('#field_' + value.substr(1)),
-			 relatedData = $related.data();
-			
+				relatedData = $related.data();
+
 			var checkRelated = function(msg) {
 				var $message = $input.siblings('.field-message');
 				if ($related.val() == '') {
@@ -190,23 +191,23 @@ jQuery(function($) {
 					$message.hide();
 				}
 			}
-			
+
 			checkRelated();
-			
+
 			$related.on('change.dependency.' + $input.attr('id'), function(e) {
 				var $gotoLink = $input.next('a.btn-goto-linked-item');
-				
+
 				checkRelated();
-				
+
 				$inputs2.select2('val', '');
 				$input.val('');
 				$gotoLink.hide();
 			});
-			
+
 		});
-		
+
 	});
-	
+
 	$('.btn.autoclick').each(function() {
 		var $btn = $(this);
 		setTimeout(function() {
