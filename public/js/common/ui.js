@@ -17,10 +17,10 @@ jQuery(function($) {
 			return false;
 		}
 	});
-	
-	
+
+
 	// search box highlighting
-	
+
 	$('.searchbox-input').focus(function() {
 		$('.searchbox-form').addClass('active');
 		$('.searchbox-submit').removeClass('btn-default').addClass('btn-primary');

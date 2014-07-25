@@ -242,12 +242,12 @@ jQuery(function($) {
 		$image.attr('src', src.replace(/^(\/\/www\.gravatar\.com\/avatar\/)[^\?]+(\?.*$)/i,'$1' + md5(val) + '$2'));
 	});
 
-	
+
 	// show/hide the search form in the toolbar
-	
+
 	var item_breadcrumbs = $('.item-breadcrumbs'),
-			item_searchform  = $('.searchbox');
-	
+		item_searchform  = $('.searchbox');
+
 	$('.js-itemsearch-open').click(function() {
 		item_breadcrumbs.hide();
 		item_searchform.show().find('input[type!=hidden]')[0].focus();
@@ -261,5 +261,5 @@ jQuery(function($) {
 
 
 
-
+	
 });
