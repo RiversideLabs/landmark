@@ -145,6 +145,7 @@ Landmark.prototype.start = require('./lib/core/start');
 Landmark.prototype.mount = require('./lib/core/mount');
 Landmark.prototype.routes = require('./lib/core/routes');
 Landmark.prototype.static = require('./lib/core/static');
+Landmark.prototype.importer = require('./lib/core/importer');
 Landmark.prototype.createItems = require('./lib/core/createItems');
 Landmark.prototype.redirect = require('./lib/core/redirect');
 Landmark.prototype.bindEmailTestRoutes = require('./lib/core/bindEmailTestRoutes');
@@ -169,54 +170,6 @@ landmark.Email = require('./lib/email');
 
 var security = landmark.security = {
 	csrf: require('./lib/security/csrf')
-};
-
-
-/**
- * Returns a function that looks in a specified path relative to the current
- * directory, and returns all .js modules it (recursively).
- *
- * ####Example:
- *
- *     var importRoutes = landmark.importer(__dirname);
- *
- *     var routes = {
- *         site: importRoutes('./site'),
- *         api: importRoutes('./api')
- *     };
- *
- * @param {String} rel__dirname
- * @api public
- */
-
-Landmark.prototype.importer = function(rel__dirname) {
-	
-	var importer = function(from) {
-		var imported = {};
-		var joinPath = function() {
-			return '.' + path.sep + path.join.apply(path, arguments);
-		};
-		var fsPath = joinPath(path.relative(process.cwd(), rel__dirname), from);
-		fs.readdirSync(fsPath).forEach(function(name) {
-			var info = fs.statSync(path.join(fsPath, name));
-			// recur
-			if (info.isDirectory()) {
-				imported[name] = importer(joinPath(from, name));
-			} else {
-				// only import .js files
-				var parts = name.split('.');
-				var ext = parts.pop();
-				if (ext === 'js' || ext === 'coffee') {
-					imported[parts.join('-')] = require(path.join(rel__dirname, from, name));
-				}
-			}
-			return imported;
-		});
-		return imported;
-	};
-	
-	return importer;
-	
 };
 
 
