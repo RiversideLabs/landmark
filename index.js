@@ -148,6 +148,7 @@ Landmark.prototype.static = require('./lib/core/static');
 Landmark.prototype.importer = require('./lib/core/importer');
 Landmark.prototype.createItems = require('./lib/core/createItems');
 Landmark.prototype.redirect = require('./lib/core/redirect');
+Landmark.prototype.list = require('./lib/core/list');
 Landmark.prototype.bindEmailTestRoutes = require('./lib/core/bindEmailTestRoutes');
 Landmark.prototype.wrapHTMLError = require('./lib/core/wrapHTMLError');
 
@@ -217,20 +218,6 @@ Landmark.prototype.import = function(dirname) {
 	};
 	
 	return doImport(initialPath);
-};
-
-
-/**
- * Registers or retrieves a list
- */
-
-Landmark.prototype.list = function(list) {
-	if (list && list.constructor === landmark.List) {
-		this.lists[list.key] = list;
-		this.paths[list.path] = list.key;
-		return list;
-	}
-	return this.lists[list] || this.lists[this.paths[list]];
 };
 
 
