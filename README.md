@@ -167,7 +167,9 @@ relationships between different models.
 
 When you deploy your LandmarkJS app to production, be sure to set your `ENV` environment variable to `production`.
 
-This enables certain features, including template caching, simpler error reporting and html minification, that are important in production but annoying in development.
+You can do this by setting `NODE_ENV=production` in your `.env` file, which gets handled by [dotenv](http://https://github.com/scottmotte/dotenv).
+
+Setting your environment enables certain features, including template caching, simpler error reporting and html minification, that are important in production but annoying in development.
 
 
 ### Linking Landmark for Development and Testing
