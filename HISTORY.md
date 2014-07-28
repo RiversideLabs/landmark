@@ -1,5 +1,10 @@
 # Landmark
 
+## v0.1.29 / 2014-07-28
+
+* fixed; errors uploading to cloudinary fields
+* fixed; issues starting with SSL
+ 
 ## v0.1.28 / 2014-07-25
 * fixed; docs domain
 
