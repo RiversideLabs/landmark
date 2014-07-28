@@ -4,8 +4,8 @@ block intro
 	.page-header
 		.container
 			h1 Get Started
-			p.lead The fastest way to create a Node.js website. For a deep dive, 
-					a(href='/docs/getting-started') check out the docs.
+			p.lead The fastest way to create your Landmark project. For a deep dive, 
+					a(href='/docs') check out the docs.
 	
 block content
 	//- h2.text-center The fastest way to create a Node.js website
@@ -17,7 +17,7 @@ block content
 						span.gs-guide__title-count 1
 						.gs-guide__title-label Prerequisites
 					.gs-guide__subtitle
-						p Before you begin, make sure you have <a href="http://nodejs.org/download" target="_blank">Node.js</a> and <a href="http://www.mongodb.org/downloads" target="_blank">MongoDB</a> installed.
+						p Before you begin, make sure you have <a href="http://nodejs.org/download" target="_blank">Node.js</a>, <a href="http://www.mongodb.org/downloads" target="_blank">MongoDB</a>, <a href="https://developer.apple.com/xcode/" target="_blank">XCode</a> (for generarting iOS app) and/or the <a href="http://developer.android.com/sdk/index.html" target="_blank">Android SDK</a> (for generarting Android app) installed.
 						p You'll need a reasonable working knowledge of Javascript to use LandmarkJS, as well as familiarity with basics such as database concepts, and using node / npm etc.
 		
 		.gs-guide-figure.gs-guide-figure--prerequisites.hidden-xs
@@ -30,6 +30,22 @@ block content
 				a(href='http://docs.mongodb.org/manual/installation/', target='_blank')
 					.logo: img(src='/images/getting-started/mongodb-logo.png', alt='MongoDB logo', width=294, height=84)
 					span.prerequisite See the MongoDB installation guide for how to install MongoDB on your operating system.
+			.column.ionic
+				a(href='http://ionicframework.com/getting-started/', target='_blank')
+					.logo: img(src='/images/getting-started/ionic-logo.svg', alt='Ionic logo', width=213, height=74)
+					span.prerequisite Download and install the Ionic Framework binaries for generating your app with your intended platforms.
+			.column.cordova
+				a(href='http://cordova.apache.org/docs/en/3.5.0/guide_overview_index.md.html', target='_blank')
+					.logo: img(src='/images/getting-started/cordova-logo.png', alt='Cordova logo', width=340, height=101)
+					span.prerequisite Download and install the Cordova binaries that work with Ionic to build for your intended platforms.
+			.column.xcode
+				a(href='https://developer.apple.com/xcode/', target='_blank')
+					.logo: img(src='/images/getting-started/ios-logo.png', alt='iOS logo', width=134, height=84)
+					span.prerequisite Download and install the XCode app (Mac only) from the Mac App Store to support the iOS platform.
+			.column.android
+				a(href='http://developer.android.com/sdk/index.html', target='_blank')
+					.logo: img(src='/images/getting-started/android-logo.png', alt='Android logo', width=75, height=88)
+					span.prerequisite Download and install the Android SDK if you plan on supporting the Android platform.
 				
 		.gs-guide-section
 			.container-sm
@@ -37,20 +53,41 @@ block content
 					h2.gs-guide__title
 						span.gs-guide__title-count 2
 						.gs-guide__title-label Commands
-				h3 Install the generator
-				p You'll be using the <a href='https://github.com/RiversideLabs/generator-landmark', target='_blank'>LandmarkJS generator</a> made with <a href='http://yeoman.io/', target='_blank'>Yeoman</a>. In your root directory run:
-				pre.command-line npm install -g generator-landmark
+				h3 Install the CMS and app generators
+				p You'll be using the <a href='https://github.com/RiversideLabs/generator-landmark', target='_blank'>LandmarkJS generator</a> and <a href='https://github.com/RiversideLabs/generator-landmark-connect', target='_blank'>Landmark Connect generator</a> made with <a href='http://yeoman.io/', target='_blank'>Yeoman</a>. In your root directory run:
+				pre.command-line
+					| npm install -g generator-landmark
+					| 
+					| npm install -g generator-landmark-connect
+				.alert.alert-danger NOTE: The app generator is not yet available.
 				
 				h3 Create a folder for your project
 				p Create your project wherever you want:
 				pre.command-line mkdir my-test-project
 				
-				p Than make sure you're in your new project:
+				p Then make sure you're in your new project:
 				pre.command-line cd my-test-project
+			
+				h3 Create subfolders for LandmarkJS and Landmark Connect
+				pre.command-line
+					| mkdir my-project-cms
+					| mkdir my-project-app
+				.alert.alert-danger NOTE: The app generator is not yet available.
 				
-				h3 Run the generator
-				pre.command-line yo landmark
-				p The generator will ask you a few questions about what features you'd like to include, then configure and copy all the files you'll need into your project.
+				h3 Run the generators
+				
+				p Make sure you are in the CMS subfolder, then run the CMS generator:
+				pre.command-line
+					| cd my-project-cms
+					| yo landmark
+				
+				p Make sure you are in the app subfolder, then run the app generator:
+				pre.command-line
+					| cd my-project-app
+					| yo landmark-connect
+				.alert.alert-danger NOTE: The app generator is not yet available.
+				
+				p Both generators will ask you a few questions about what features you'd like to include, then configure and copy all the files you'll need into your project.
 				p It will also install dependencies from npm so you're ready to go.
 		
 		.gs-guide-figure.gs-guide-figure--commands.hidden-xs
@@ -67,8 +104,8 @@ block content
 					h2.gs-guide__title
 						span.gs-guide__title-count 3
 						.gs-guide__title-label You're Done!
-					p.gs-guide__subtitle So you just created your first LandmarkJS project, congrats!
-					p.gs-guide__subtitle Run it in your command line like this:
+					p.gs-guide__subtitle So you just created your first Landmark project, congrats!
+					p.gs-guide__subtitle Run the CMS in your command line from your CMS folder like this:
 					pre.command-line node landmark
 					p.gs-guide__subtitle Then open <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> to view it in your browser.
 					p.gs-guide__subtitle If you want to see what the generator actually did take a look at our getting started guide, it'll walk you through the manual setup process. This is particularly helpful if you're new to Node.js.

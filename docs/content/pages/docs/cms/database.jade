@@ -3,16 +3,20 @@ extends ../../../templates/layout/base
 include ../../../templates/mixins/docsnavcms
 include ../../../templates/mixins/docsnavtop
 
-block intro
-	.page-header
-		.container
-			h1 Database
-			p.lead Setting up and using Data Models
+//- block intro
+//- 	.page-header
+//- 		.container
+//- 			h1 Database
+//- 			p.lead Setting up and using Data Models
 	
 block content
 	+docsnavtop(docstype)
 	
 	.container: .row
+		
+		.page-intro.col-sm-12
+			h1 Database
+			p.lead Setting up and using Data Models
 		
 		.col-sm-3
 			+docsnavcms(docssectioncms)

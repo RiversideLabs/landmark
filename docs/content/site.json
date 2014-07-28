@@ -40,6 +40,12 @@
 			"section": "examples",
 			"title": "Sample applications"
 		},
+		{
+			"path": "/support",
+			"template": "support",
+			"section": "support",
+			"title": "Get Support"
+		},
 		
 		
 		{
