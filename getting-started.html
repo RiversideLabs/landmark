@@ -34,7 +34,7 @@ permalink: /getting-started/
     <div class="page-header">
       <div class="container">
         <h1>Get Started</h1>
-        <p class="lead">The fastest way to create a Node.js website. For a deep dive, <a href="/docs/getting-started">check out the docs.</a></p>
+        <p class="lead">The fastest way to create your Landmark project. For a deep dive, <a href="/docs">check out the docs.</a></p>
       </div>
     </div>
     <div class="docs-body">
@@ -46,7 +46,7 @@ permalink: /getting-started/
                 <div class="gs-guide__title-label">Prerequisites</div>
               </h2>
               <div class="gs-guide__subtitle">
-                <p>Before you begin, make sure you have <a href="http://nodejs.org/download" target="_blank">Node.js</a> and <a href="http://www.mongodb.org/downloads" target="_blank">MongoDB</a> installed.</p>
+                <p>Before you begin, make sure you have <a href="http://nodejs.org/download" target="_blank">Node.js</a>, <a href="http://www.mongodb.org/downloads" target="_blank">MongoDB</a>, <a href="https://developer.apple.com/xcode/" target="_blank">XCode</a> (for generarting iOS app) and/or the <a href="http://developer.android.com/sdk/index.html" target="_blank">Android SDK</a> (for generarting Android app) installed.</p>
                 <p>You'll need a reasonable working knowledge of Javascript to use LandmarkJS, as well as familiarity with basics such as database concepts, and using node / npm etc.</p>
               </div>
             </div>
@@ -57,6 +57,14 @@ permalink: /getting-started/
               <div class="logo"><img src="/images/getting-started/nodejs-logo.png" alt="Node.js logo" width="245" height="66"></div><span class="prerequisite">Download and install the Node.js binaries for your platform from the Node.js download page.</span></a></div>
           <div class="column mongodb"><a href="http://docs.mongodb.org/manual/installation/" target="_blank">
               <div class="logo"><img src="/images/getting-started/mongodb-logo.png" alt="MongoDB logo" width="294" height="84"></div><span class="prerequisite">See the MongoDB installation guide for how to install MongoDB on your operating system.</span></a></div>
+          <div class="column ionic"><a href="http://ionicframework.com/getting-started/" target="_blank">
+              <div class="logo"><img src="/images/getting-started/ionic-logo.svg" alt="Ionic logo" width="213" height="74"></div><span class="prerequisite">Download and install the Ionic Framework binaries for generating your app with your intended platforms.</span></a></div>
+          <div class="column cordova"><a href="http://cordova.apache.org/docs/en/3.5.0/guide_overview_index.md.html" target="_blank">
+              <div class="logo"><img src="/images/getting-started/cordova-logo.png" alt="Cordova logo" width="340" height="101"></div><span class="prerequisite">Download and install the Cordova binaries that work with Ionic to build for your intended platforms.</span></a></div>
+          <div class="column xcode"><a href="https://developer.apple.com/xcode/" target="_blank">
+              <div class="logo"><img src="/images/getting-started/ios-logo.png" alt="iOS logo" width="134" height="84"></div><span class="prerequisite">Download and install the XCode app (Mac only) from the Mac App Store to support the iOS platform.</span></a></div>
+          <div class="column android"><a href="http://developer.android.com/sdk/index.html" target="_blank">
+              <div class="logo"><img src="/images/getting-started/android-logo.png" alt="Android logo" width="75" height="88"></div><span class="prerequisite">Download and install the Android SDK if you plan on supporting the Android platform.</span></a></div>
         </div>
         <div class="gs-guide-section">
           <div class="container-sm">
@@ -65,17 +73,30 @@ permalink: /getting-started/
                 <div class="gs-guide__title-label">Commands</div>
               </h2>
             </div>
-            <h3>Install the generator</h3>
-            <p>You'll be using the <a href='https://github.com/RiversideLabs/generator-landmark', target='_blank'>LandmarkJS generator</a> made with <a href='http://yeoman.io/', target='_blank'>Yeoman</a>. In your root directory run:</p>
-            <pre class="command-line">npm install -g generator-landmark</pre>
+            <h3>Install the CMS and app generators</h3>
+            <p>You'll be using the <a href='https://github.com/RiversideLabs/generator-landmark', target='_blank'>LandmarkJS generator</a> and <a href='https://github.com/RiversideLabs/generator-landmark-connect', target='_blank'>Landmark Connect generator</a> made with <a href='http://yeoman.io/', target='_blank'>Yeoman</a>. In your root directory run:</p>
+            <pre class="command-line">npm install -g generator-landmark
+ 
+npm install -g generator-landmark-connect</pre>
+            <div class="alert alert-danger">NOTE: The app generator is not yet available.</div>
             <h3>Create a folder for your project</h3>
             <p>Create your project wherever you want:</p>
             <pre class="command-line">mkdir my-test-project</pre>
-            <p>Than make sure you're in your new project:</p>
+            <p>Then make sure you're in your new project:</p>
             <pre class="command-line">cd my-test-project</pre>
-            <h3>Run the generator</h3>
-            <pre class="command-line">yo landmark</pre>
-            <p>The generator will ask you a few questions about what features you'd like to include, then configure and copy all the files you'll need into your project.</p>
+            <h3>Create subfolders for LandmarkJS and Landmark Connect</h3>
+            <pre class="command-line">mkdir my-project-cms
+mkdir my-project-app</pre>
+            <div class="alert alert-danger">NOTE: The app generator is not yet available.</div>
+            <h3>Run the generators</h3>
+            <p>Make sure you are in the CMS subfolder, then run the CMS generator:</p>
+            <pre class="command-line">cd my-project-cms
+yo landmark</pre>
+            <p>Make sure you are in the app subfolder, then run the app generator:</p>
+            <pre class="command-line">cd my-project-app
+yo landmark-connect</pre>
+            <div class="alert alert-danger">NOTE: The app generator is not yet available.</div>
+            <p>Both generators will ask you a few questions about what features you'd like to include, then configure and copy all the files you'll need into your project.</p>
             <p>It will also install dependencies from npm so you're ready to go.</p>
           </div>
         </div>
@@ -92,8 +113,8 @@ permalink: /getting-started/
               <h2 class="gs-guide__title"><span class="gs-guide__title-count">3</span>
                 <div class="gs-guide__title-label">You're Done!</div>
               </h2>
-              <p class="gs-guide__subtitle">So you just created your first LandmarkJS project, congrats!</p>
-              <p class="gs-guide__subtitle">Run it in your command line like this:</p>
+              <p class="gs-guide__subtitle">So you just created your first Landmark project, congrats!</p>
+              <p class="gs-guide__subtitle">Run the CMS in your command line from your CMS folder like this:</p>
               <pre class="command-line">node landmark</pre>
               <p class="gs-guide__subtitle">Then open <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> to view it in your browser.</p>
               <p class="gs-guide__subtitle">If you want to see what the generator actually did take a look at our getting started guide, it'll walk you through the manual setup process. This is particularly helpful if you're new to Node.js.</p>
@@ -148,9 +169,14 @@ sudo chown -R $USER /usr/lib/node_modules/</pre>
     <div class="docs-footer-floor">
       <div class="container">
         <div class="social-buttons">
-          <div class="social-button social-button__twitter"><a href="https://twitter.com/landmarkjs" data-show-count="true" class="twitter-follow-button">Follow @landmarkjs</a></div>
-          <div class="social-button social-button__github">
+          <div class="social-button social-button__twitter"><a href="https://twitter.com/landmarkproj" data-show-count="true" class="twitter-follow-button">Follow @LandmarkProj</a></div>
+          <div class="social-button social-button__github"> 
+            <p>CMS: </p>
             <iframe src="http://ghbtns.com/github-btn.html?user=RiversideLabs&amp;repo=landmark&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="86" height="20"></iframe>
+            <div class="social-button social-button__github"> 
+              <p>App: </p>
+              <iframe src="http://ghbtns.com/github-btn.html?user=RiversideLabs&amp;repo=landmark-connect-app&amp;type=watch&amp;count=true" allowtransparency="true" frameborder="0" scrolling="0" width="86" height="20"></iframe>
+            </div>
           </div>
         </div>
       </div>
