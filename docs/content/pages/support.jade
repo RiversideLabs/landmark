@@ -8,4 +8,97 @@ block intro
 	
 block content
 	.container-sm(style='margin: 3em auto;')
-		.alert.alert-warning Coming soon.
+		
+		//- Created using https://coderwall.com/p/8lq1ba
+		form#contact-form.contact-form(role='form', method='post', data-success='Message successfully sent!')
+		
+			.row
+				.col-xs-6.col-md-6.form-group
+					input#name.form-control(name='name', placeholder='Name', type='text', required='required', autofocus='autofocus', class='form-control')
+				.col-xs-6.col-md-6.form-group
+					input#email.form-control(name='email', placeholder='Email', type='email', required='required', class='form-control')
+			.row
+				.col-xs-12.col-md-12.form-group
+					input#subject.form-control(name='subject', placeholder='Subject', type='text', required='required', class='form-control')
+			.row
+				.col-xs-12.col-md-12.form-group
+					textarea#message(name='message', required='required', placeholder='Message', rows='5', class='form-control')
+			.row
+				.col-xs-12.col-md-12.form-group
+					#recaptcha_widget.recaptcha.pull-right
+						.image
+							#recaptcha_image
+						.headline.recaptcha_only_if_image Enter the words above:
+						.headline.recaptcha_only_if_audio Enter the numbers you hear:
+						input#recaptcha_response_field(type='text', name='recaptcha_response_field', required='required')
+						span.recaptcha_icon
+							a(href='javascript:Recaptcha.reload()')
+								i.glyphicon.glyphicon-refresh
+						span.recaptcha_icon.recaptcha_only_if_image
+							a(href='javascript:Recaptcha.switch_type(\'audio\')')
+								i.glyphicon.glyphicon-volume-up
+						span.recaptcha_icon.recaptcha_only_if_audio
+							a(href='javascript:Recaptcha.switch_type(\'image\')')
+								i.glyphicon.glyphicon-font
+						span.recaptcha_icon
+							a(href='javascript:Recaptcha.showhelp()')
+								i.glyphicon.glyphicon-question-sign
+						
+					#notice.notice(data-captcha-failed='Incorrect captcha!', data-error='There was an error sending the message, please try again.')
+			.row
+				.col-xs-12.col-md-12.form-group
+					button.btn.btn-primary.pull-right(type='submit') Submit
+			
+		script(type='text/javascript', src='http://www.google.com/recaptcha/api/challenge?k=6LdiofcSAAAAADGBYC_wb0edefYL3Nl3tWtFpadF')
+
+
+block js
+	script.
+		function showRecaptcha(element) {
+			Recaptcha.create('6LdiofcSAAAAADGBYC_wb0edefYL3Nl3tWtFpadF', element, {
+				theme: 'custom', // you can pick another at https://developers.google.com/recaptcha/docs/customization
+				custom_theme_widget: 'recaptcha_widget'
+			});
+		}
+
+		function setupRecaptcha() {
+			var contactFormHost = 'http://landmarkproject-contact.herokuapp.com/',
+					form = $('#contact-form'),
+					notice = form.find('#notice');
+
+			if (form.length) {
+				showRecaptcha('recaptcha_widget');
+
+				form.submit(function(ev){
+					ev.preventDefault();
+
+					$.ajax({
+						type: 'POST',
+						url: contactFormHost + 'send_email',
+						data: form.serialize(),
+						dataType: 'json',
+						success: function(response) {
+							switch (response.message) {
+								case 'success':
+									form.fadeOut(function() {
+										form.html('<h4>' + form.data('success') + '</h4>').fadeIn();
+									});
+									break;
+
+								case 'failure_captcha':
+									showRecaptcha('recaptcha_widget');
+									notice.text(notice.data('captcha-failed')).fadeIn();
+									break;
+
+								case 'failure_email':
+									notice.text(notice.data('error')).fadeIn();
+							}
+						},
+						error: function(xhr, ajaxOptions, thrownError) {
+							notice.text(notice.data('error')).fadeIn();
+						}
+					});
+				});
+			}
+		}
+		setupRecaptcha();
