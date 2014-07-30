@@ -379,7 +379,7 @@ landmark.set('custom engine', swig.renderFile);</code></pre><a name="options-ssl
                   </td>
                 </tr>
               </table>
-              <p>For more information about setting up and using database models with Landmark, see the <a href="/docs/database">database guide</a>.</p><a name="services"></a>
+              <p>For more information about setting up and using database models with Landmark, see the <a href="/docs/cms/database">database guide</a>.</p><a name="services"></a>
               <h2>Services</h2><a name="services-google-analytics"></a>
               <h3>Google Analytics</h3>
               <p>Landmark has support for Google Analytics tracking in the Admin UI. To enable tracking, set the following configuration options:</p>
@@ -403,7 +403,7 @@ landmark.set('custom engine', swig.renderFile);</code></pre><a name="options-ssl
               </table>
               <p class="note">Note if you only want to include Google Analytics tracking in the front-end of your project, you should use different variable names from those above.</p><a name="services-google-maps"></a>
               <h3>Google Maps</h3>
-              <p>Landmark's <a href="/docs/database#field_location">Location field type</a> supports integration with the <a href="http://www.morethanamap.com" target="_blank">Google Maps API</a> to auto-improve values (including discovering latitude and longitude) via the <a href="https://developers.google.com/places/documentation/autocomplete" target="_blank"> Places Autocomplete API</a>.</p>
+              <p>Landmark's <a href="/docs/cms/database#field_location">Location field type</a> supports integration with the <a href="http://www.morethanamap.com" target="_blank">Google Maps API</a> to auto-improve values (including discovering latitude and longitude) via the <a href="https://developers.google.com/places/documentation/autocomplete" target="_blank"> Places Autocomplete API</a>.</p>
               <p>To enable these features, <a href="https://code.google.com/apis/console/" target"_blank">obtain an API Key from Google</a> and enable the Google Maps v3 and Google Places APIs for it, then set the following options:</p>
               <table class="table">
                 <col width="270">
@@ -437,20 +437,20 @@ landmark.set('default region', 'au'); // optional, will limit autocomplete resul
               <p class="note">Note that the use of the Places Geocoding API is subject to a query limit of 2,500 geolocation requests per day, except with an enterprise license.</p>
               <p class="note">The Places Geocoding API may only be used in conjunction with a Google map; geocoding results without displaying them on a map is prohibited. Please make sure your Landmark app complies with the Google Maps API License.</p><a name="services-amazons3"></a>
               <h3>Amazon S3</h3>
-              <p>LandmarkJS supports <a href="http://aws.amazon.com/s3/" target="_blank">Amazon S3</a> for file upload and hosting, with the <a href="/docs/database#field_s3file">S3File</a> field type.</p>
+              <p>LandmarkJS supports <a href="http://aws.amazon.com/s3/" target="_blank">Amazon S3</a> for file upload and hosting, with the <a href="/docs/cms/database#field_s3file">S3File</a> field type.</p>
               <p>To use the S3File field in your app, <a href="https://portal.aws.amazon.com/gp/aws/developer/subscription/index.html?productCode=AmazonS3" target="_blank">sign up for an account</a>, create an <strong>S3 bucket</strong>, and get your <strong>key</strong> and <strong>secret</strong>.</p>
               <p>Then set the <code>s3 config</code> option to an object containing your configuration (see example below).</p>
               <p>Alternatively, set the <code class="default-value">S3_BUCKET</code>, <code class="default-value">S3_KEY</code> and <code class="default-value">S3_SECRET</code> environment variables.</p>
               <pre><code class="language-javascript">landmark.set('s3 config', { bucket: 'my-bucket', key: 'my-key', secret: 'my-secret' });</code></pre><a name="services-azure"></a>
               <h3>Windows Azure Storage</h3>
-              <p>LandmarkJS supports <a href="http://www.windowsazure.com/" target="_blank">Windows Azure Storage</a> for file upload and hosting, with the <a href="/docs/database#field_azurefile">AzureFile</a> field type.</p>
+              <p>LandmarkJS supports <a href="http://www.windowsazure.com/" target="_blank">Windows Azure Storage</a> for file upload and hosting, with the <a href="/docs/cms/database#field_azurefile">AzureFile</a> field type.</p>
               <p>To use the AzureFile field in your app, <a href="http://www.windowsazure.com/pricing/free-trial/" target="_blank">sign up for an account</a>, enter into <a href="https://manage.windowsazure.com/">Azure Management Portal</a>. Create a storage account with new(button), data services, storage. In storage account page get the access (account name, key (valid primary or secondary key)) with the button "manage access key".</p>
               <p>Then set the <code>azurefile config</code> option to an object containing your configuration (see example below).</p>
               <p>Alternatively, set the <code class="default-value">AZURE_STORAGE_ACCOUNT</code> and <code class="default-value">AZURE_STORAGE_ACCESS_KEY</code> environment variables.</p>
               <p>Note that the <strong>account</strong> property should be set to your <strong>storage account</strong>, <em>not your user account</em>.</p>
               <pre><code class="language-javascript">landmark.set('azurefile config', { account: 'my storage account', key: 'secret api key' });</code></pre><a name="services-cloudinary"></a>
               <h3>Cloudinary</h3>
-              <p><a href="http://cloudinary.com" target="_blank">Cloudinary</a> is an image upload / resizing / hosting service that makes it easy to implement image management in your LandmarkJS app using the <a href="/docs/database#field_cloudinaryimage">CloudinaryImage</a> and <a href="/docs/database#field_cloudinaryimages">CloudinaryImages</a> field types.</p>
+              <p><a href="http://cloudinary.com" target="_blank">Cloudinary</a> is an image upload / resizing / hosting service that makes it easy to implement image management in your LandmarkJS app using the <a href="/docs/cms/database#field_cloudinaryimage">CloudinaryImage</a> and <a href="/docs/cms/database#field_cloudinaryimages">CloudinaryImages</a> field types.</p>
               <p>To use the Cloudinary Image fields in your app, <a href="https://cloudinary.com/users/register/free" target="_blank">sign up for an account</a> (Cloudinary offers a free tier with up to 500MB storage, 50,000 images and 1GB data transfer) and get your <strong>cloud name</strong>, <strong>api key</strong> and <strong>api secret</strong>.</p>
               <p>Then set the <code>cloudinary config</code> option to
                 <ul>
@@ -476,7 +476,7 @@ landmark.set('cloudinary config', 'cloudinary://api_key:api_secret@cloud_name' )
 landmark.set('cloudinary prefix', 'landmark-serve');</code></pre><a name="services-embedly"></a>
               <h3>Embed.ly</h3>
               <p><a href="http://embed.ly" target="_blank">Embed.ly</a> is a service that will parse a url (e.g. Youtube embed link) and return a whole lot of useful information, like the provider name, summary metadata, width and height of videos, as well as a clean link to use for embedding media in your views. They offer a free plan for up to 5,000 urls per month.</p>
-              <p>The <a href="/docs/database#field_embedly">Embedly field type</a> is an easy way to integrate their API with your LandmarkJS app.</p>
+              <p>The <a href="/docs/cms/database#field_embedly">Embedly field type</a> is an easy way to integrate their API with your LandmarkJS app.</p>
               <p>To configure LandmarkJS to support the Embed.ly API, simply <a href="https://app.embed.ly/signup">sign up for an account</a>, get your api key, and set the <code>embedly api key</code> option.</p>
               <p>This option will default to the <code class="default-value">EMBEDLY_API_KEY</code> environment variable if it is set.</p>
               <pre><code class="language-javascript">landmark.set('embedly api key', 'your-key');</code></pre><a name="services-mandrill"></a>
@@ -524,7 +524,7 @@ exports = module.exports = function(done) {
         <ul class="list-inline">
           <li><a href="/getting-started" title="LandmarkJS Getting Started">Getting Started</a></li>
           <li><a href="/docs" title="LandmarkJS Documentation">Documentation</a></li>
-          <li><a href="https://groups.google.com/forum/#!forum/landmarkjs" target="_blank" title="LandmarkJS Google Group">Google Group</a></li>
+          <li><a href="https://groups.google.com/forum/#!forum/landmarkproject" target="_blank" title="Landmark Project Google Group">Google Group</a></li>
           <li><a href="https://github.com/RiversideLabs/landmark" target="_blank" title="Github Project (new window)">Github Project</a></li>
           <li><a href="http://demo.getlandmarkproject.com" target="_blank" title="Demo Website (new window)">Demo Website</a></li>
           <li><a href="/examples" title="LandmarkJS Database">Examples</a></li>

@@ -731,7 +731,7 @@ page.fields.content.format(page) == "&lt;ul&gt;&lt;li&gt;list item&lt;/ul&gt;&lt
               <h4><code class="data-type">Object</code> &mdash; Displayed as a combination of fields in the Admin UI</h4>
               <p>Contains a standard set of strings for storing an address, and a longitude / latitude point with a <code class="data-type">2dsphere</code> index.</p>
               <p>Also provides autocomplete functionality using Google's Places API (requires a Google Maps API Key to be provided, must only be used in accordance with Google's terms of service).</p>
-              <p>See the <a href="/docs/configuration#services-google">Google configuration documentation</a> for details on how to set up Google Maps in LandmarkJS.</p>
+              <p>See the <a href="/docs/cms/configuration#services-google">Google configuration documentation</a> for details on how to set up Google Maps in LandmarkJS.</p>
               <pre><code class="language-javascript">{ type: Types.Location }</code></pre>
               <p class="note">Note: the schema paths are based on Australian address formats, and should be updated to be more appropriate for other international formats. If you have feedback on how the structure should be internationalised, please open a ticket.</p>
               <div class="options">
@@ -760,7 +760,7 @@ page.fields.content.format(page) == "&lt;ul&gt;&lt;li&gt;list item&lt;/ul&gt;&lt
               <h3><code>CloudinaryImage</code></h3>
               <h4><code class="data-type">Object</code> &mdash; Displayed as an image upload field in the Admin UI</h4>
               <p>Automatically manages images stored in <a href="http://cloudinary.com" target="_blank">Cloudinary</a>, including uploading, resizing and deleting.</p>
-              <p>See the <a href="/docs/configuration#services-cloudinary">Cloudinary configuration documentation</a> for details on how to set up Cloudinary in LandmarkJS.</p>
+              <p>See the <a href="/docs/cms/configuration#services-cloudinary">Cloudinary configuration documentation</a> for details on how to set up Cloudinary in LandmarkJS.</p>
               <pre><code class="language-javascript">{ type: Types.CloudinaryImage }</code></pre>
               <div class="options">
                 <h5>Schema</h5>
@@ -890,7 +890,7 @@ page.fields.content.format(page) == "&lt;ul&gt;&lt;li&gt;list item&lt;/ul&gt;&lt
               <p>Automatically retrieves data from the <a href="http://embed.ly" target="_blank">Embedly</a> API about the value of another field (specified with the <code>from</code> option).</p>
               <p>It stores the retrieved data (which includes the provider, media type, full URL, HTML embed code, width, height, thumbnail picture and more).</p>
               <p>The api call to retrieve the data is implemented as a pre-save hook, and is only triggered if the <strong>from path</strong> value has changed.</p>
-              <p>See the <a href="/docs/configuration#services-embedly">Embed.ly configuration documentation</a> for details on how to set up Embed.ly in LandmarkJS.</p>
+              <p>See the <a href="/docs/cms/configuration#services-embedly">Embed.ly configuration documentation</a> for details on how to set up Embed.ly in LandmarkJS.</p>
               <pre><code class="language-javascript">{ type: Types.Embedly, from: 'path' }</code></pre>
               <div class="options">
                 <h5>Options</h5>
@@ -929,7 +929,7 @@ page.fields.content.format(page) == "&lt;ul&gt;&lt;li&gt;list item&lt;/ul&gt;&lt
         <ul class="list-inline">
           <li><a href="/getting-started" title="LandmarkJS Getting Started">Getting Started</a></li>
           <li><a href="/docs" title="LandmarkJS Documentation">Documentation</a></li>
-          <li><a href="https://groups.google.com/forum/#!forum/landmarkjs" target="_blank" title="LandmarkJS Google Group">Google Group</a></li>
+          <li><a href="https://groups.google.com/forum/#!forum/landmarkproject" target="_blank" title="Landmark Project Google Group">Google Group</a></li>
           <li><a href="https://github.com/RiversideLabs/landmark" target="_blank" title="Github Project (new window)">Github Project</a></li>
           <li><a href="http://demo.getlandmarkproject.com" target="_blank" title="Demo Website (new window)">Demo Website</a></li>
           <li><a href="/examples" title="LandmarkJS Database">Examples</a></li>

@@ -63,6 +63,22 @@ permalink: /docs/app/getting-started/
               <ul class="sidebar-nav">
                 <ul>
                   <li class="nav-label"><a href="#introduction">Introduction</a></li>
+                  <li><a href="#introduction-prerequisites">Prerequisites</a></li>
+                  <li class="nav-label"><a href="#gettingstarted">Getting Started</a></li>
+                  <li><a href="#gettingstarted-usingyeoman">Using the Yeoman Generator</a></li>
+                  <li><a href="#gettingstarted-projectstructure">Project Structure</a></li>
+                  <li class="nav-label"><a href="#routesviews">Routes &amp; Views</a></li>
+                  <li><a href="#routesviews-settingup">Setting up your Routes and Middleware</a></li>
+                  <li><a href="#routesviews-templates">Templates</a></li>
+                  <li><a href="#routesviews-publicassets">Public Assets</a></li>
+                  <li class="nav-label"><a href="#testingyourapp">Testing your App</a></li>
+                  <li><a href="#testingyourapp-desktoptesting">Desktop browser testing</a></li>
+                  <li><a href="#testingyourapp-simulatortesting">Simulator testing</a></li>
+                  <li><a href="#testingyourapp-mobilebrowsertesting">Mobile browser testing</a></li>
+                  <li><a href="#testingyourapp-nativetesting">Testing as a native app</a></li>
+                  <li class="nav-label"><a href="#publishing">Publishing</a></li>
+                  <li><a href="#publishing-plugins">Cordova Plugins</a></li>
+                  <li><a href="#publishing-platformguides">Platform Guides</a></li>
                 </ul>
               </ul>
             </nav>
@@ -71,6 +87,112 @@ permalink: /docs/app/getting-started/
             <div class="docs-content">
               <h2><a name="introduction"></a>Introduction</h2>
               <div class="alert alert-warning">This guide is currently being updated.</div>
+              <p>Landmark Connect is a powerful HTML5 native-feeling mobile app built using all with web technologies like HTML, CSS, and Javascript.</p>
+              <p>Under the hood, Landmark Connect was built using the <a href="http://ionicframework.com" target="_blank">Ionic Framework</a>, which is then compiled into a platform-centric native app wrapper.</p>
+              <div class="contextual-note">
+                <h4>Simple vs. Flexible</h4>
+                <p>Landmark is designed to make complicated things simple, so that you can build your app easily.</p>
+                <p>This guide will show you how to build a Landmark Connect app using the default project structure and options.</p>
+                <p>To learn more about how things work under the hood, and how you can extend or replace features, we strongly recommend reading the <a href="https://github.com/RiversideLabs/landmark-connect-app" target="_blank">source code</a>.</p>
+              </div><a name="introduction-prerequisites"></a>
+              <h3>Prerequisites</h3>
+              <ol class="fancy-list">
+                <li>Before you begin, make sure you have a working <a href="/docs/cms">LandmarkJS</a> up and running with a URL to gather API data for your app.</li>
+                <li>You'll need a reasonable working knowledge of Javascript to use Landmark Connect, as well as familiarity with basics such as API concepts, and using node / npm etc.</li>
+                <li>In the guide we'll also be using <a href="http://ionicframework.com/docs/api/" target="_blank">Ionic/Angular</a> based HTML tags for our view templates and <a href="http://sass-lang.com" target="_blank">SCSS</a> for our CSS templates.</li>
+              </ol><a name="gettingstarted"></a>
+              <h2>Getting Started</h2><a name="gettingstarted-usingyeoman"></a>
+              <h3>Using the Yeoman Generator</h3>
+              <p>The easiest way to get started with Landmark Connect is to use our new Yeoman Generator.</p>
+              <p>We're still updating our getting started guide to reflect this; in the meantime head over to the <a href="https://github.com/RiversideLabs/generator-landmark-connect" target="_blank">Landmark Connect Yeoman Generator</a> page and follow the instructions there.</p>
+              <p>Running <code>yo landmark-connect</code> will generate a complete project for you.</p><a name="gettingstarted-projectstructure"></a>
+              <h3>Project Structure</h3>
+              <p>With your package and web scripts in place, it's time to scaffold out containers for the rest of your app. Create the following directory structure:</p>
+              <pre>|--res
+|  <span>Artwork used for icons and splashscreens</span>
+|--scss
+|  <span>Source code for the stylesheets used in your app.</span>
+|  |--landmark.app.scss
+|  |  <span>This file will be compiled into www/css/style.css</span>
+|--www
+|  |--assets
+|  |  <span>Icons and images used in the app's user interface</span>
+|  |--css
+|  |  <span>Your app's compiled stylesheet using the SCSS files in the project's root SCSS folder</span>
+|  |--js
+|  |  |--app.js
+|  |  <span>The main view router for Angular</span>
+|  |  |--controllers.js
+|  |  <span>Custom functions for your routes</span>
+|  |  |--directives.js
+|  |  <span>Custom behaviors that modify HTML</span>
+|  |  |--filters.js
+|  |  <span>Custom formatting filters for display</span>
+|  |  |--services.js
+|  |  <span>Connecting your app up to your API</span>
+|--config.xml
+|  <span>Controls many aspects of an app's behavior when compiled with Cordova</span></pre>
+              <div class="contextual-note">
+                <h4>Structure</h4>
+                <p>This guide assumes you follow the recommendations above, however if you make modifications and change these, you might break the app.</p>
+              </div><a name="routesviews"></a>
+              <h2>Routes &amp; Views</h2>
+              <p>Usually, the easiest and clearest way to configure the logic for different routes (or views) in your application is to set up all the bindings single file, then put any common logic (or middleware) in another file.</p>
+              <p>Then, the controller for each route you bind goes in its own file, organised similarly to the template that renders the view.</p><a name="routesviews-settingup"></a>
+              <h3>Setting up your Routes and Middleware</h3>
+              <h4>Route index controller</h4>
+              <p>First, have a look in the <code>www/js/app.js</code> file. This is where we bind your application's URL patterns to the controllers that load and process data, and render the appropriate template.</p>
+              <p>For more information about Angular's router, please check out the <a href="https://docs.angularjs.org/api/ngRoute/provider/$routeProvider" target="_blank">AngularJS documentation</a> for the $routeProvider.</p><a name="routesviews-templates"></a>
+              <h3>Templates</h3>
+              <p>Now, for the template our route will render. All templates for the app are found in the <code>www/templates</code> folder. Please see the <a href="http://ionicframework.com/docs/" target="_blank">Ionic Framework documentation</a> for more resources.</p><a name="routesviews-publicassets"></a>
+              <h3>Public Assets</h3>
+              <p>You might want to customize the look and feel of your app by changing some of the default icons or images used in the app. In the examples above, we're including <code>/www/css/style.css</code>.</p>
+              <p>Feel free to have a look around at the code to see how you can customize this.</p><a name="testingyourapp"></a>
+              <h2>Testing your app</h2>
+              <p>Now, since we actually have something to look at, we need to talk about the testing and development process for our app. There are four ways to test your app as you develop: in a desktop WebKit browser, in the iOS or Android simulator, in a mobile browser on your phone, or as a native app on the phone.</p><a name="testingyourapp-desktoptesting"></a>
+              <h3>Desktop browser testing</h3>
+              <p>Testing your app in a browser is as simple as running the serve command in your project's root folder.</p>
+              <pre>ionic serve</pre>
+              <p>This will start a live-reload server for your project. When changes are made to any HTML, CSS, or JavaScript files, the browser will automatically reload when the files are saved.</p><a name="testingyourapp-simulatortesting"></a>
+              <h3>Simulator testing</h3>
+              <p>You can also test right in the simulator using the cordova commands from the previous section. For example, to test in the iOS simulator, run:</p>
+              <pre>ionic build ios
+ionic emulate ios</pre>
+              <div class="contextual-note">
+                <h4>Plugins</h4>
+                <p>Please note that if you are using a simulator, you need to make sure the Cordova plugins described in the <a href="#publishing-plugins">Publishing</a> section below have been installed. Otherwise, you will recieve errors or things may not function properly.</p>
+              </div>
+              <p>Substitute ios with android for Android testing. If you want to get advanced, you can also open up the project file for a specific platform by opening the required XCode or Android Eclipse project in <code>platforms/PLATFORM</code> inside the root of your project. Then, you can build and test from inside the platform-specific IDE. Note: if you go this route, I recommend still working inside of the root <code>www</code> folder, and when you've made changes to this folder, run the command:</p>
+              <pre>cordova prepare ios</pre>
+              <p>Which will update the ios specific project with the code from the <code>www</code> folder. Note: this will overwrite any changes you've made to the <code>platforms/ios/www</code> and other platform-specific folders.</p><a name="testingyourapp-mobilebrowsertesting"></a>
+              <h3>Mobile browser testing</h3>
+              <p>You can also test the app directly in a mobile browser. For OS X users, Safari on OS X can directly debug websites and simulator applications. First you have to enable the remote web inspector on both the device and Safari on desktop. To do this with iOS 7 and OS X Mavericks, enable the <code>Web Inspector</code> option in the iOS Settings -> Safari -> Advanced section, and also enable the Developer Menu in the Advanced section of the Safari OS X settings.</p>
+              <p>Android apps supporting Android 4.4 or above can also use Chrome for remote debugging. Check out the Android docs for <a href="http://developer.android.com/guide/webapps/debugging.html" target="_blank">more info</a>.</p>
+              <p>If you are using the local server method from the Desktop testing section and you are on the same network as the desktop computer, you can connect to the ip address of the desktop computer to test. So, if our desktop is running a test server at <code>192.168.1.123:8000</code>, we can just load that address into our mobile Chrome or Safari to test it.</p>
+              <p>One problem with testing in a mobile browser is that it's probably the furthest of the three options from the actual app experience. This is largely because the browser app is meant for browsing websites, so it often adds functionality that conflicts with your app. For example, Chrome and Safari both listen for drag events on the sides of the app which let you switch between open tabs. They also have issues with the URL bars getting in the way, and some scrolling behavior is not the same as it is in the web view running in Cordova. It is fine for small tests, but not recommended for more complex apps.</p><a name="testingyourapp-nativetesting"></a>
+              <h3>Testing as a native app</h3>
+              <div class="contextual-note">
+                <h4>Plugins</h4>
+                <p>Please note that before building your app, you need to make sure the Cordova plugins described in the <a href="#publishing-plugins">Publishing</a> section below have been installed. Otherwise, you will recieve errors or things may not function properly.</p>
+              </div>
+              <p>Since we are building a native (or "hybrid") app, we can (and should!) test it as one. There are serveral ways to do this. If you are building for iOS, you'll need to sign up for an <a href="https://developer.apple.com" target="_blank">Apple Developer</a> account to test as a native app on an iPhone or iPad. Unfortunately, this costs $99 per year (don't blame us!). Once you have an account and you have set up XCode with your certificates to enable device testing, you'll want to open the XCode project from <code>platforms/ios/</code> and do your testing from XCode.</p>
+              <p>Testing on Android is much easier and faster. To test on the device, simply plug it in, and run</p>
+              <pre>ionic run android</pre>
+              <p>If this doesn't work, make sure you have USB debugging enabled on your device, as described on the Android developer site.</p><a name="publishing"></a>
+              <h2>Publishing</h2>
+              <p>Now that we have a working app, we are ready to push it live to the world! Since <a href="http://maven20.com" target="_blank">Maven</a>, the creators of Landmark Connect, already submitted the Landmark Connect app from this guide to the app store, chances are you'll want to follow this with a new app that you make on your own.</p><a name="publishing-plugins"></a>
+              <h3>Cordova Plugins</h3>
+              <p>So first, we need make sure we have the plugins needed for the app. For more information about Cordova plugins, please read the <a href="http://cordova.apache.org/docs/en/3.5.0/plugin_ref_plugman.md.html#Using%20Plugman%20to%20Manage%20Plugins" target="_blank">documentation</a>.</p>
+              <pre>cordova plugin add org.apache.cordova.device
+cordova plugin add org.apache.cordova.file
+cordova plugin add org.apache.cordova.geolocation
+cordova plugin add org.apache.cordova.inappbrowser
+cordova plugin add https://github.com/driftyco/ionic-plugins-keyboard.git
+cordova plugin add org.apache.cordova.media
+cordova plugin add org.apache.cordova.splashscreen
+cordova plugin add org.apache.cordova.statusbar</pre><a name="publishing-platformguides"></a>
+              <h3>Platform Guides</h3>
+              <p>Please see the <a href="http://cordova.apache.org/docs/en/3.5.0/guide_platforms_index.md.html#Platform%20Guides" target="_blank">Cordova platform guides</a> for platform-specific notes on building your app.</p>
             </div>
           </div>
         </div>
@@ -83,7 +205,7 @@ permalink: /docs/app/getting-started/
         <ul class="list-inline">
           <li><a href="/getting-started" title="LandmarkJS Getting Started">Getting Started</a></li>
           <li><a href="/docs" title="LandmarkJS Documentation">Documentation</a></li>
-          <li><a href="https://groups.google.com/forum/#!forum/landmarkjs" target="_blank" title="LandmarkJS Google Group">Google Group</a></li>
+          <li><a href="https://groups.google.com/forum/#!forum/landmarkproject" target="_blank" title="Landmark Project Google Group">Google Group</a></li>
           <li><a href="https://github.com/RiversideLabs/landmark" target="_blank" title="Github Project (new window)">Github Project</a></li>
           <li><a href="http://demo.getlandmarkproject.com" target="_blank" title="Demo Website (new window)">Demo Website</a></li>
           <li><a href="/examples" title="LandmarkJS Database">Examples</a></li>

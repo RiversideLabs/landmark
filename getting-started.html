@@ -78,7 +78,6 @@ permalink: /getting-started/
             <pre class="command-line">npm install -g generator-landmark
  
 npm install -g generator-landmark-connect</pre>
-            <div class="alert alert-danger">NOTE: The app generator is not yet available.</div>
             <h3>Create a folder for your project</h3>
             <p>Create your project wherever you want:</p>
             <pre class="command-line">mkdir my-test-project</pre>
@@ -87,7 +86,6 @@ npm install -g generator-landmark-connect</pre>
             <h3>Create subfolders for LandmarkJS and Landmark Connect</h3>
             <pre class="command-line">mkdir my-project-cms
 mkdir my-project-app</pre>
-            <div class="alert alert-danger">NOTE: The app generator is not yet available.</div>
             <h3>Run the generators</h3>
             <p>Make sure you are in the CMS subfolder, then run the CMS generator:</p>
             <pre class="command-line">cd my-project-cms
@@ -95,7 +93,6 @@ yo landmark</pre>
             <p>Make sure you are in the app subfolder, then run the app generator:</p>
             <pre class="command-line">cd my-project-app
 yo landmark-connect</pre>
-            <div class="alert alert-danger">NOTE: The app generator is not yet available.</div>
             <p>Both generators will ask you a few questions about what features you'd like to include, then configure and copy all the files you'll need into your project.</p>
             <p>It will also install dependencies from npm so you're ready to go.</p>
           </div>
@@ -118,7 +115,12 @@ yo landmark-connect</pre>
               <pre class="command-line">node landmark</pre>
               <p class="gs-guide__subtitle">Then open <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> to view it in your browser.</p>
               <p class="gs-guide__subtitle">If you want to see what the generator actually did take a look at our getting started guide, it'll walk you through the manual setup process. This is particularly helpful if you're new to Node.js.</p>
-              <p class="gs-guide__subtitle"><a href="/docs/getting-started">View the getting started guide &rarr;</a></p>
+              <p class="gs-guide__subtitle"><a href="/docs/cms/getting-started">View the CMS getting started guide &rarr;</a></p>
+              <p class="gs-guide__subtitle">Test the app in your browser by typing this in the app folder:</p>
+              <pre class="command-line">ionic serve</pre>
+              <p class="gs-guide__subtitle">This will start a live-reload server for your project. When changes are made to any HTML, CSS, or JavaScript files, the browser will automatically reload when the files are saved.</p>
+              <p class="gs-guide__subtitle">If you want to see what the generator actually did take a look at our getting started guide, it'll walk you through some of the configuration of the app. This is particularly helpful if you're new.</p>
+              <p class="gs-guide__subtitle"><a href="/docs/app/getting-started">View the app getting started guide &rarr;</a></p>
             </div>
           </div>
         </div>
@@ -146,7 +148,7 @@ sudo chown -R $USER /usr/lib/node_modules/</pre>
               <p>To connect to a server other than localhost, add a MONGO_URI setting to the .env file in your Landmark project directory:</p>
               <pre>MONGO_URI=mongodb://your-server/database-name</pre>
               <h3>Something else?</h3>
-              <p class="gs-guide__subtitle">If your issue still isn't resolved, reach out to us on the <a href="https://groups.google.com/d/forum/landmarkjs" target="_blank">LandmarkJS Google Group</a>.</p>
+              <p class="gs-guide__subtitle">If your issue still isn't resolved, reach out to us on the <a href="https://groups.google.com/d/forum/landmarkproject" target="_blank">Landmark Project Google Group</a>.</p>
             </div>
           </div>
         </div>
@@ -159,7 +161,7 @@ sudo chown -R $USER /usr/lib/node_modules/</pre>
         <ul class="list-inline">
           <li><a href="/getting-started" title="LandmarkJS Getting Started">Getting Started</a></li>
           <li><a href="/docs" title="LandmarkJS Documentation">Documentation</a></li>
-          <li><a href="https://groups.google.com/forum/#!forum/landmarkjs" target="_blank" title="LandmarkJS Google Group">Google Group</a></li>
+          <li><a href="https://groups.google.com/forum/#!forum/landmarkproject" target="_blank" title="Landmark Project Google Group">Google Group</a></li>
           <li><a href="https://github.com/RiversideLabs/landmark" target="_blank" title="Github Project (new window)">Github Project</a></li>
           <li><a href="http://demo.getlandmarkproject.com" target="_blank" title="Demo Website (new window)">Demo Website</a></li>
           <li><a href="/examples" title="LandmarkJS Database">Examples</a></li>
