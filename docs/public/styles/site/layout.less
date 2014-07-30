@@ -46,7 +46,7 @@ body {
 		z-index: 2;
 		
 		.icon-bar {
-			background-color: @link-color;
+			background-color: #fff;
 		}
 	}
 }
@@ -70,7 +70,7 @@ body {
 	
 	// active
 	.active a {
-		@shadow: 0 -2px white inset, 0 -5px @link-color inset;
+		@shadow: 0 -2px white inset, 0 -5px lighten(@brand-primary, 10%) inset;
 		.box-shadow( @shadow );
 		background: none transparent;
 		color: @gray-lighter;
@@ -91,7 +91,7 @@ body {
 		margin-left: @grid-gutter-width / -2;
 		margin-right: @grid-gutter-width / -2;
 		.active a {
-			.box-shadow( 3px 0 @link-color inset );
+			.box-shadow( 3px 0 lighten(@brand-primary, 10%) inset );
 			background-color: #fafafa;
 		}
 		a:active {
@@ -112,7 +112,7 @@ body {
 		a {
 			&:hover,
 			&:focus {
-				@shadow: 0 -2px white inset, 0 -5px mix(@link-color, white, 50%) inset;
+				@shadow: 0 -2px white inset, 0 -5px mix(@brand-primary, white, 50%) inset;
 				.box-shadow( @shadow );
 				background-color: transparent;
 			}

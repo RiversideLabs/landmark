@@ -59,7 +59,6 @@ block content
 					| npm install -g generator-landmark
 					| 
 					| npm install -g generator-landmark-connect
-				.alert.alert-danger NOTE: The app generator is not yet available.
 				
 				h3 Create a folder for your project
 				p Create your project wherever you want:
@@ -72,7 +71,6 @@ block content
 				pre.command-line
 					| mkdir my-project-cms
 					| mkdir my-project-app
-				.alert.alert-danger NOTE: The app generator is not yet available.
 				
 				h3 Run the generators
 				
@@ -85,7 +83,6 @@ block content
 				pre.command-line
 					| cd my-project-app
 					| yo landmark-connect
-				.alert.alert-danger NOTE: The app generator is not yet available.
 				
 				p Both generators will ask you a few questions about what features you'd like to include, then configure and copy all the files you'll need into your project.
 				p It will also install dependencies from npm so you're ready to go.
@@ -109,7 +106,12 @@ block content
 					pre.command-line node landmark
 					p.gs-guide__subtitle Then open <a href="http://localhost:3000" target="_blank">http://localhost:3000</a> to view it in your browser.
 					p.gs-guide__subtitle If you want to see what the generator actually did take a look at our getting started guide, it'll walk you through the manual setup process. This is particularly helpful if you're new to Node.js.
-					p.gs-guide__subtitle: a(href='/docs/getting-started') View the getting started guide &rarr;
+					p.gs-guide__subtitle: a(href='/docs/cms/getting-started') View the CMS getting started guide &rarr;
+					p.gs-guide__subtitle Test the app in your browser by typing this in the app folder:
+					pre.command-line ionic serve
+					p.gs-guide__subtitle This will start a live-reload server for your project. When changes are made to any HTML, CSS, or JavaScript files, the browser will automatically reload when the files are saved.
+					p.gs-guide__subtitle If you want to see what the generator actually did take a look at our getting started guide, it'll walk you through some of the configuration of the app. This is particularly helpful if you're new.
+					p.gs-guide__subtitle: a(href='/docs/app/getting-started') View the app getting started guide &rarr;
 		
 		.gs-guide-figure.gs-guide-figure--finished.wow-much-find.hidden-xs
 			img(src='/images/getting-started/commands-safari.png', alt='Safari window', width=1680, height=600).sr-only
