@@ -209,6 +209,7 @@ cordova plugin add org.apache.cordova.statusbar</pre><a name="publishing-platfor
           <li><a href="https://github.com/RiversideLabs/landmark" target="_blank" title="Github Project (new window)">Github Project</a></li>
           <li><a href="http://demo.getlandmarkproject.com" target="_blank" title="Demo Website (new window)">Demo Website</a></li>
           <li><a href="/examples" title="LandmarkJS Database">Examples</a></li>
+          <li><a href="#" data-toggle="modal" data-target="#notice">Notice</a></li>
         </ul>
       </div>
     </div>
@@ -227,8 +228,27 @@ cordova plugin add org.apache.cordova.statusbar</pre><a name="publishing-platfor
         </div>
       </div>
     </div>
+    <div id="notice" tabindex="-1" role="dialog" aria-labelledby="noticeLabel" aria-hidden="true" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" data-dismiss="modal" aria-label="Close" class="close"><span aria-hidden="true">&times;</span></button>
+            <h4 id="noticeLabel" class="modal-title">Notice</h4>
+          </div>
+          <div class="modal-body">
+            <p>The activity which is the subject of this mobile device application and shareware has been financed in part with Federal funds from the National Park Service, Department of the Interior, through the California Office of Historic Preservation. However, the contents and opinions do not necessarily reflect the views or policies of the Department of the Interior or the California Office of Historic Preservation, nor does mention of trade names or commercial products constitute endorsement or recommendation by the Department of the Interior or the California Office of Historic Preservation.</p>
+            <p>This program receives Federal financial assistance for identification and protection of historic properties. Under Title VI of the Civil Rights Act of 1964, Section 504 of the Rehabilitation Act of 1973, and the Age Discrimination Act of 1975, as amended, the U.S. Department of the Interior prohibits discrimination on the basis of race, color, national origin, disability, or age in its federally assisted programs. If you believe you have been discriminated against in any program, activity, or facility as described above, or if you desire further information, please write to:</p>
+            <p>Office of Equal Opportunity<br>National Park Service<br>1849 C Street, N.W.<br>Washington, D.C. 20240</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal" class="btn btn-default">OK</button>
+          </div>
+        </div>
+      </div>
+    </div>
     <script src="/js/lib/jquery/jquery-1.10.2.min.js"></script>
     <script src="/js/lib/bootstrap/collapse.js"></script>
+    <script src="/js/lib/bootstrap/modal.js"></script>
     <script src="/js/lib/prism/prism.min.js"></script>
     <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
     <script>
