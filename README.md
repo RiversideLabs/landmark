@@ -388,7 +388,7 @@ Thanks to the following companies and projects whose work we have used or taken 
 * [Yusuke Kamiyamane](http://p.yusukekamiyamane.com/)
 
 
-## Notice
+## Credits
 
 The activity which is the subject of this mobile device application
 and shareware has been financed in part with Federal funds from the
