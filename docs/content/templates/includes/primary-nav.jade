@@ -3,3 +3,4 @@ nav.docs-nav
 		ul.docs-nav__nav
 			each item in primarynav
 				li(class=section == item.section ? 'active' : null): a(href=item.path)= item.label
+			li: a(href='#', data-toggle='modal', data-target='#credits') Credits
